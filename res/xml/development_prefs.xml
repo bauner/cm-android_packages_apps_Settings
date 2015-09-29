@@ -253,13 +253,6 @@
             android:dialogTitle="@string/animator_duration_scale_title"
             android:persistent="false" />
 
-        <ListPreference
-            android:key="overlay_display_devices"
-            android:title="@string/overlay_display_devices_title"
-            android:persistent="false"
-            android:entries="@array/overlay_display_devices_entries"
-            android:entryValues="@array/overlay_display_devices_values" />
-
         <SwitchPreference
             android:key="pref_force_highend_gfx"
             android:title="@string/pref_force_highend_gfx_title"

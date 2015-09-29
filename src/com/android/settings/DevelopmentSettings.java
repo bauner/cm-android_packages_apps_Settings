@@ -145,7 +145,6 @@ public class DevelopmentSettings extends SettingsPreferenceFragment
     private static final String WINDOW_ANIMATION_SCALE_KEY = "window_animation_scale";
     private static final String TRANSITION_ANIMATION_SCALE_KEY = "transition_animation_scale";
     private static final String ANIMATOR_DURATION_SCALE_KEY = "animator_duration_scale";
-    private static final String OVERLAY_DISPLAY_DEVICES_KEY = "overlay_display_devices";
     private static final String DEBUG_DEBUGGING_CATEGORY_KEY = "debug_debugging_category";
     private static final String DEBUG_DRAWING_CATEGORY_KEY = "debug_drawing_category";
     private static final String DEBUG_APPLICATIONS_CATEGORY_KEY = "debug_applications_category";
@@ -251,7 +250,6 @@ public class DevelopmentSettings extends SettingsPreferenceFragment
     private AnimationScalePreference mWindowAnimationScale;
     private AnimationScalePreference mTransitionAnimationScale;
     private AnimationScalePreference mAnimatorDurationScale;
-    private ListPreference mOverlayDisplayDevices;
     private ListPreference mOpenGLTraces;
 
     private ListPreference mSimulateColorSpace;
@@ -419,7 +417,6 @@ public class DevelopmentSettings extends SettingsPreferenceFragment
         mWindowAnimationScale = findAndInitAnimationScalePreference(WINDOW_ANIMATION_SCALE_KEY);
         mTransitionAnimationScale = findAndInitAnimationScalePreference(TRANSITION_ANIMATION_SCALE_KEY);
         mAnimatorDurationScale = findAndInitAnimationScalePreference(ANIMATOR_DURATION_SCALE_KEY);
-        mOverlayDisplayDevices = addListPreference(OVERLAY_DISPLAY_DEVICES_KEY);
         mOpenGLTraces = addListPreference(OPENGL_TRACES_KEY);
         mSimulateColorSpace = addListPreference(SIMULATE_COLOR_SPACE);
         mUseAwesomePlayer = findAndInitSwitchPref(USE_AWESOMEPLAYER_KEY);
@@ -647,7 +644,6 @@ public class DevelopmentSettings extends SettingsPreferenceFragment
         updateDebugHwOverdrawOptions();
         updateDebugLayoutOptions();
         updateAnimationScaleOptions();
-        updateOverlayDisplayDevicesOptions();
         updateOpenGLTracesOptions();
         updateImmediatelyDestroyActivitiesOptions();
         updateAppProcessLimitOptions();
@@ -750,7 +746,6 @@ public class DevelopmentSettings extends SettingsPreferenceFragment
         if (usingDevelopmentColorSpace()) {
             writeSimulateColorSpace(-1);
         }
-        writeOverlayDisplayDevicesOptions(null);
         writeAppProcessLimitOptions(null);
         mHaveDebugSettings = false;
         updateAllOptions();
@@ -1450,30 +1445,6 @@ public class DevelopmentSettings extends SettingsPreferenceFragment
         }
     }
 
-    private void updateOverlayDisplayDevicesOptions() {
-        String value = Settings.Global.getString(getActivity().getContentResolver(),
-                Settings.Global.OVERLAY_DISPLAY_DEVICES);
-        if (value == null) {
-            value = "";
-        }
-
-        CharSequence[] values = mOverlayDisplayDevices.getEntryValues();
-        for (int i = 0; i < values.length; i++) {
-            if (value.contentEquals(values[i])) {
-                mOverlayDisplayDevices.setValueIndex(i);
-                mOverlayDisplayDevices.setSummary(mOverlayDisplayDevices.getEntries()[i]);
-                return;
-            }
-        }
-        mOverlayDisplayDevices.setValueIndex(0);
-        mOverlayDisplayDevices.setSummary(mOverlayDisplayDevices.getEntries()[0]);
-    }
-
-    private void writeOverlayDisplayDevicesOptions(Object newValue) {
-        Settings.Global.putString(getActivity().getContentResolver(),
-                Settings.Global.OVERLAY_DISPLAY_DEVICES, (String)newValue);
-        updateOverlayDisplayDevicesOptions();
-    }
 
     private void updateOpenGLTracesOptions() {
         String value = SystemProperties.get(OPENGL_TRACES_PROPERTY);
@@ -1846,9 +1817,6 @@ public class DevelopmentSettings extends SettingsPreferenceFragment
             return true;
         } else if (preference == mAnimatorDurationScale) {
             writeAnimationScaleOption(2, mAnimatorDurationScale, newValue);
-            return true;
-        } else if (preference == mOverlayDisplayDevices) {
-            writeOverlayDisplayDevicesOptions(newValue);
             return true;
         } else if (preference == mOpenGLTraces) {
             writeOpenGLTracesOptions(newValue);
