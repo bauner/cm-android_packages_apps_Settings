@@ -24,6 +24,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.ResolveInfo;
+import android.net.Uri;
 import android.os.Binder;
 import android.os.Build;
 import android.os.Bundle;
@@ -63,18 +64,21 @@ public class DeviceInfoSettings extends SettingsPreferenceFragment implements In
     private static final String LOG_TAG = "DeviceInfoSettings";
     private static final String FILENAME_PROC_VERSION = "/proc/version";
     private static final String FILENAME_MSV = "/sys/board_properties/soc/msv";
+    private static final String PROPERTY_CMLICENSE_URL = "ro.cmlegal.url";
 
     private static final String KEY_CONTAINER = "container";
     private static final String KEY_REGULATORY_INFO = "regulatory_info";
     private static final String KEY_TERMS = "terms";
     private static final String KEY_LICENSE = "license";
     private static final String KEY_COPYRIGHT = "copyright";
+    private static final String KEY_WEBVIEW_LICENSE = "webview_license";
     private static final String KEY_SYSTEM_UPDATE_SETTINGS = "system_update_settings";
     private static final String PROPERTY_URL_SAFETYLEGAL = "ro.url.safetylegal";
     private static final String PROPERTY_SELINUX_STATUS = "ro.build.selinux";
     private static final String KEY_KERNEL_VERSION = "kernel_version";
     private static final String KEY_BUILD_NUMBER = "build_number";
     private static final String KEY_DEVICE_MODEL = "device_model";
+    private static final String KEY_DEVICE_NAME = "device_name";
     private static final String KEY_SELINUX_STATUS = "selinux_status";
     private static final String KEY_BASEBAND_VERSION = "baseband_version";
     private static final String KEY_FIRMWARE_VERSION = "firmware_version";
@@ -86,6 +90,7 @@ public class DeviceInfoSettings extends SettingsPreferenceFragment implements In
     private static final String KEY_MOD_VERSION = "mod_version";
     private static final String KEY_MOD_BUILD_DATE = "build_date";
     private static final String KEY_CM_UPDATES = "cm_updates";
+    private static final String KEY_CM_LICENSE = "cmlicense";
 
     static final int TAPS_TO_BE_A_DEVELOPER = 7;
 
@@ -106,7 +111,6 @@ public class DeviceInfoSettings extends SettingsPreferenceFragment implements In
         setStringSummary(KEY_FIRMWARE_VERSION, Build.VERSION.RELEASE);
         findPreference(KEY_FIRMWARE_VERSION).setEnabled(true);
         setValueSummary(KEY_BASEBAND_VERSION, "gsm.version.baseband");
-        setStringSummary(KEY_DEVICE_MODEL, Build.MODEL + getMsvSuffix());
         setValueSummary(KEY_EQUIPMENT_ID, PROPERTY_EQUIPMENT_ID);
         setStringSummary(KEY_DEVICE_MODEL, Build.MODEL);
         setStringSummary(KEY_BUILD_NUMBER, Build.DISPLAY);
@@ -123,6 +127,10 @@ public class DeviceInfoSettings extends SettingsPreferenceFragment implements In
             String status = getResources().getString(R.string.selinux_status_permissive);
             setStringSummary(KEY_SELINUX_STATUS, status);
         }
+
+        setStringSummary(KEY_DEVICE_NAME, Build.PRODUCT);
+        removePreferenceIfBoolFalse(KEY_DEVICE_NAME, getResources().getBoolean(
+                R.bool.config_displayDeviceName));
 
         // Remove selinux information if property is not present
         removePreferenceIfPropertyMissing(getPreferenceScreen(), KEY_SELINUX_STATUS,
@@ -168,6 +176,8 @@ public class DeviceInfoSettings extends SettingsPreferenceFragment implements In
                 Utils.UPDATE_PREFERENCE_FLAG_SET_TITLE_TO_MATCHING_ACTIVITY);
         Utils.updatePreferenceToSpecificActivityOrRemove(act, parentPreference, KEY_COPYRIGHT,
                 Utils.UPDATE_PREFERENCE_FLAG_SET_TITLE_TO_MATCHING_ACTIVITY);
+        Utils.updatePreferenceToSpecificActivityOrRemove(act, parentPreference, KEY_WEBVIEW_LICENSE,
+                Utils.UPDATE_PREFERENCE_FLAG_SET_TITLE_TO_MATCHING_ACTIVITY);
 
         // These are contained by the root preference screen
         parentPreference = getPreferenceScreen();
@@ -185,7 +195,7 @@ public class DeviceInfoSettings extends SettingsPreferenceFragment implements In
 
         // Read platform settings for additional system update setting
         removePreferenceIfBoolFalse(KEY_UPDATE_SETTING,
-                R.bool.config_additional_system_update_setting_enable);
+                getResources().getBoolean(R.bool.config_additional_system_update_setting_enable));
 
         // Remove regulatory information if none present.
         final Intent intent = new Intent(Settings.ACTION_SHOW_REGULATORY_INFO);
@@ -195,7 +205,11 @@ public class DeviceInfoSettings extends SettingsPreferenceFragment implements In
                 getPreferenceScreen().removePreference(pref);
             }
         }
+
         mAdvancedSettings = (SecureSettingSwitchPreference) findPreference(KEY_ADVANCED_MODE);
+        // If enabled by default, just remove the setting, because it's confusing.
+        removePreferenceIfBoolFalse(KEY_ADVANCED_MODE, !getResources().getBoolean(
+                com.android.internal.R.bool.config_advancedSettingsMode));
     }
 
     @Override
@@ -281,6 +295,16 @@ public class DeviceInfoSettings extends SettingsPreferenceFragment implements In
                     Log.e(LOG_TAG, "Unable to start activity " + intent.toString());
                 }
             }
+        } else if (preference.getKey().equals(KEY_CM_LICENSE)) {
+            String userCMLicenseUrl = SystemProperties.get(PROPERTY_CMLICENSE_URL);
+            final Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.addCategory(Intent.CATEGORY_DEFAULT);
+            intent.setData(Uri.parse(userCMLicenseUrl));
+            try {
+                startActivity(intent);
+            } catch (Exception e) {
+                Log.e(LOG_TAG, "Unable to start activity " + intent.toString());
+            }
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
@@ -298,8 +322,8 @@ public class DeviceInfoSettings extends SettingsPreferenceFragment implements In
         }
     }
 
-    private void removePreferenceIfBoolFalse(String preference, int resId) {
-        if (!getResources().getBoolean(resId)) {
+    private void removePreferenceIfBoolFalse(String preference, boolean bool) {
+        if (!bool) {
             Preference pref = findPreference(preference);
             if (pref != null) {
                 getPreferenceScreen().removePreference(pref);
@@ -490,6 +514,9 @@ public class DeviceInfoSettings extends SettingsPreferenceFragment implements In
                 }
                 if (!checkIntentAction(context, "android.settings.COPYRIGHT")) {
                     keys.add(KEY_COPYRIGHT);
+                }
+                if (!checkIntentAction(context, "android.settings.WEBVIEW_LICENSE")) {
+                    keys.add(KEY_WEBVIEW_LICENSE);
                 }
                 if (UserHandle.myUserId() != UserHandle.USER_OWNER) {
                     keys.add(KEY_SYSTEM_UPDATE_SETTINGS);

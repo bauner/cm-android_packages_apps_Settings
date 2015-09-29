@@ -20,14 +20,8 @@
         android:title="@string/device_status_activity_title">
 
     <!-- for MultiSim -->
-    <PreferenceScreen
-        android:key="button_aboutphone_msim_status"
-        android:title="@string/subs_settings"
-        android:persistent="false">
-        <intent android:action="android.intent.action.MAIN"
-            android:targetPackage="com.android.settings"
-            android:targetClass="com.android.settings.SelectSubscription" />
-    </PreferenceScreen>
+    <Preference
+        android:key="button_aboutphone_msim_status" />
     <Preference android:key="battery_status"
         style="?android:attr/preferenceInformationStyle"
         android:title="@string/battery_status_title"
@@ -38,6 +32,12 @@
         android:title="@string/battery_level_title"
         android:summary="@string/device_info_not_available"
         android:persistent="false" />
+    <PreferenceScreen android:key="imei_info"
+        android:title="@string/imei_information_title"
+        android:persistent="false">
+        <intent android:targetPackage="com.android.settings"
+            android:targetClass="com.android.settings.deviceinfo.ImeiInformation" />
+    </PreferenceScreen>
     <Preference android:key="wifi_ip_address"
         style="?android:attr/preferenceInformationStyle"
         android:title="@string/wifi_advanced_ip_address_title"

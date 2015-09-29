@@ -45,6 +45,7 @@ import android.os.Message;
 import android.os.PowerManager;
 import android.os.RemoteException;
 import android.os.ServiceManager;
+import android.os.SystemProperties;
 import android.os.UserHandle;
 import android.os.UserManager;
 import android.preference.Preference;
@@ -58,6 +59,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.util.TypedValue;
 import android.util.Xml;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -69,6 +71,7 @@ import android.widget.SearchView;
 
 import com.android.internal.util.ArrayUtils;
 import com.android.internal.util.XmlUtils;
+import com.android.internal.widget.LockPatternUtils;
 import com.android.settings.accessibility.AccessibilitySettings;
 import com.android.settings.accessibility.CaptionPropertiesFragment;
 import com.android.settings.accounts.AccountSettings;
@@ -78,6 +81,8 @@ import com.android.settings.applications.ManageApplications;
 import com.android.settings.applications.ProcessStatsUi;
 import com.android.settings.blacklist.BlacklistSettings;
 import com.android.settings.bluetooth.BluetoothSettings;
+import com.android.settings.contributors.ContributorsCloudFragment;
+import com.android.settings.cyanogenmod.DisplayRotation;
 import com.android.settings.dashboard.DashboardCategory;
 import com.android.settings.dashboard.DashboardSummary;
 import com.android.settings.dashboard.DashboardTile;
@@ -193,6 +198,11 @@ public class SettingsActivity extends Activity
      * that fragment.
      */
     public static final String EXTRA_SHOW_FRAGMENT_TITLE = ":settings:show_fragment_title";
+    /**
+     * The package name used to resolve the title resource id.
+     */
+    public static final String EXTRA_SHOW_FRAGMENT_TITLE_RES_PACKAGE_NAME =
+            ":settings:show_fragment_title_res_package_name";
     public static final String EXTRA_SHOW_FRAGMENT_TITLE_RESID =
             ":settings:show_fragment_title_resid";
     public static final String EXTRA_SHOW_FRAGMENT_AS_SHORTCUT =
@@ -317,7 +327,9 @@ public class SettingsActivity extends Activity
             com.android.settings.cyanogenmod.PrivacySettings.class.getName(),
             NotificationManagerSettings.class.getName(),
             LockScreenSettings.class.getName(),
-            LiveDisplay.class.getName()
+            LiveDisplay.class.getName(),
+            DisplayRotation.class.getName(),
+            ContributorsCloudFragment.class.getName()
     };
 
 
@@ -674,7 +686,23 @@ public class SettingsActivity extends Activity
         if (initialTitleResId > 0) {
             mInitialTitle = null;
             mInitialTitleResId = initialTitleResId;
-            setTitle(mInitialTitleResId);
+
+            final String initialTitleResPackageName = intent.getStringExtra(
+                    EXTRA_SHOW_FRAGMENT_TITLE_RES_PACKAGE_NAME);
+            if (initialTitleResPackageName != null) {
+                try {
+                    Context authContext = createPackageContextAsUser(initialTitleResPackageName,
+                            0 /* flags */, new UserHandle(UserHandle.myUserId()));
+                    mInitialTitle = authContext.getResources().getText(mInitialTitleResId);
+                    setTitle(mInitialTitle);
+                    mInitialTitleResId = -1;
+                    return;
+                } catch (NameNotFoundException e) {
+                    Log.w(LOG_TAG, "Could not find package" + initialTitleResPackageName);
+                }
+            } else {
+                setTitle(mInitialTitleResId);
+            }
         } else {
             mInitialTitleResId = -1;
             final String initialTitle = intent.getStringExtra(EXTRA_SHOW_FRAGMENT_TITLE);
@@ -686,6 +714,13 @@ public class SettingsActivity extends Activity
     @Override
     public void onBackStackChanged() {
         setTitleFromBackStack();
+    }
+
+    @Override
+    public boolean onSearchRequested() { // Search key pressed.
+        mSearchMenuItem.expandActionView();
+        switchToSearchResultsFragmentIfNeeded();
+        return true;
     }
 
     private int setTitleFromBackStack() {
@@ -1065,6 +1100,18 @@ public class SettingsActivity extends Activity
                                     com.android.internal.R.styleable.PreferenceHeader_title);
                             if (tv != null && tv.type == TypedValue.TYPE_STRING) {
                                 if (tv.resourceId != 0) {
+                                    // Need to adjust the title for lockscreen settings if the
+                                    // device supports the fingerprint feature
+                                    if (tile.id == R.id.lockscreen_settings) {
+                                        boolean isPrimary =
+                                                UserHandle.myUserId() == UserHandle.USER_OWNER;
+                                        boolean hasFingerprint = new LockPatternUtils(this)
+                                                .isFingerprintInstalled(this);
+                                        if (isPrimary && hasFingerprint) {
+                                            tv.resourceId =
+                                                    R.string.lockscreen_settings_and_fingerprint;
+                                        }
+                                    }
                                     tile.titleRes = tv.resourceId;
                                 } else {
                                     tile.title = tv.string;
@@ -1083,6 +1130,11 @@ public class SettingsActivity extends Activity
                                     com.android.internal.R.styleable.PreferenceHeader_icon, 0);
                             tile.fragment = sa.getString(
                                     com.android.internal.R.styleable.PreferenceHeader_fragment);
+                            sa.recycle();
+
+                            sa = obtainStyledAttributes(attrs, R.styleable.DashboardTile);
+                            tile.switchControl = sa.getString(
+                                    R.styleable.DashboardTile_switchClass);
                             sa.recycle();
 
                             if (curBundle == null) {
@@ -1181,9 +1233,7 @@ public class SettingsActivity extends Activity
                         removeTile = true;
                     } else if (TelephonyManager.getDefault().getPhoneCount() > 1) {
                         removeTile = true;
-                    }
-                } else if (id == R.id.msim_mobile_networks) {
-                    if (TelephonyManager.getDefault().getPhoneCount() <= 1) {
+                    } else if (SystemProperties.getBoolean("ro.radio.noril", false)) {
                         removeTile = true;
                     }
                 } else if (id == R.id.data_usage_settings) {
@@ -1226,13 +1276,6 @@ public class SettingsActivity extends Activity
                 } else if (id == R.id.development_settings) {
                     if (!showDev || um.hasUserRestriction(
                             UserManager.DISALLOW_DEBUGGING_FEATURES)) {
-                        removeTile = true;
-                    }
-                } else if (id == R.id.performance_settings) {
-                    final boolean forceHide =
-                            getResources().getBoolean(R.bool.config_hidePerformanceSettings);
-                    if (forceHide ||
-                            !(pm.hasPowerProfiles() || (showDev && !Build.TYPE.equals("user")))) {
                         removeTile = true;
                     }
                 }
@@ -1411,11 +1454,30 @@ public class SettingsActivity extends Activity
         super.onNewIntent(intent);
     }
 
-    public static boolean showAdvancedPreferences(Context context) {
-        return android.provider.Settings.Secure.getInt(
-                context.getContentResolver(),
-                android.provider.Settings.Secure.ADVANCED_MODE, 1) == 1;
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        switch (keyCode) {
+            case KeyEvent.KEYCODE_SEARCH:
+                if (mSearchMenuItem != null) {
+                    mSearchMenuItem.expandActionView();
+                }
+                return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
-
+    /**
+     * Showing "advanced options" on a retail build involves a toggle,
+     * however, it should always show all advanced options if the option is enabled
+     * by default in an overlay.
+     */
+    public static boolean showAdvancedPreferences(Context context) {
+        final boolean forceAdvancedMode = context.getResources().getBoolean(
+                com.android.internal.R.bool.config_advancedSettingsMode);
+        if (forceAdvancedMode) {
+            return true;
+        }
+        return (android.provider.Settings.Secure.getInt(context.getContentResolver(),
+                android.provider.Settings.Secure.ADVANCED_MODE, 0) == 1);
+    }
 }

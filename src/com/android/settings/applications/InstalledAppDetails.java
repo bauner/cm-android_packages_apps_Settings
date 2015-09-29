@@ -27,6 +27,7 @@ import com.android.settings.applications.ApplicationsState.AppEntry;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.AlertDialog;
+import android.app.AppOpsManager;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.Fragment;
@@ -57,6 +58,8 @@ import android.os.IBinder;
 import android.os.Message;
 import android.os.RemoteException;
 import android.os.ServiceManager;
+import android.os.storage.StorageEventListener;
+import android.os.storage.StorageManager;
 import android.os.UserHandle;
 import android.os.UserManager;
 import android.text.SpannableString;
@@ -83,6 +86,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import com.android.settings.cyanogenmod.ProtectedAppsReceiver;
@@ -109,6 +113,7 @@ public class InstalledAppDetails extends Fragment
     private AppWidgetManager mAppWidgetManager;
     private DevicePolicyManager mDpm;
     private ISms mSmsManager;
+    private StorageManager mStorageManager;
     private ApplicationsState mState;
     private ApplicationsState.Session mSession;
     private ApplicationsState.AppEntry mAppEntry;
@@ -143,8 +148,10 @@ public class InstalledAppDetails extends Fragment
     private Button mClearDataButton;
     private Button mMoveAppButton;
     private CompoundButton mNotificationSwitch;
+    private Button mAppOpsButton;
 
     private PackageMoveObserver mPackageMoveObserver;
+    private AppOpsManager mAppOps;
 
     private final HashSet<String> mHomePackages = new HashSet<String>();
 
@@ -272,7 +279,7 @@ public class InstalledAppDetails extends Fragment
 
         // This is a protected app component.
         // You cannot clear data for a protected component
-        if (mPackageInfo.applicationInfo.protect) {
+        if (isProtectedApp()) {
             enabled = false;
         }
 
@@ -322,13 +329,23 @@ public class InstalledAppDetails extends Fragment
         } else {
             mMoveAppButton.setText(R.string.move_app_to_sdcard);
             mCanBeOnSdCardChecker.init();
-            moveDisable = !mCanBeOnSdCardChecker.check(mAppEntry.info);
+            moveDisable = !mCanBeOnSdCardChecker.check(mPackageInfo);
         }
         if (moveDisable || mAppControlRestricted) {
             mMoveAppButton.setEnabled(false);
         } else {
             mMoveAppButton.setOnClickListener(this);
             mMoveAppButton.setEnabled(true);
+        }
+    }
+
+    private boolean isThisASystemPackage() {
+        try {
+            PackageInfo sys = mPm.getPackageInfo("android", PackageManager.GET_SIGNATURES);
+            return (mPackageInfo != null && mPackageInfo.signatures != null &&
+                    sys.signatures[0].equals(mPackageInfo.signatures[0]));
+        } catch (PackageManager.NameNotFoundException e) {
+            return false;
         }
     }
 
@@ -418,7 +435,7 @@ public class InstalledAppDetails extends Fragment
 
         // This is a protected app component.
         // You cannot a uninstall a protected component
-        if (mPackageInfo.applicationInfo.protect) {
+        if (isProtectedApp()) {
             enabled = false;
         }
 
@@ -442,9 +459,25 @@ public class InstalledAppDetails extends Fragment
         mNotificationSwitch.setChecked(enabled);
         if (Utils.isSystemPackage(mPm, mPackageInfo)) {
             mNotificationSwitch.setEnabled(false);
+        } else if ((mPackageInfo.applicationInfo.flags & ApplicationInfo.FLAG_INSTALLED) == 0) {
+            // App is not installed on the current user
+            mNotificationSwitch.setEnabled(false);
         } else {
             mNotificationSwitch.setEnabled(true);
             mNotificationSwitch.setOnCheckedChangeListener(this);
+        }
+    }
+
+    private void initAppOpsButton() {
+        boolean enabled = true;
+        if (isThisASystemPackage()) {
+            enabled = false;
+        }
+
+        mAppOpsButton.setEnabled(enabled);
+        if (enabled) {
+            // Register listener
+            mAppOpsButton.setOnClickListener(this);
         }
     }
 
@@ -462,6 +495,8 @@ public class InstalledAppDetails extends Fragment
         mAppWidgetManager = AppWidgetManager.getInstance(getActivity());
         mDpm = (DevicePolicyManager)getActivity().getSystemService(Context.DEVICE_POLICY_SERVICE);
         mSmsManager = ISms.Stub.asInterface(ServiceManager.getService("isms"));
+        mStorageManager = StorageManager.from(getActivity());
+        mStorageManager.registerListener(mStorageListener);
 
         mCanBeOnSdCardChecker = new CanBeOnSdCardChecker();
 
@@ -527,6 +562,9 @@ public class InstalledAppDetails extends Fragment
         
         mNotificationSwitch = (CompoundButton) view.findViewById(R.id.notification_switch);
 
+        mAppOps = (AppOpsManager) getActivity().getSystemService(Context.APP_OPS_SERVICE);
+        mAppOpsButton = (Button) view.findViewById(R.id.app_ops_button);
+
         return view;
     }
 
@@ -557,7 +595,7 @@ public class InstalledAppDetails extends Fragment
         }
         menu.findItem(UNINSTALL_ALL_USERS_MENU).setVisible(showIt);
 
-        menu.findItem(OPEN_PROTECTED_APPS).setVisible(mPackageInfo.applicationInfo.protect);
+        menu.findItem(OPEN_PROTECTED_APPS).setVisible(isProtectedApp());
     }
 
     @Override
@@ -661,6 +699,7 @@ public class InstalledAppDetails extends Fragment
         
         mAppControlRestricted = mUserManager.hasUserRestriction(UserManager.DISALLOW_APPS_CONTROL);
         mSession.resume();
+        mStorageManager.registerListener(mStorageListener);
         if (!refreshUi()) {
             setIntentAndFinish(true, true);
         }
@@ -670,12 +709,14 @@ public class InstalledAppDetails extends Fragment
     public void onPause() {
         super.onPause();
         mSession.pause();
+        mStorageManager.unregisterListener(mStorageListener);
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         mSession.release();
+        mStorageManager.unregisterListener(mStorageListener);
     }
 
     @Override
@@ -705,6 +746,13 @@ public class InstalledAppDetails extends Fragment
     @Override
     public void onRunningStateChanged(boolean running) {
     }
+
+    private StorageEventListener mStorageListener = new StorageEventListener() {
+        @Override
+        public void onStorageStateChanged(String path, String oldState, String newState) {
+            refreshButtons();
+        }
+    };
 
     private String retrieveAppEntry() {
         final Bundle args = getArguments();
@@ -786,7 +834,7 @@ public class InstalledAppDetails extends Fragment
 
         // Get list of preferred activities
         List<ComponentName> prefActList = new ArrayList<ComponentName>();
-
+        
         // Intent list cannot be null. so pass empty list
         List<IntentFilter> intentList = new ArrayList<IntentFilter>();
         mPm.getPreferredActivities(intentList, prefActList, packageName);
@@ -794,8 +842,10 @@ public class InstalledAppDetails extends Fragment
             Log.i(TAG, "Have " + prefActList.size() + " number of activities in preferred list");
         boolean hasUsbDefaults = false;
         try {
-            hasUsbDefaults = mUsbManager.hasDefaults(packageName, UserHandle.myUserId());
-        } catch (RemoteException | NullPointerException e) {
+            if (mUsbManager != null) {
+                hasUsbDefaults = mUsbManager.hasDefaults(packageName, UserHandle.myUserId());
+            }
+        } catch (RemoteException e) {
             Log.e(TAG, "mUsbManager.hasDefaults", e);
         }
         boolean hasBindAppWidgetPermission =
@@ -861,7 +911,8 @@ public class InstalledAppDetails extends Fragment
         }
 
         // Security permissions section
-        LinearLayout permsView = (LinearLayout) mRootView.findViewById(R.id.permissions_section);
+        RelativeLayout permsView = (RelativeLayout) mRootView.findViewById(
+                R.id.permissions_section);
         AppSecurityPermissions asp = new AppSecurityPermissions(getActivity(), packageName);
         int premiumSmsPermission = getPremiumSmsPermission(packageName);
         // Premium SMS permission implies the app also has SEND_SMS permission, so the original
@@ -1118,11 +1169,13 @@ public class InstalledAppDetails extends Fragment
             initDataButtons();
             initMoveButton();
             initNotificationButton();
+            initAppOpsButton();
         } else {
             mMoveAppButton.setText(R.string.moving);
             mMoveAppButton.setEnabled(false);
             mUninstallButton.setEnabled(false);
             mSpecialDisableButton.setEnabled(false);
+            mAppOpsButton.setEnabled(false);
         }
     }
 
@@ -1443,17 +1496,19 @@ public class InstalledAppDetails extends Fragment
         } else if(v == mSpecialDisableButton) {
             showDialogInner(DLG_SPECIAL_DISABLE, 0);
         } else if(v == mActivitiesButton) {
-            mPm.clearPackagePreferredActivities(packageName);
-            try {
-                mUsbManager.clearDefaults(packageName, UserHandle.myUserId());
-            } catch (RemoteException e) {
-                Log.e(TAG, "mUsbManager.clearDefaults", e);
+            if (mUsbManager != null) {
+                mPm.clearPackagePreferredActivities(packageName);
+                try {
+                    mUsbManager.clearDefaults(packageName, UserHandle.myUserId());
+                } catch (RemoteException e) {
+                    Log.e(TAG, "mUsbManager.clearDefaults", e);
+                }
+                mAppWidgetManager.setBindAppWidgetPermission(packageName, false);
+                TextView autoLaunchTitleView =
+                        (TextView) mRootView.findViewById(R.id.auto_launch_title);
+                TextView autoLaunchView = (TextView) mRootView.findViewById(R.id.auto_launch);
+                resetLaunchDefaultsUi(autoLaunchTitleView, autoLaunchView);
             }
-            mAppWidgetManager.setBindAppWidgetPermission(packageName, false);
-            TextView autoLaunchTitleView =
-                    (TextView) mRootView.findViewById(R.id.auto_launch_title);
-            TextView autoLaunchView = (TextView) mRootView.findViewById(R.id.auto_launch);
-            resetLaunchDefaultsUi(autoLaunchTitleView, autoLaunchView);
         } else if(v == mClearDataButton) {
             if (mAppEntry.info.manageSpaceActivityName != null) {
                 if (!Utils.isMonkeyRunning()) {
@@ -1483,6 +1538,11 @@ public class InstalledAppDetails extends Fragment
             mMoveInProgress = true;
             refreshButtons();
             mPm.movePackage(mAppEntry.info.packageName, mPackageMoveObserver, moveFlags);
+        } else if (v == mAppOpsButton) {
+            Intent intent = new Intent(
+                    android.provider.Settings.ACTION_APP_OPS_DETAILS_SETTINGS,
+                    Uri.parse("package:" + mAppEntry.info.packageName));
+            startActivity(intent);
         }
     }
 
@@ -1503,6 +1563,12 @@ public class InstalledAppDetails extends Fragment
                 setNotificationsEnabled(true);
             }
         }
+    }
+
+    private boolean isProtectedApp() {
+        // Some system apps doesn't have applicationInfo. Ensure we don't access to a null
+        // reference. In that case we assume the app isn't protected
+        return mPackageInfo.applicationInfo != null && mPackageInfo.applicationInfo.protect;
     }
 }
 

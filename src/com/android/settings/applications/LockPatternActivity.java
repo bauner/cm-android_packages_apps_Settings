@@ -24,6 +24,7 @@ import android.util.Base64;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -54,6 +55,7 @@ public class LockPatternActivity extends Activity implements OnNotifyAccountRese
 
     TextView mPatternLockHeader;
     MenuItem mItem;
+    boolean mIsPattern = true;
     Button mCancel;
     Button mContinue;
     byte[] mPatternHash;
@@ -135,8 +137,40 @@ public class LockPatternActivity extends Activity implements OnNotifyAccountRese
                     .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM |
                             MenuItem.SHOW_AS_ACTION_WITH_TEXT);
             mItem = menu.findItem(0);
+            int icon = mIsPattern ? R.drawable.ic_lockscreen_ime:
+                    R.drawable.ic_settings_lockscreen;
+            mItem.setIcon(icon);
         }
         return true;
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean("isAccountView", mAccountView.getVisibility() == View.VISIBLE);
+        outState.putBoolean("continueEnabled", mContinue.isEnabled());
+        outState.putBoolean("confirming", mConfirming);
+        outState.putBoolean("retrypattern", mRetryPattern);
+        outState.putInt("retry", mRetry);
+        outState.putByteArray("pattern_hash", mPatternHash);
+        outState.putBoolean("create", mCreate);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        if (savedInstanceState.getBoolean("isAccountView")) {
+            switchToAccount();
+        } else {
+            switchToPattern(false);
+            mPatternHash = savedInstanceState.getByteArray("pattern_hash");
+            mConfirming = savedInstanceState.getBoolean("confirming");
+            mRetryPattern = savedInstanceState.getBoolean("retrypattern");
+            mRetry = savedInstanceState.getInt("retry");
+            mCreate = savedInstanceState.getBoolean("create");
+            mContinue.setEnabled(savedInstanceState.getBoolean("continueEnabled",
+                    mContinue.isEnabled()));
+        }
     }
 
     @Override
@@ -163,24 +197,27 @@ public class LockPatternActivity extends Activity implements OnNotifyAccountRese
         if (reset) {
             resetPatternState(false);
         }
+        mIsPattern = true;
         mPatternLockHeader.setText(getResources()
                 .getString(R.string.lockpattern_settings_enable_summary));
-        mItem.setIcon(R.drawable.ic_lockscreen_ime);
         mAccountView.clearFocusOnInput();
         mAccountView.setVisibility(View.GONE);
         mLockPatternView.setVisibility(View.VISIBLE);
+        invalidateOptionsMenu();
     }
 
     private void switchToAccount() {
+        mIsPattern = false;
         mPatternLockHeader.setText(getResources()
                 .getString(R.string.lockpattern_settings_reset_summary));
-        mItem.setIcon(R.drawable.ic_settings_lockscreen);
         mAccountView.setVisibility(View.VISIBLE);
         mLockPatternView.setVisibility(View.GONE);
+        invalidateOptionsMenu();
     }
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         setContentView(R.layout.patternlock);
 
         mPatternLockHeader = (TextView) findViewById(R.id.pattern_lock_header);
@@ -196,7 +233,6 @@ public class LockPatternActivity extends Activity implements OnNotifyAccountRese
         resetPatternState(false);
 
         //Setup Pattern Lock View
-        mLockPatternView.setSaveEnabled(false);
         mLockPatternView.setFocusable(false);
         mLockPatternView.setOnPatternListener(new UnlockPatternListener());
 

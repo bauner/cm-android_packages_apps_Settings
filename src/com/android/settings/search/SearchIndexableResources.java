@@ -35,6 +35,7 @@ import com.android.settings.bluetooth.BluetoothSettings;
 import com.android.settings.cyanogenmod.NotificationDrawerSettings;
 import com.android.settings.cyanogenmod.StatusBarSettings;
 import com.android.settings.deviceinfo.Memory;
+import com.android.settings.deviceinfo.UsbSettings;
 import com.android.settings.fuelgauge.PowerUsageSummary;
 import com.android.settings.inputmethod.InputMethodAndLanguageSettings;
 import com.android.settings.location.LocationSettings;
@@ -175,6 +176,13 @@ public final class SearchIndexableResources {
                         Memory.class.getName(),
                         R.drawable.ic_settings_storage));
 
+        sResMap.put(UsbSettings.class.getName(),
+                new SearchIndexableResource(
+                        Ranking.getRankForClassName(UsbSettings.class.getName()),
+                        R.xml.usb_settings,
+                        UsbSettings.class.getName(),
+                        R.drawable.ic_settings_storage));
+
         sResMap.put(PowerUsageSummary.class.getName(),
                 new SearchIndexableResource(
                         Ranking.getRankForClassName(PowerUsageSummary.class.getName()),
@@ -269,7 +277,7 @@ public final class SearchIndexableResources {
         sResMap.put(ButtonSettings.class.getName(),
                 new SearchIndexableResource(
                         Ranking.getRankForClassName(ButtonSettings.class.getName()),
-                        R.xml.button_settings,
+                        NO_DATA_RES_ID,
                         ButtonSettings.class.getName(),
                         R.drawable.ic_settings_buttons));
 
@@ -291,7 +299,7 @@ public final class SearchIndexableResources {
                 new SearchIndexableResource(
                         Ranking.getRankForClassName(
                                 com.android.settings.cyanogenmod.PrivacySettings.class.getName()),
-                        R.xml.privacy_settings_cyanogenmod,
+                        NO_DATA_RES_ID,
                         com.android.settings.cyanogenmod.PrivacySettings.class.getName(),
                         R.drawable.ic_settings_privacy));
     }

@@ -38,13 +38,16 @@ import android.security.KeyStore;
 import android.service.trust.TrustAgentService;
 import android.telephony.TelephonyManager;
 import android.util.Log;
+
 import com.android.internal.widget.LockPatternUtils;
 import com.android.settings.ChooseLockSettingsHelper;
+import com.android.settings.ManageFingerprints;
 import com.android.settings.R;
 import com.android.settings.SecuritySettings;
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.settings.TrustAgentUtils;
 import com.android.settings.search.BaseSearchIndexProvider;
+import com.android.settings.search.Index;
 import com.android.settings.search.Indexable;
 import com.android.settings.search.SearchIndexableRaw;
 
@@ -57,6 +60,7 @@ public class LockScreenSettings extends SettingsPreferenceFragment
         implements Preference.OnPreferenceChangeListener, Indexable {
 
     private static final String KEY_SECURITY_CATEGORY = "security_category";
+    private static final String KEY_GENERAL_CATEGORY = "general_category";
     private static final String KEY_OWNER_INFO_SETTINGS = "owner_info_settings";
 
     // Lock Settings
@@ -66,11 +70,14 @@ public class LockScreenSettings extends SettingsPreferenceFragment
     private static final String KEY_BIOMETRIC_WEAK_LIVELINESS = "biometric_weak_liveliness";
     private static final String KEY_LOCK_ENABLED = "lockenabled";
     private static final String KEY_VISIBLE_PATTERN = "visiblepattern";
+    private static final String KEY_VISIBLE_ERROR_PATTERN = "visible_error_pattern";
+    private static final String KEY_VISIBLE_DOTS = "visibledots";
     private static final String KEY_LOCK_AFTER_TIMEOUT = "lock_after_timeout";
     private static final String KEY_POWER_INSTANTLY_LOCKS = "power_button_instantly_locks";
     private static final String KEY_TRUST_AGENT = "trust_agent";
     private static final String KEY_MANAGE_TRUST_AGENTS = "manage_trust_agents";
     private static final String KEY_SHOW_VISUALIZER = "lockscreen_visualizer";
+    private static final String KEY_MANAGE_FINGERPRINTS = "manage_fingerprints";
 
     private static final int SET_OR_CHANGE_LOCK_METHOD_REQUEST = 123;
     private static final int CONFIRM_EXISTING_FOR_BIOMETRIC_WEAK_IMPROVE_REQUEST = 124;
@@ -90,14 +97,16 @@ public class LockScreenSettings extends SettingsPreferenceFragment
 
     private SwitchPreference mBiometricWeakLiveliness;
     private SwitchPreference mVisiblePattern;
+    private SwitchPreference mVisibleErrorPattern;
+    private SwitchPreference mVisibleDots;
     private SwitchPreference mPowerButtonInstantlyLocks;
 
     private DevicePolicyManager mDPM;
 
     // These switch preferences need special handling since they're not all stored in Settings.
     private static final String SWITCH_PREFERENCE_KEYS[] = { KEY_LOCK_AFTER_TIMEOUT,
-            KEY_LOCK_ENABLED, KEY_VISIBLE_PATTERN, KEY_BIOMETRIC_WEAK_LIVELINESS,
-            KEY_POWER_INSTANTLY_LOCKS };
+            KEY_LOCK_ENABLED, KEY_VISIBLE_PATTERN, KEY_VISIBLE_ERROR_PATTERN, KEY_VISIBLE_DOTS,
+            KEY_BIOMETRIC_WEAK_LIVELINESS, KEY_POWER_INSTANTLY_LOCKS };
 
 
     @Override
@@ -125,6 +134,12 @@ public class LockScreenSettings extends SettingsPreferenceFragment
         }
         if (mVisiblePattern != null) {
             mVisiblePattern.setChecked(lockPatternUtils.isVisiblePatternEnabled());
+        }
+        if (mVisibleErrorPattern != null) {
+            mVisibleErrorPattern.setChecked(lockPatternUtils.isShowErrorPath());
+        }
+        if (mVisibleDots != null) {
+            mVisibleDots.setChecked(lockPatternUtils.isVisibleDotsEnabled());
         }
         if (mPowerButtonInstantlyLocks != null) {
             mPowerButtonInstantlyLocks.setChecked(lockPatternUtils.getPowerButtonInstantlyLocks());
@@ -161,6 +176,15 @@ public class LockScreenSettings extends SettingsPreferenceFragment
             }
         }
 
+        // Change title to include fingerprint if there is a sensor and primary owner
+        if (mIsPrimary && mLockPatternUtils.isFingerprintInstalled(getActivity())) {
+            Preference unlockSetOrChange = findPreference(KEY_UNLOCK_SET_OR_CHANGE);
+            if (unlockSetOrChange != null) {
+                unlockSetOrChange
+                        .setTitle(R.string.unlock_set_unlock_launch_picker_title_with_fingerprint);
+            }
+        }
+
         // lock after preference
         mLockAfter = (ListPreference) root.findPreference(KEY_LOCK_AFTER_TIMEOUT);
         if (mLockAfter != null) {
@@ -174,6 +198,12 @@ public class LockScreenSettings extends SettingsPreferenceFragment
 
         // visible pattern
         mVisiblePattern = (SwitchPreference) root.findPreference(KEY_VISIBLE_PATTERN);
+
+        // visible error pattern
+        mVisibleErrorPattern = (SwitchPreference) root.findPreference(KEY_VISIBLE_ERROR_PATTERN);
+
+        // visible dots
+        mVisibleDots = (SwitchPreference) root.findPreference(KEY_VISIBLE_DOTS);
 
         // lock instantly on power key press
         mPowerButtonInstantlyLocks = (SwitchPreference) root.findPreference(
@@ -193,17 +223,22 @@ public class LockScreenSettings extends SettingsPreferenceFragment
         if (resid == R.xml.security_settings_biometric_weak &&
                 mLockPatternUtils.getKeyguardStoredPasswordQuality() !=
                         DevicePolicyManager.PASSWORD_QUALITY_SOMETHING) {
-            if (securityCategory != null && mVisiblePattern != null) {
-                securityCategory.removePreference(root.findPreference(KEY_VISIBLE_PATTERN));
+            if (securityCategory != null && mVisiblePattern != null &&
+                   mVisibleErrorPattern != null && mVisibleDots != null) {
+                securityCategory.removePreference(mVisiblePattern);
+                securityCategory.removePreference(mVisibleErrorPattern);
+                securityCategory.removePreference(mVisibleDots);
             }
         }
 
+        PreferenceGroup generalCategory = (PreferenceGroup)
+                root.findPreference(KEY_GENERAL_CATEGORY);
         // remove lockscreen visualizer option on low end gfx devices
-        if (!ActivityManager.isHighEndGfx() && securityCategory != null) {
+        if (!ActivityManager.isHighEndGfx() && generalCategory != null) {
             SwitchPreference displayVisualizer = (SwitchPreference)
-                    securityCategory.findPreference(KEY_SHOW_VISUALIZER);
+                    generalCategory.findPreference(KEY_SHOW_VISUALIZER);
             if (displayVisualizer != null) {
-                securityCategory.removePreference(displayVisualizer);
+                generalCategory.removePreference(displayVisualizer);
             }
         }
 
@@ -257,7 +292,7 @@ public class LockScreenSettings extends SettingsPreferenceFragment
         int resid = 0;
         if (!lockPatternUtils.isSecure()) {
             // if there are multiple users, disable "None" setting
-            UserManager mUm = (UserManager) context. getSystemService(Context.USER_SERVICE);
+            UserManager mUm = (UserManager) context.getSystemService(Context.USER_SERVICE);
             List<UserInfo> users = mUm.getUsers(true);
             final boolean singleUser = users.size() == 1;
 
@@ -266,9 +301,12 @@ public class LockScreenSettings extends SettingsPreferenceFragment
             } else {
                 resid = R.xml.security_settings_chooser;
             }
+        } else if (lockPatternUtils.usingFingerprint()
+                && lockPatternUtils.isFingerprintInstalled(context)) {
+            resid = R.xml.security_settings_fingerprint;
         } else if (lockPatternUtils.usingBiometricWeak() &&
                 lockPatternUtils.isBiometricWeakInstalled()) {
-            resid = R.xml.security_settings_biometric_weak;
+                resid = R.xml.security_settings_biometric_weak;
         } else {
             switch (lockPatternUtils.getKeyguardStoredPasswordQuality()) {
                 case DevicePolicyManager.PASSWORD_QUALITY_SOMETHING:
@@ -386,6 +424,10 @@ public class LockScreenSettings extends SettingsPreferenceFragment
                 mTrustAgentClickIntent = null;
             }
             return;
+        } else if (requestCode == SET_OR_CHANGE_LOCK_METHOD_REQUEST) {
+            Index.getInstance(
+                    getActivity().getApplicationContext()).updateFromClassNameResource(
+                    LockScreenSettings.class.getName(), true, true);
         }
         createPreferenceHierarchy();
     }
@@ -408,6 +450,10 @@ public class LockScreenSettings extends SettingsPreferenceFragment
             lockPatternUtils.setLockPatternEnabled((Boolean) value);
         } else if (KEY_VISIBLE_PATTERN.equals(key)) {
             lockPatternUtils.setVisiblePatternEnabled((Boolean) value);
+        } else if (KEY_VISIBLE_ERROR_PATTERN.equals(key)) {
+            lockPatternUtils.setShowErrorPath((Boolean) value);
+        } else if (KEY_VISIBLE_DOTS.equals(key)) {
+            lockPatternUtils.setVisibleDotsEnabled((Boolean) value);
         } else  if (KEY_BIOMETRIC_WEAK_LIVELINESS.equals(key)) {
             if ((Boolean) value) {
                 lockPatternUtils.setBiometricWeakLivelinessEnabled(true);
@@ -440,6 +486,9 @@ public class LockScreenSettings extends SettingsPreferenceFragment
         if (KEY_UNLOCK_SET_OR_CHANGE.equals(key)) {
             startFragment(this, "com.android.settings.ChooseLockGeneric$ChooseLockGenericFragment",
                     R.string.lock_settings_picker_title, SET_OR_CHANGE_LOCK_METHOD_REQUEST, null);
+        } else if (KEY_MANAGE_FINGERPRINTS.equals((key))) {
+            Intent intent = ManageFingerprints.createIntent(getActivity(), false, true, true);
+            startActivity(intent);
         } else if (KEY_BIOMETRIC_WEAK_IMPROVE_MATCHING.equals(key)) {
             ChooseLockSettingsHelper helper =
                     new ChooseLockSettingsHelper(this.getActivity(), this);
@@ -544,6 +593,16 @@ public class LockScreenSettings extends SettingsPreferenceFragment
                     result.add(data);
                 }
             }
+
+            if (lockPatternUtils.isFingerprintInstalled(context)) {
+                data = new SearchIndexableRaw(context);
+                data.title =
+                        context.getString(
+                                R.string.unlock_set_unlock_launch_picker_title_with_fingerprint);
+                data.screenTitle = data.title;
+                result.add(data);
+            }
+
             return result;
         }
 
@@ -560,6 +619,8 @@ public class LockScreenSettings extends SettingsPreferenceFragment
                     lockPatternUtils.getKeyguardStoredPasswordQuality() !=
                             DevicePolicyManager.PASSWORD_QUALITY_SOMETHING) {
                 keys.add(KEY_VISIBLE_PATTERN);
+                keys.add(KEY_VISIBLE_ERROR_PATTERN);
+                keys.add(KEY_VISIBLE_DOTS);
             }
 
             // TrustAgent settings disappear when the user has no primary security.

@@ -18,27 +18,32 @@ package com.android.settings;
 
 import android.accessibilityservice.AccessibilityServiceInfo;
 import android.app.Activity;
-import android.app.ActivityManagerNative;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.app.PendingIntent;
 import android.app.admin.DevicePolicyManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.UserInfo;
 import android.os.Bundle;
 import android.os.Process;
-import android.os.RemoteException;
-import android.os.UserHandle;
 import android.os.UserManager;
 import android.preference.Preference;
 import android.preference.PreferenceScreen;
 import android.security.KeyStore;
 import android.util.EventLog;
+import android.util.Log;
 import android.util.MutableBoolean;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.accessibility.AccessibilityManager;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.android.internal.widget.LockPatternUtils;
 
@@ -50,7 +55,7 @@ public class ChooseLockGeneric extends SettingsActivity {
     @Override
     public Intent getIntent() {
         Intent modIntent = new Intent(super.getIntent());
-        modIntent.putExtra(EXTRA_SHOW_FRAGMENT, ChooseLockGenericFragment.class.getName());
+        modIntent.putExtra(EXTRA_SHOW_FRAGMENT, getFragmentClass().getName());
         return modIntent;
     }
 
@@ -58,6 +63,10 @@ public class ChooseLockGeneric extends SettingsActivity {
     protected boolean isValidFragment(String fragmentName) {
         if (ChooseLockGenericFragment.class.getName().equals(fragmentName)) return true;
         return false;
+    }
+
+    /* package */ Class<? extends Fragment> getFragmentClass() {
+        return ChooseLockGenericFragment.class;
     }
 
     public static class InternalActivity extends ChooseLockGeneric {
@@ -72,6 +81,8 @@ public class ChooseLockGeneric extends SettingsActivity {
         private static final String KEY_UNLOCK_SET_PIN = "unlock_set_pin";
         private static final String KEY_UNLOCK_SET_PASSWORD = "unlock_set_password";
         private static final String KEY_UNLOCK_SET_PATTERN = "unlock_set_pattern";
+        private static final String KEY_UNLOCK_SET_FINGERPRINT = "unlock_set_fingerprint";
+
         private static final int CONFIRM_EXISTING_REQUEST = 100;
         private static final int FALLBACK_REQUEST = 101;
         private static final int ENABLE_ENCRYPTION_REQUEST = 102;
@@ -79,9 +90,12 @@ public class ChooseLockGeneric extends SettingsActivity {
 
         private static final String WAITING_FOR_CONFIRMATION = "waiting_for_confirmation";
         private static final String FINISH_PENDING = "finish_pending";
+        private static final String TAG = "ChooseLockGenericFragment";
         public static final String MINIMUM_QUALITY_KEY = "minimum_quality";
         public static final String ENCRYPT_REQUESTED_QUALITY = "encrypt_requested_quality";
+        public static final String ENCRYPT_REQUESTED_SUBQUALITY = "encrypt_requested_subquality";
         public static final String ENCRYPT_REQUESTED_DISABLED = "encrypt_requested_disabled";
+        public static final String TAG_FRP_WARNING_DIALOG = "frp_warning_dialog";
 
         private static final boolean ALWAY_SHOW_TUTORIAL = true;
 
@@ -92,6 +106,7 @@ public class ChooseLockGeneric extends SettingsActivity {
         private boolean mWaitingForConfirmation = false;
         private boolean mFinishPending = false;
         private int mEncryptionRequestQuality;
+        private int mEncryptionRequestSubQuality;
         private boolean mEncryptionRequestDisabled;
         private boolean mRequirePassword;
         private LockPatternUtils mLockPatternUtils;
@@ -117,6 +132,8 @@ public class ChooseLockGeneric extends SettingsActivity {
                 mWaitingForConfirmation = savedInstanceState.getBoolean(WAITING_FOR_CONFIRMATION);
                 mFinishPending = savedInstanceState.getBoolean(FINISH_PENDING);
                 mEncryptionRequestQuality = savedInstanceState.getInt(ENCRYPT_REQUESTED_QUALITY);
+                mEncryptionRequestSubQuality =
+                        savedInstanceState.getInt(ENCRYPT_REQUESTED_SUBQUALITY);
                 mEncryptionRequestDisabled = savedInstanceState.getBoolean(
                         ENCRYPT_REQUESTED_DISABLED);
             }
@@ -148,32 +165,15 @@ public class ChooseLockGeneric extends SettingsActivity {
         public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen,
                 Preference preference) {
             final String key = preference.getKey();
-            boolean handled = true;
 
-            EventLog.writeEvent(EventLogTags.LOCK_SCREEN_TYPE, key);
-
-            if (KEY_UNLOCK_SET_OFF.equals(key)) {
-                updateUnlockMethodAndFinish(
-                        DevicePolicyManager.PASSWORD_QUALITY_UNSPECIFIED, true);
-            } else if (KEY_UNLOCK_SET_NONE.equals(key)) {
-                updateUnlockMethodAndFinish(
-                        DevicePolicyManager.PASSWORD_QUALITY_UNSPECIFIED, false);
-            } else if (KEY_UNLOCK_SET_BIOMETRIC_WEAK.equals(key)) {
-                maybeEnableEncryption(
-                        DevicePolicyManager.PASSWORD_QUALITY_BIOMETRIC_WEAK, false);
-            }else if (KEY_UNLOCK_SET_PATTERN.equals(key)) {
-                maybeEnableEncryption(
-                        DevicePolicyManager.PASSWORD_QUALITY_SOMETHING, false);
-            } else if (KEY_UNLOCK_SET_PIN.equals(key)) {
-                maybeEnableEncryption(
-                        DevicePolicyManager.PASSWORD_QUALITY_NUMERIC, false);
-            } else if (KEY_UNLOCK_SET_PASSWORD.equals(key)) {
-                maybeEnableEncryption(
-                        DevicePolicyManager.PASSWORD_QUALITY_ALPHABETIC, false);
+            if (!isUnlockMethodSecure(key) && mLockPatternUtils.isSecure()) {
+                // Show the disabling FRP warning only when the user is switching from a secure
+                // unlock method to an insecure one
+                showFactoryResetProtectionWarningDialog(key);
+                return true;
             } else {
-                handled = false;
+                return setUnlockMethod(key);
             }
-            return handled;
         }
 
         /**
@@ -184,20 +184,33 @@ public class ChooseLockGeneric extends SettingsActivity {
          * @param disabled
          */
         private void maybeEnableEncryption(int quality, boolean disabled) {
+            maybeEnableEncryption(quality, disabled, LockPatternUtils.BIOMETRIC_WEAK_UNKNOWN);
+        }
+
+        /**
+         * If the device has encryption already enabled, then ask the user if they
+         * also want to encrypt the phone with this password.
+         *
+         * @param quality
+         * @param disabled
+         * @param subQuality - Exact type of BIOMETRIC_WEAK (ex Face / Fingerprint)
+         */
+        private void maybeEnableEncryption(int quality, boolean disabled, int subQuality) {
             if (Process.myUserHandle().isOwner() && LockPatternUtils.isDeviceEncryptionEnabled()) {
                 mEncryptionRequestQuality = quality;
+                mEncryptionRequestSubQuality = subQuality;
                 mEncryptionRequestDisabled = disabled;
+                final Context context = getActivity();
                 // If accessibility is enabled and the user hasn't seen this dialog before, set the
                 // default state to agree with that which is compatible with accessibility
                 // (password not required).
-                final boolean accEn = AccessibilityManager.getInstance(getActivity()).isEnabled();
+                final boolean accEn = AccessibilityManager.getInstance(context).isEnabled();
                 final boolean required = mLockPatternUtils.isCredentialRequiredToDecrypt(!accEn);
-                Intent intent = EncryptionInterstitial.createStartIntent(
-                        getActivity(), quality, required);
+                Intent intent = getEncryptionInterstitialIntent(context, quality, required);
                 startActivityForResult(intent, ENABLE_ENCRYPTION_REQUEST);
             } else {
                 mRequirePassword = false; // device encryption not enabled or not device owner.
-                updateUnlockMethodAndFinish(quality, disabled);
+                updateUnlockMethodAndFinish(quality, disabled, subQuality);
             }
         }
 
@@ -207,9 +220,14 @@ public class ChooseLockGeneric extends SettingsActivity {
             View v = super.onCreateView(inflater, container, savedInstanceState);
             final boolean onlyShowFallback = getActivity().getIntent()
                     .getBooleanExtra(LockPatternUtils.LOCKSCREEN_BIOMETRIC_WEAK_FALLBACK, false);
+            final boolean isFingerprintFallback = getActivity().getIntent()
+                    .getBooleanExtra(LockPatternUtils.LOCKSCREEN_FINGERPRINT_FALLBACK, false);
             if (onlyShowFallback) {
-                View header = v.inflate(getActivity(),
+                TextView header = (TextView) v.inflate(getActivity(),
                         R.layout.weak_biometric_fallback_header, null);
+                if (isFingerprintFallback) {
+                    header.setText(R.string.unlock_backup_fingerprint_info_summary);
+                }
                 ((ListView) v.findViewById(android.R.id.list)).addHeaderView(header, null, false);
             }
 
@@ -231,7 +249,8 @@ public class ChooseLockGeneric extends SettingsActivity {
                     && resultCode == Activity.RESULT_OK) {
                 mRequirePassword = data.getBooleanExtra(
                         EncryptionInterstitial.EXTRA_REQUIRE_PASSWORD, true);
-                updateUnlockMethodAndFinish(mEncryptionRequestQuality, mEncryptionRequestDisabled);
+                updateUnlockMethodAndFinish(mEncryptionRequestQuality, mEncryptionRequestDisabled,
+                        mEncryptionRequestSubQuality);
             } else {
                 getActivity().setResult(Activity.RESULT_CANCELED);
                 finish();
@@ -246,6 +265,7 @@ public class ChooseLockGeneric extends SettingsActivity {
             outState.putBoolean(WAITING_FOR_CONFIRMATION, mWaitingForConfirmation);
             outState.putBoolean(FINISH_PENDING, mFinishPending);
             outState.putInt(ENCRYPT_REQUESTED_QUALITY, mEncryptionRequestQuality);
+            outState.putInt(ENCRYPT_REQUESTED_SUBQUALITY, mEncryptionRequestSubQuality);
             outState.putBoolean(ENCRYPT_REQUESTED_DISABLED, mEncryptionRequestDisabled);
         }
 
@@ -295,16 +315,34 @@ public class ChooseLockGeneric extends SettingsActivity {
         }
 
         /***
+         * Disables preferences that are less secure than required quality. The actual
+         * implementation is in disableUnusablePreferenceImpl.
+         *
+         * @param quality the requested quality.
+         * @param allowBiometric whether to allow biometic screen lock.
+         */
+        protected void disableUnusablePreferences(final int quality,
+                MutableBoolean allowBiometric) {
+            disableUnusablePreferencesImpl(quality, allowBiometric, false /* hideDisabled */);
+        }
+
+        /***
          * Disables preferences that are less secure than required quality.
          *
          * @param quality the requested quality.
+         * @param allowBiometric whether to allow biometic screen lock.
+         * @param hideDisabled whether to hide disable screen lock options.
          */
-        private void disableUnusablePreferences(final int quality, MutableBoolean allowBiometric) {
+        protected void disableUnusablePreferencesImpl(final int quality,
+                MutableBoolean allowBiometric, boolean hideDisabled) {
             final PreferenceScreen entries = getPreferenceScreen();
-            final boolean onlyShowFallback = getActivity().getIntent()
-                    .getBooleanExtra(LockPatternUtils.LOCKSCREEN_BIOMETRIC_WEAK_FALLBACK, false);
+            final Intent intent = getActivity().getIntent();
+            final boolean onlyShowFallback = intent.getBooleanExtra(
+                    LockPatternUtils.LOCKSCREEN_BIOMETRIC_WEAK_FALLBACK, false);
             final boolean weakBiometricAvailable =
                     mChooseLockSettingsHelper.utils().isBiometricWeakInstalled();
+            final boolean fingerprintAvailable = Process.myUserHandle().isOwner() &&
+                    mChooseLockSettingsHelper.utils().isFingerprintInstalled(getActivity());
 
             // if there are multiple users, disable "None" setting
             UserManager mUm = (UserManager) getSystemService(Context.USER_SERVICE);
@@ -332,6 +370,13 @@ public class ChooseLockGeneric extends SettingsActivity {
                         enabled = quality <= DevicePolicyManager.PASSWORD_QUALITY_NUMERIC_COMPLEX;
                     } else if (KEY_UNLOCK_SET_PASSWORD.equals(key)) {
                         enabled = quality <= DevicePolicyManager.PASSWORD_QUALITY_COMPLEX;
+                    } else if (KEY_UNLOCK_SET_FINGERPRINT.equals(key)) {
+                        enabled = quality <= DevicePolicyManager.PASSWORD_QUALITY_BIOMETRIC_WEAK ||
+                                allowBiometric.value;
+                        visible = fingerprintAvailable; // If not available, then don't show it.
+                    }
+                    if (hideDisabled) {
+                        visible = visible && enabled;
                     }
                     if (!visible || (onlyShowFallback && !allowedForFallback(key))) {
                         entries.removePreference(pref);
@@ -378,7 +423,9 @@ public class ChooseLockGeneric extends SettingsActivity {
          */
         private boolean allowedForFallback(String key) {
             return KEY_UNLOCK_BACKUP_INFO.equals(key)  ||
-                    KEY_UNLOCK_SET_PATTERN.equals(key) || KEY_UNLOCK_SET_PIN.equals(key);
+                    KEY_UNLOCK_SET_PATTERN.equals(key) ||
+                    KEY_UNLOCK_SET_PIN.equals(key) ||
+                    KEY_UNLOCK_SET_PASSWORD.equals(key);
         }
 
         private Intent getBiometricSensorIntent() {
@@ -399,6 +446,36 @@ public class ChooseLockGeneric extends SettingsActivity {
             return intent;
         }
 
+        private Intent getFingerprintIntent(Context context,
+                final boolean isFallback,
+                final boolean requirePassword,
+                boolean confirmCredentials) {
+            return ManageFingerprints.createIntent(context, isFallback,
+                    requirePassword, confirmCredentials);
+        }
+
+        protected Intent getLockPasswordIntent(Context context, int quality,
+                final boolean isFallback, boolean isFingerprintFallback,
+                int minLength, final int maxLength,
+                boolean requirePasswordToDecrypt, boolean confirmCredentials) {
+            return ChooseLockPassword.createIntent(context, quality, isFallback,
+                    isFingerprintFallback, minLength, maxLength,
+                    requirePasswordToDecrypt, confirmCredentials);
+        }
+
+        protected Intent getLockPatternIntent(Context context, final boolean isFallback,
+                boolean isFingerprintFallback, final boolean requirePassword,
+                final boolean confirmCredentials) {
+            return ChooseLockPattern.createIntent(context, isFallback, isFingerprintFallback,
+                    requirePassword,
+                    confirmCredentials);
+        }
+
+        protected Intent getEncryptionInterstitialIntent(Context context, int quality,
+                boolean required) {
+            return EncryptionInterstitial.createStartIntent(context, quality, required);
+        }
+
         /**
          * Invokes an activity to change the user's pattern, password or PIN based on given quality
          * and minimum quality specified by DevicePolicyManager. If quality is
@@ -409,6 +486,21 @@ public class ChooseLockGeneric extends SettingsActivity {
          * {@link DevicePolicyManager#PASSWORD_QUALITY_UNSPECIFIED}
          */
         void updateUnlockMethodAndFinish(int quality, boolean disabled) {
+            updateUnlockMethodAndFinish(quality, disabled, 0);
+        }
+
+        /**
+         * Invokes an activity to change the user's pattern, password or PIN based on given quality
+         * and minimum quality specified by DevicePolicyManager. If quality is
+         * {@link DevicePolicyManager#PASSWORD_QUALITY_UNSPECIFIED}, password is cleared.
+         *
+         * @param quality the desired quality. Ignored if DevicePolicyManager requires more security
+         * @param disabled whether or not to show LockScreen at all. Only meaningful when quality is
+         * @param subQuality additional qualifier for biometric_weak
+         *                   (ex BIOMETRIC_WEAK_FINGERPRINT or BIOMETRIC_WEAK_FACE)
+         * {@link DevicePolicyManager#PASSWORD_QUALITY_UNSPECIFIED}
+         */
+        void updateUnlockMethodAndFinish(int quality, boolean disabled, int subQuality) {
             // Sanity check. We should never get here without confirming user's existing password.
             if (!mPasswordConfirmed) {
                 throw new IllegalStateException("Tried to update password without confirming it");
@@ -417,16 +509,21 @@ public class ChooseLockGeneric extends SettingsActivity {
             final boolean isFallback = getActivity().getIntent()
                 .getBooleanExtra(LockPatternUtils.LOCKSCREEN_BIOMETRIC_WEAK_FALLBACK, false);
 
+            final boolean isFingerprintFallback = getActivity().getIntent()
+                    .getBooleanExtra(LockPatternUtils.LOCKSCREEN_FINGERPRINT_FALLBACK, false);
+
             quality = upgradeQuality(quality, null);
 
+            final Context context = getActivity();
             if (quality >= DevicePolicyManager.PASSWORD_QUALITY_NUMERIC) {
                 int minLength = mDPM.getPasswordMinimumLength(null);
                 if (minLength < MIN_PASSWORD_LENGTH) {
                     minLength = MIN_PASSWORD_LENGTH;
                 }
                 final int maxLength = mDPM.getPasswordMaximumLength(quality);
-                Intent intent = ChooseLockPassword.createIntent(getActivity(), quality, isFallback,
-                        minLength, maxLength, mRequirePassword, false /* confirm credentials */);
+                Intent intent = getLockPasswordIntent(context, quality, isFallback,
+                        isFingerprintFallback, minLength,
+                        maxLength, mRequirePassword,  /* confirm credentials */false);
                 if (isFallback) {
                     startActivityForResult(intent, FALLBACK_REQUEST);
                     return;
@@ -436,8 +533,8 @@ public class ChooseLockGeneric extends SettingsActivity {
                     startActivity(intent);
                 }
             } else if (quality == DevicePolicyManager.PASSWORD_QUALITY_SOMETHING) {
-                Intent intent = ChooseLockPattern.createIntent(getActivity(),
-                        isFallback, mRequirePassword, false /* confirm credentials */);
+                Intent intent = getLockPatternIntent(context, isFallback, isFingerprintFallback,
+                        mRequirePassword, /* confirm credentials */false);
                 if (isFallback) {
                     startActivityForResult(intent, FALLBACK_REQUEST);
                     return;
@@ -446,6 +543,11 @@ public class ChooseLockGeneric extends SettingsActivity {
                     intent.addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
                     startActivity(intent);
                 }
+            } else if (quality == DevicePolicyManager.PASSWORD_QUALITY_BIOMETRIC_WEAK &&
+                    subQuality == LockPatternUtils.BIOMETRIC_WEAK_FINGERPRINT) {
+                Intent intent = getFingerprintIntent(context, true, true, false);
+                mFinishPending = true;
+                startActivity(intent);
             } else if (quality == DevicePolicyManager.PASSWORD_QUALITY_BIOMETRIC_WEAK) {
                 Intent intent = getBiometricSensorIntent();
                 mFinishPending = true;
@@ -465,5 +567,116 @@ public class ChooseLockGeneric extends SettingsActivity {
             return R.string.help_url_choose_lockscreen;
         }
 
+        private int getResIdForFactoryResetProtectionWarningTitle() {
+            switch (mLockPatternUtils.getKeyguardStoredPasswordQuality()) {
+                case DevicePolicyManager.PASSWORD_QUALITY_SOMETHING:
+                    return R.string.unlock_disable_lock_pattern_summary;
+                case DevicePolicyManager.PASSWORD_QUALITY_NUMERIC:
+                case DevicePolicyManager.PASSWORD_QUALITY_NUMERIC_COMPLEX:
+                    return R.string.unlock_disable_lock_pin_summary;
+                case DevicePolicyManager.PASSWORD_QUALITY_ALPHABETIC:
+                case DevicePolicyManager.PASSWORD_QUALITY_ALPHANUMERIC:
+                case DevicePolicyManager.PASSWORD_QUALITY_COMPLEX:
+                    return R.string.unlock_disable_lock_password_summary;
+                default:
+                    return R.string.unlock_disable_lock_unknown_summary;
+            }
+        }
+
+        private boolean isUnlockMethodSecure(String unlockMethod) {
+            return !(KEY_UNLOCK_SET_OFF.equals(unlockMethod) ||
+                    KEY_UNLOCK_SET_NONE.equals(unlockMethod));
+        }
+
+        private boolean setUnlockMethod(String unlockMethod) {
+            EventLog.writeEvent(EventLogTags.LOCK_SCREEN_TYPE, unlockMethod);
+
+            if (KEY_UNLOCK_SET_OFF.equals(unlockMethod)) {
+                updateUnlockMethodAndFinish(
+                        DevicePolicyManager.PASSWORD_QUALITY_UNSPECIFIED, true /* disabled */ );
+            } else if (KEY_UNLOCK_SET_NONE.equals(unlockMethod)) {
+                updateUnlockMethodAndFinish(
+                        DevicePolicyManager.PASSWORD_QUALITY_UNSPECIFIED, false /* disabled */ );
+            } else if (KEY_UNLOCK_SET_BIOMETRIC_WEAK.equals(unlockMethod)) {
+                maybeEnableEncryption(
+                        DevicePolicyManager.PASSWORD_QUALITY_BIOMETRIC_WEAK, false);
+            } else if (KEY_UNLOCK_SET_PATTERN.equals(unlockMethod)) {
+                maybeEnableEncryption(
+                        DevicePolicyManager.PASSWORD_QUALITY_SOMETHING, false);
+            } else if (KEY_UNLOCK_SET_PIN.equals(unlockMethod)) {
+                maybeEnableEncryption(
+                        DevicePolicyManager.PASSWORD_QUALITY_NUMERIC, false);
+            } else if (KEY_UNLOCK_SET_PASSWORD.equals(unlockMethod)) {
+                maybeEnableEncryption(
+                        DevicePolicyManager.PASSWORD_QUALITY_ALPHABETIC, false);
+            } else if (KEY_UNLOCK_SET_FINGERPRINT.equals(unlockMethod)) {
+                updateUnlockMethodAndFinish(DevicePolicyManager.PASSWORD_QUALITY_BIOMETRIC_WEAK,
+                        false, LockPatternUtils.BIOMETRIC_WEAK_FINGERPRINT);
+            } else {
+                Log.e(TAG, "Encountered unknown unlock method to set: " + unlockMethod);
+                return false;
+            }
+            return true;
+        }
+
+        private void showFactoryResetProtectionWarningDialog(String unlockMethodToSet) {
+            int title = getResIdForFactoryResetProtectionWarningTitle();
+            FactoryResetProtectionWarningDialog dialog =
+                    FactoryResetProtectionWarningDialog.newInstance(title, unlockMethodToSet);
+            dialog.show(getChildFragmentManager(), TAG_FRP_WARNING_DIALOG);
+        }
+
+        public static class FactoryResetProtectionWarningDialog extends DialogFragment {
+
+            private static final String ARG_TITLE_RES = "titleRes";
+            private static final String ARG_UNLOCK_METHOD_TO_SET = "unlockMethodToSet";
+
+            public static FactoryResetProtectionWarningDialog newInstance(int title,
+                    String unlockMethodToSet) {
+                FactoryResetProtectionWarningDialog frag =
+                        new FactoryResetProtectionWarningDialog();
+                Bundle args = new Bundle();
+                args.putInt(ARG_TITLE_RES, title);
+                args.putString(ARG_UNLOCK_METHOD_TO_SET, unlockMethodToSet);
+                frag.setArguments(args);
+                return frag;
+            }
+
+            @Override
+            public void show(FragmentManager manager, String tag) {
+                if (manager.findFragmentByTag(tag) == null) {
+                    // Prevent opening multiple dialogs if tapped on button quickly
+                    super.show(manager, tag);
+                }
+            }
+
+            @Override
+            public Dialog onCreateDialog(Bundle savedInstanceState) {
+                final Bundle args = getArguments();
+
+                return new AlertDialog.Builder(getActivity())
+                        .setTitle(args.getInt(ARG_TITLE_RES))
+                        .setMessage(R.string.unlock_disable_frp_warning_content)
+                        .setPositiveButton(R.string.okay,
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int whichButton) {
+                                        ((ChooseLockGenericFragment) getParentFragment())
+                                                .setUnlockMethod(
+                                                        args.getString(ARG_UNLOCK_METHOD_TO_SET));
+                                    }
+                                }
+                        )
+                        .setNegativeButton(R.string.cancel,
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int whichButton) {
+                                        dismiss();
+                                    }
+                                }
+                        )
+                        .create();
+            }
+        }
     }
 }

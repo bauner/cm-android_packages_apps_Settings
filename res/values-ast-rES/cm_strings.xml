@@ -150,15 +150,9 @@
   <string name="sunlight_enhancement_summary">Meyorar el brillu y la llectura de la pantalla baxo la lluz del sol</string>
   <string name="color_enhancement_title">Ameyoramientu de color</string>
   <string name="color_enhancement_summary">Ameyorar dinámicamente el color de la pantalla</string>
-  <string name="app_security_title">Seguridá n\'aplicaciones</string>
-  <string name="blacklist_title">Llista prieta</string>
-  <string name="blacklist_edit_dialog_title">Editar entrada</string>
   <string name="blacklist_prefs">Axustes</string>
   <string name="blacklist_button_delete">Desaniciar</string>
-  <string name="blacklist_empty_text">Nun hai númberos na llista prieta. Amestar una entrada tocando\'l botón (+).</string>
-  <string name="blacklist_disabled_empty_text">Habilita la llista prieta pa poder bloquiar llamaes o mensaxes de determinaos númberos.</string>
   <string name="blacklist_summary_disabled">Deshabilitada</string>
-  <string name="blacklist_summary">Los mensaxes y llamaes entrantes de los númberos de la llista prieta van bloquiase</string>
   <string name="blacklist_notify">Amosar notificación</string>
   <string name="blacklist_private_numbers_title">Númberos privaos</string>
   <string name="blacklist_private_numbers_summary_disabled">Nun bloquiar llamaes de númberos privaos</string>
@@ -173,9 +167,7 @@
   <string name="blacklist_regex_summary">Usar \u00AB.\u00BB como comodín y \u00AB*\u00BB pa repetición. Por exemplu \u00AB123.*\u00BB va bloquiar númberos qu\'entamen por 123 y \u00AB.*123.*\u00BB va bloquiar númberos que contengan 123</string>
   <string name="blacklist_policy_block_calls">Bloquiar llamaes entrantes</string>
   <string name="blacklist_policy_block_messages">Bloquiar mensaxes entrantes</string>
-  <string name="blacklist_bad_number_add">Nun pudo amestase un númberu inválidu a la llista prieta</string>
   <string name="remove_blacklist_number_title">Quitar númberu</string>
-  <string name="remove_blacklist_entry">¿Quitar esta entrada de la llista prieta?</string>
   <string name="select_contact">Seleicionar contautu</string>
   <string name="lockpattern_reset_button">Restaurar el patrón</string>
   <string name="lockpattern_settings_reset_summary">Introduz la cuenta de corréu principal y la contraseña asociada pa restablecer el patrón de bloquéu</string>
@@ -199,7 +191,6 @@
   <string name="display_rotation_270_title">270 graos</string>
   <string name="app_security_title">Seguridá n\'aplicaciones</string>
   <string name="sms_security_check_limit_title">Llende de mensaxes SMS</string>
-  <string name="sms_security_check_limit_summary">Les aplicaciones puen unviar hasta %d mensaxes SMS en 30 minutos enantes de riquir confirmación</string>
   <string name="spam_added_title">Amestáu %1$s</string>
   <string name="spam_last_blocked_title">Cabera bloquiada %1$s</string>
   <string name="block_notifications_title">Filtriar notificaciones</string>
@@ -212,9 +203,7 @@
   <string name="update_recovery_off_warning">AVISU: Cuando esta función está desactivada, el recovery instaláu nun s\'anueva con anovamientos del SO.\n\nVersiones futures del SO podríen non instalase con recoverys non anovaos.\n\n¿Daveres quies deshabilitar esta función?</string>
   <string name="mod_version">Versión CyanogenMod</string>
   <string name="mod_version_default">Desconocida</string>
-  <string name="model_name">Nome del modelu</string>
   <string name="build_date">Data de compilación</string>
-  <string name="contributor_cloud_title">Collaboradores</string>
   <string name="phone_service_state">Voz: <xliff:g id="voice_state">%1$s</xliff:g>, datos: <xliff:g id="data_state">%2$s</xliff:g></string>
   <string name="double_tap_to_wake_title">Doble toque pa esconsoñar</string>
   <string name="proximity_wake_title">Prevenir encendíu accidental</string>
@@ -538,7 +527,6 @@ Calca pa empareyar el preséu Bluetooth enantes de configurar los disparadores.<
   <string name="sim_pin_attempts">\nIntentos restantes:</string>
   <string name="sim_pin_enabled">PIN1 activáu</string>
   <string name="sim_pin_disabled">PIN1 desactiváu</string>
-  <string name="subs_settings">Estáu de tarxeta SIM</string>
   <string name="storage_usb">Almacenamientu USB</string>
   <string name="storage_uicc">Almacenamientu UICC</string>
   <string name="usb_eject" product="default">Desmontar almacenamientu USB</string>
@@ -597,10 +585,6 @@ Calca pa empareyar el preséu Bluetooth enantes de configurar los disparadores.<
   <string name="usb_sdcard_summary">Permítite tresferir ficheros ente\'l to ordenador y la tarxeta SD montándola como preséu flash</string>
   <string name="external_storage_turn_on">L\'almacenamientu esternu activóse</string>
   <string name="external_storage_turn_off">L\'almacenamientu esternu desactivóse</string>
-  <string name="menu_hidden_apps_delete">Reaniciar</string>
-  <string name="menu_hidden_apps_reset_lock">Reanicia\'l patrón de bloquéu</string>
-  <string name="protected_apps">Apps protexíes</string>
-  <string name="saving_protected_components">Guardando l\'estáu del componente\u2026</string>
   <string name="stats_collection_title">Colleición de datos</string>
   <string name="stats_collection_summary">Cuando ta activáu, permite la recoleición de métriques</string>
   <string name="power_notifications_category_title">Cargador</string>
@@ -616,28 +600,13 @@ Calca pa empareyar el preséu Bluetooth enantes de configurar los disparadores.<
   <string name="picker_activities">Actividaes</string>
   <string name="select_custom_app_title">Seleicionar aplicación personalizada</string>
   <string name="select_custom_activity_title">Seleicionar actividá personalizada</string>
-  <string name="performance_settings_title">Rindimientu</string>
-  <string name="io_scheds_title">Planificador de E/S</string>
-  <string name="io_sched_title">Planificador E/S</string>
+  <string name="autoperf_title">Habilitar los perfiles por aplicación</string>
   <string name="pref_force_highend_gfx_title">Forciar los gráficos d\'alta resolución</string>
   <string name="pref_force_highend_gfx_summary">Habilitar los efeutos visuales d\'alta resolución, como la barra d\'estáu/navegación tresparente (necesita reaniciar)</string>
-  <string name="performance_settings_warning_title">Procede con curiáu</string>
-  <string name="performance_settings_warning">Estos axustes incluyéronse a mou d\'esperimentación y cualquier cambéu fechu sobre ellos pue causar inestabilidá, zarru d\'aplicaciones, perda de datos o fallos de hardware.\n\nNun comuniques informes de fallos si camudasti dalgún de los valores definíos por defeutu.</string>
-  <string name="performance_set_on_boot">Afitar al aniciar</string>
-  <string name="performance_set_on_boot_summary">Restaurar la configuración al aniciar el sistema</string>
-  <string name="processor_title">Procesador</string>
-  <string name="cpu_cur_freq_title">Frecuencia actual de la CPU</string>
-  <string name="cpu_governors_title">Patrones CPU</string>
-  <string name="cpu_min_freq_title">Frecuencia mínima de la CPU</string>
-  <string name="cpu_max_freq_title">Frecuencia máxima de la CPU</string>
-  <string name="autoperf_title">Habilitar los perfiles por aplicación</string>
-  <string name="autoperf_summary">Escoyer automáticamente un perfil de rindimientu afayadizu pa delles aplicaciones</string>
-  <string name="graphics_title">Gráficos y renderizáu</string>
   <string name="edge_gesture_service_title">Bloquiar eventos táctiles</string>
   <string name="edge_gesture_service_summary">Nun unviar a les aplicaciones eventos táctiles de la barra d\'estáu y de navegación</string>
   <string name="cmlicense_title">Llicencia CyanogenMod</string>
   <string name="settings_cmlicense_activity_title">Llicencia CyanogenMod</string>
-  <string name="settings_cmlicense_activity_unreachable">Nun hai una conexón de datos disponible. Pa ver esta información agora, introduz la direición %s en cualquier ordenador con accesu a Internet.</string>
   <string name="unlock_quick_unlock_control_title">Desbloquéu rápidu</string>
   <string name="unlock_quick_unlock_control_summary">Desbloquiar automáticamente cuando s\'introduz el PIN/clave correutu</string>
   <string name="unlock_scramble_pin_layout_title">Disposición al debalu</string>

@@ -22,6 +22,13 @@ package com.android.settings;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AppOpsManager;
+import android.accounts.Account;
+import android.accounts.AccountManager;
+import android.accounts.AccountManagerCallback;
+import android.accounts.AccountManagerFuture;
+import android.accounts.AuthenticatorDescription;
+import android.app.AlertDialog;
+import android.app.Fragment;
 import android.app.admin.DevicePolicyManager;
 import android.content.ComponentName;
 import android.content.Context;
@@ -32,6 +39,8 @@ import android.content.pm.ResolveInfo;
 import android.content.pm.UserInfo;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.os.IBinder;
+import android.os.ServiceManager;
 import android.os.UserHandle;
 import android.os.UserManager;
 import android.preference.SwitchPreference;
@@ -46,9 +55,12 @@ import android.provider.Settings.SettingNotFoundException;
 import android.security.KeyStore;
 import android.service.trust.TrustAgentService;
 import android.telephony.TelephonyManager;
+import android.telephony.SubscriptionManager;
+import android.telephony.SubscriptionInfo;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.android.internal.os.IKillSwitchService;
 import com.android.internal.widget.LockPatternUtils;
 import com.android.settings.TrustAgentUtils.TrustAgentComponentInfo;
 import com.android.settings.search.BaseSearchIndexProvider;
@@ -84,17 +96,29 @@ public class SecuritySettings extends SettingsPreferenceFragment
     private static final String KEY_CREDENTIALS_MANAGER = "credentials_management";
     private static final String PACKAGE_MIME_TYPE = "application/vnd.android.package-archive";
     private static final String KEY_SCREEN_PINNING = "screen_pinning_settings";
+
+    // Cyanogen device lock
+    public static final String ACCOUNT_TYPE_CYANOGEN = "com.cyanogen";
+    private static final String EXTRA_CREATE_ACCOUNT = "create-account";
+    private static final String LOCK_TO_CYANOGEN_ACCOUNT = "lock_to_cyanogen_account";
+    private static final String EXTRA_LOGIN_FOR_KILL_SWITCH = "authCks";
+    private static final String EXTRA_CKSOP = "cksOp";
+    private static final int LOCK_REQUEST = 57;
+
+    private SwitchPreference mLockDeviceToCyanogenAccount;
+
     private static final String KEY_SMS_SECURITY_CHECK_PREF = "sms_security_check_limit";
 
     // These switch preferences need special handling since they're not all stored in Settings.
     private static final String SWITCH_PREFERENCE_KEYS[] = { KEY_SHOW_PASSWORD,
-            KEY_TOGGLE_INSTALL_APPLICATIONS };
+            KEY_TOGGLE_INSTALL_APPLICATIONS, LOCK_TO_CYANOGEN_ACCOUNT };
 
     // Only allow one trust agent on the platform.
-    private static final boolean ONLY_ONE_TRUST_AGENT = true;
+    private static final boolean ONLY_ONE_TRUST_AGENT = false;
 
     private PackageManager mPM;
     private DevicePolicyManager mDPM;
+    private SubscriptionManager mSubscriptionManager;
 
     private LockPatternUtils mLockPatternUtils;
 
@@ -114,6 +138,8 @@ public class SecuritySettings extends SettingsPreferenceFragment
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        mSubscriptionManager = SubscriptionManager.from(getActivity());
 
         mLockPatternUtils = new LockPatternUtils(getActivity());
         mDPM = (DevicePolicyManager)getSystemService(Context.DEVICE_POLICY_SERVICE);
@@ -151,29 +177,61 @@ public class SecuritySettings extends SettingsPreferenceFragment
         addPreferencesFromResource(R.xml.security_settings_misc);
         root = getPreferenceScreen();
 
-        TelephonyManager tm = TelephonyManager.getDefault();
-        int numPhones = tm.getPhoneCount();
-        boolean disableLock = true;
-        boolean removeLock = true;
-        for (int i = 0; i < numPhones; i++) {
-            // Do not display SIM lock for devices without an Icc card
-            if (tm.hasIccCard(i)) {
-                // Disable SIM lock if sim card is missing or unknown
-                removeLock = false;
-                if (!((tm.getSimState(i) == TelephonyManager.SIM_STATE_ABSENT)
-                        || (tm.getSimState(i) == TelephonyManager.SIM_STATE_UNKNOWN)
-                        || (tm.getSimState(i) == TelephonyManager.SIM_STATE_CARD_IO_ERROR))) {
-                    disableLock = false;
+        // SIM/RUIM lock
+        Preference iccLock = root.findPreference(KEY_SIM_LOCK_SETTINGS);
+        PreferenceGroup iccLockGroup = (PreferenceGroup) root.findPreference(KEY_SIM_LOCK);
+
+        if (!mIsPrimary) {
+            root.removePreference(iccLockGroup);
+        } else {
+            SubscriptionManager subMgr = SubscriptionManager.from(getActivity());
+            TelephonyManager tm = TelephonyManager.getDefault();
+            int numPhones = tm.getPhoneCount();
+            boolean hasAnySim = false;
+
+            for (int i = 0; i < numPhones; i++) {
+                final Preference pref;
+
+                if (numPhones > 1) {
+                    SubscriptionInfo sir = subMgr.getActiveSubscriptionInfoForSimSlotIndex(i);
+                    if (sir == null) {
+                        continue;
+                    }
+
+                    pref = new Preference(getActivity());
+                    pref.setOrder(iccLock.getOrder());
+                    pref.setTitle(getString(R.string.sim_card_lock_settings_title, i + 1));
+                    pref.setSummary(sir.getDisplayName());
+
+                    Intent intent = new Intent(getActivity(), IccLockSettings.class);
+                    intent.putExtra(IccLockSettings.EXTRA_SUB_ID, sir.getSubscriptionId());
+                    intent.putExtra(IccLockSettings.EXTRA_SUB_DISPLAY_NAME, sir.getDisplayName());
+                    pref.setIntent(intent);
+
+                    iccLockGroup.addPreference(pref);
+                } else {
+                    pref = iccLock;
+                }
+
+                // Do not display SIM lock for devices without an Icc card
+                hasAnySim |= tm.hasIccCard(i);
+
+                int simState = tm.getSimState(i);
+                boolean simPresent = simState != TelephonyManager.SIM_STATE_ABSENT
+                        && simState != TelephonyManager.SIM_STATE_UNKNOWN
+                        && simState != TelephonyManager.SIM_STATE_CARD_IO_ERROR;
+                if (!simPresent) {
+                    pref.setEnabled(false);
                 }
             }
-        }
-        if (!mIsPrimary || removeLock) {
-            root.removePreference(root.findPreference(KEY_SIM_LOCK));
-        } else {
-            if (disableLock) {
-                root.findPreference(KEY_SIM_LOCK).setEnabled(false);
+
+            if (!hasAnySim) {
+                root.removePreference(iccLockGroup);
+            } else if (numPhones > 1) {
+                iccLockGroup.removePreference(iccLock);
             }
         }
+
         if (Settings.System.getInt(getContentResolver(),
                 Settings.System.LOCK_TO_APP_ENABLED, 0) != 0) {
             root.findPreference(KEY_SCREEN_PINNING).setSummary(
@@ -195,23 +253,6 @@ public class SecuritySettings extends SettingsPreferenceFragment
         mShowPassword = (SwitchPreference) root.findPreference(KEY_SHOW_PASSWORD);
         mResetCredentials = root.findPreference(KEY_RESET_CREDENTIALS);
 
-        if (root.findPreference(KEY_SIM_LOCK) != null) {
-            // SIM/RUIM lock
-            Preference iccLock = (Preference) root.findPreference(KEY_SIM_LOCK_SETTINGS);
-
-            Intent intent = new Intent();
-            if (TelephonyManager.getDefault().getPhoneCount() > 1) {
-                intent.setClassName("com.android.settings",
-                        "com.android.settings.SelectSubscription");
-                intent.putExtra(SelectSubscription.PACKAGE, "com.android.settings");
-                intent.putExtra(SelectSubscription.TARGET_CLASS,
-                        "com.android.settings.IccLockSettings");
-            } else {
-                intent.setClassName("com.android.settings", "com.android.settings.IccLockSettings");
-            }
-            iccLock.setIntent(intent);
-        }
-
         // Credential storage
         final UserManager um = (UserManager) getActivity().getSystemService(Context.USER_SERVICE);
         mKeyStore = KeyStore.getInstance(); // needs to be initialized for onResume()
@@ -219,7 +260,8 @@ public class SecuritySettings extends SettingsPreferenceFragment
             Preference credentialStorageType = root.findPreference(KEY_CREDENTIAL_STORAGE_TYPE);
 
             final int storageSummaryRes =
-                mKeyStore.isHardwareBacked() ? R.string.credential_storage_type_hardware
+                mKeyStore != null && mKeyStore.isHardwareBacked()
+                        ? R.string.credential_storage_type_hardware
                         : R.string.credential_storage_type_software;
             credentialStorageType.setSummary(storageSummaryRes);
         } else {
@@ -236,8 +278,18 @@ public class SecuritySettings extends SettingsPreferenceFragment
         mToggleAppInstallation = (SwitchPreference) findPreference(
                 KEY_TOGGLE_INSTALL_APPLICATIONS);
         mToggleAppInstallation.setChecked(isNonMarketAppsAllowed());
+
+        // Cyanogen kill switch
+        mLockDeviceToCyanogenAccount = (SwitchPreference)
+                deviceAdminCategory.findPreference(LOCK_TO_CYANOGEN_ACCOUNT);
+        if (!hasKillSwitch(getActivity())) {
+            deviceAdminCategory.removePreference(mLockDeviceToCyanogenAccount);
+            mLockDeviceToCyanogenAccount = null;
+        }
+
         // Side loading of apps.
-        mToggleAppInstallation.setEnabled(mIsPrimary);
+        // Disable for restricted profiles. For others, check if policy disallows it.
+        mToggleAppInstallation.setEnabled(!um.getUserInfo(UserHandle.myUserId()).isRestricted());
         if (um.hasUserRestriction(UserManager.DISALLOW_INSTALL_UNKNOWN_SOURCES)
                 || um.hasUserRestriction(UserManager.DISALLOW_INSTALL_APPS)) {
             mToggleAppInstallation.setEnabled(false);
@@ -289,6 +341,79 @@ public class SecuritySettings extends SettingsPreferenceFragment
         return result;
     }
 
+    private boolean hasLoggedInCyanogenAccount(Context context) {
+        AccountManager accountManager = (AccountManager)
+                context.getSystemService(Context.ACCOUNT_SERVICE);
+        Account[] accountsByType = accountManager.getAccountsByType(ACCOUNT_TYPE_CYANOGEN);
+        return accountsByType != null && accountsByType.length > 0;
+    }
+
+    public static boolean hasKillSwitch(Context context) {
+        IBinder b = ServiceManager.getService(Context.KILLSWITCH_SERVICE);
+        IKillSwitchService service = IKillSwitchService.Stub.asInterface(b);
+        if (service != null) {
+            try {
+                return service.hasKillSwitch() && hasCyanogenAccountType(context);
+            } catch (Exception e) {
+                // silently fail
+            }
+        }
+        return false;
+    }
+
+    public static boolean hasCyanogenAccountType(Context context) {
+        AccountManager accountManager = (AccountManager)
+                context.getSystemService(Context.ACCOUNT_SERVICE);
+        for (AuthenticatorDescription authenticatorDescription :
+                accountManager.getAuthenticatorTypes()) {
+            if (authenticatorDescription.type.equals(ACCOUNT_TYPE_CYANOGEN)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean isDeviceLocked() {
+        IBinder b = ServiceManager.getService(Context.KILLSWITCH_SERVICE);
+        IKillSwitchService service = IKillSwitchService.Stub.asInterface(b);
+        if (service != null) {
+            try {
+                return service.isDeviceLocked();
+            } catch (Exception e) {
+                // silently fail
+            }
+        }
+        return false;
+    }
+
+    public static void updateCyanogenDeviceLockState(final Fragment fragment,
+                                                     final boolean setCks,
+                                                     final int activityRequestCode) {
+        AccountManager.get(fragment.getActivity()).editProperties(ACCOUNT_TYPE_CYANOGEN, null,
+                new AccountManagerCallback<Bundle>() {
+                    public void run(AccountManagerFuture<Bundle> f) {
+                        try {
+                            Bundle b = f.getResult();
+                            Intent i = b.getParcelable(AccountManager.KEY_INTENT);
+                            i.putExtra(EXTRA_CKSOP, setCks ? 1 : 0);
+                            i.putExtra(EXTRA_LOGIN_FOR_KILL_SWITCH, true);
+                            fragment.startActivityForResult(i, activityRequestCode);
+                        } catch (Throwable t) {
+                            Log.e(TAG, "confirmCredentials failed", t);
+                        }
+                    }
+                }, null);
+    }
+
+
+    private int getNumEnabledNotificationListeners() {
+        final String flat = Settings.Secure.getString(getContentResolver(),
+                Settings.Secure.ENABLED_NOTIFICATION_LISTENERS);
+        if (flat == null || "".equals(flat)) return 0;
+        final String[] components = flat.split(":");
+        return components.length;
+    }
+
     private boolean isNonMarketAppsAllowed() {
         return Settings.Global.getInt(getContentResolver(),
                                       Settings.Global.INSTALL_NON_MARKET_APPS, 0) > 0;
@@ -334,9 +459,17 @@ public class SecuritySettings extends SettingsPreferenceFragment
         }
     }
 
-    private void updateSmsSecuritySummary(int i) {
-        String message = getString(R.string.sms_security_check_limit_summary, i);
+    private void updateSmsSecuritySummary(int selection) {
+        String message = selection > 0
+                ? getString(R.string.sms_security_check_limit_summary, selection)
+                : getString(R.string.sms_security_check_limit_summary_none);
         mSmsSecurityCheck.setSummary(message);
+    }
+
+    private void updateDeviceLockState() {
+        if (mLockDeviceToCyanogenAccount != null) {
+            mLockDeviceToCyanogenAccount.setChecked(isDeviceLocked());
+        }
     }
 
     @Override
@@ -360,6 +493,8 @@ public class SecuritySettings extends SettingsPreferenceFragment
         if (mResetCredentials != null) {
             mResetCredentials.setEnabled(!mKeyStore.isEmpty());
         }
+
+        updateDeviceLockState();
     }
 
     @Override
@@ -380,9 +515,58 @@ public class SecuritySettings extends SettingsPreferenceFragment
             }
         } else if (KEY_SMS_SECURITY_CHECK_PREF.equals(key)) {
             int smsSecurityCheck = Integer.valueOf((String) value);
-            Settings.Secure.putInt(getContentResolver(), Settings.Global.SMS_OUTGOING_CHECK_MAX_COUNT,
+            Settings.Global.putInt(getContentResolver(), Settings.Global.SMS_OUTGOING_CHECK_MAX_COUNT,
                     smsSecurityCheck);
             updateSmsSecuritySummary(smsSecurityCheck);
+        } else if (LOCK_TO_CYANOGEN_ACCOUNT.equals(key)) {
+            if (((Boolean) value)) {
+                // wants to opt in.
+                if (hasLoggedInCyanogenAccount(getActivity())) {
+                    updateCyanogenDeviceLockState(this, true, LOCK_REQUEST);
+                } else {
+                    // no account, need to create one!
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
+                            .setMessage(R.string.lock_to_cyanogen_create_account_msg)
+                            .setPositiveButton(android.R.string.ok,
+                                    new DialogInterface.OnClickListener() {
+                                        @Override
+                                        public void onClick(DialogInterface dialog, int which) {
+                                            // create new account
+                                            AccountManager accountManager = (AccountManager)
+                                                    getActivity()
+                                                        .getSystemService(Context.ACCOUNT_SERVICE);
+                                            Bundle opts = new Bundle();
+                                            opts.putBoolean(EXTRA_CREATE_ACCOUNT, true);
+                                            opts.putInt(EXTRA_CKSOP, 1);
+
+                                            accountManager.addAccount(ACCOUNT_TYPE_CYANOGEN,
+                                                    null, null, opts, getActivity(), null, null);
+                                        }
+                                    });
+                    builder.create().show();
+                }
+            } else {
+                //  opt out
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
+                        .setCancelable(false)
+                        .setMessage(R.string.lock_to_cyanogen_disable_msg)
+                        .setNegativeButton(android.R.string.no,
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        updateDeviceLockState();
+                                    }
+                                })
+                        .setPositiveButton(android.R.string.yes,
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        updateCyanogenDeviceLockState(SecuritySettings.this,
+                                                false, LOCK_REQUEST);
+                                    }
+                                });
+                builder.create().show();
+            }
         }
         return result;
     }

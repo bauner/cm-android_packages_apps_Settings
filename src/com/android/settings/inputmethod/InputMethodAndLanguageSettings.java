@@ -24,20 +24,14 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.content.pm.ServiceInfo;
 import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.database.ContentObserver;
-import android.hardware.CmHardwareManager;
 import android.hardware.input.InputDeviceIdentifier;
 import android.hardware.input.InputManager;
 import android.hardware.input.KeyboardLayout;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.UserHandle;
-import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
@@ -47,7 +41,6 @@ import android.preference.PreferenceScreen;
 import android.preference.SwitchPreference;
 import android.provider.Settings;
 import android.provider.Settings.System;
-import android.speech.RecognitionService;
 import android.speech.tts.TtsEngines;
 import android.text.TextUtils;
 import android.util.Log;
@@ -70,6 +63,8 @@ import com.android.settings.VoiceInputOutputSettings;
 import com.android.settings.search.BaseSearchIndexProvider;
 import com.android.settings.search.Indexable;
 import com.android.settings.search.SearchIndexableRaw;
+
+import cyanogenmod.hardware.CMHardwareManager;
 
 import java.text.Collator;
 import java.util.ArrayList;
@@ -108,6 +103,14 @@ public class InputMethodAndLanguageSettings extends SettingsPreferenceFragment
     // false: on ICS or later
     private static final boolean SHOW_INPUT_METHOD_SWITCHER_SETTINGS = false;
 
+    private static final String[] sSystemSettingNames = {
+        System.TEXT_AUTO_REPLACE, System.TEXT_AUTO_CAPS, System.TEXT_AUTO_PUNCTUATE,
+    };
+
+    private static final String[] sHardKeyboardKeys = {
+        "auto_replace", "auto_caps", "auto_punctuate",
+    };
+
     private int mDefaultInputMethodSelectorVisibility = 0;
     private ListPreference mShowInputMethodSelectorPref;
     private SwitchPreference mStylusIconEnabled;
@@ -128,7 +131,7 @@ public class InputMethodAndLanguageSettings extends SettingsPreferenceFragment
     private Intent mIntentWaitingForResult;
     private InputMethodSettingValuesWrapper mInputMethodSettingValues;
     private DevicePolicyManager mDpm;
-    private CmHardwareManager mCmHardwareManager;
+    private CMHardwareManager mHardware;
 
     @Override
     public void onCreate(Bundle icicle) {
@@ -140,7 +143,7 @@ public class InputMethodAndLanguageSettings extends SettingsPreferenceFragment
         mImm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         mInputMethodSettingValues = InputMethodSettingValuesWrapper.getInstance(activity);
 
-        mCmHardwareManager = (CmHardwareManager) getSystemService(Context.CMHW_SERVICE);
+        mHardware = CMHardwareManager.getInstance(activity);
 
         try {
             mDefaultInputMethodSelectorVisibility = Integer.valueOf(
@@ -204,21 +207,21 @@ public class InputMethodAndLanguageSettings extends SettingsPreferenceFragment
                 pointerSettingsCategory.removePreference(mStylusIconEnabled);
             }
 
-            if (!mCmHardwareManager.isSupported(
-                    CmHardwareManager.FEATURE_HIGH_TOUCH_SENSITIVITY)) {
+            if (!mHardware.isSupported(
+                    CMHardwareManager.FEATURE_HIGH_TOUCH_SENSITIVITY)) {
                 pointerSettingsCategory.removePreference(mHighTouchSensitivity);
                 mHighTouchSensitivity = null;
             } else {
                 mHighTouchSensitivity.setChecked(
-                        mCmHardwareManager.get(CmHardwareManager.FEATURE_HIGH_TOUCH_SENSITIVITY));
+                        mHardware.get(CMHardwareManager.FEATURE_HIGH_TOUCH_SENSITIVITY));
             }
 
-            if (!mCmHardwareManager.isSupported(CmHardwareManager.FEATURE_TOUCH_HOVERING)) {
+            if (!mHardware.isSupported(CMHardwareManager.FEATURE_TOUCH_HOVERING)) {
                 pointerSettingsCategory.removePreference(mTouchscreenHovering);
                 mTouchscreenHovering = null;
             } else {
                 mTouchscreenHovering.setChecked(
-                        mCmHardwareManager.get(CmHardwareManager.FEATURE_TOUCH_HOVERING));
+                        mHardware.get(CMHardwareManager.FEATURE_TOUCH_HOVERING));
             }
 
             Utils.updatePreferenceToSpecificActivityFromMetaDataOrRemove(getActivity(),
@@ -365,6 +368,16 @@ public class InputMethodAndLanguageSettings extends SettingsPreferenceFragment
             }
         }
 
+        // Hard keyboard
+        if (!mHardKeyboardPreferenceList.isEmpty()) {
+            for (int i = 0; i < sHardKeyboardKeys.length; ++i) {
+                SwitchPreference swPref = (SwitchPreference)
+                        mHardKeyboardCategory.findPreference(sHardKeyboardKeys[i]);
+                swPref.setChecked(
+                        System.getInt(getContentResolver(), sSystemSettingNames[i], 1) > 0);
+            }
+        }
+
         updateInputDevices();
 
         // Refresh internal states in mInputMethodSettingValues to keep the latest
@@ -413,6 +426,12 @@ public class InputMethodAndLanguageSettings extends SettingsPreferenceFragment
         if (preference == mStylusIconEnabled) {
             Settings.System.putInt(getActivity().getContentResolver(),
                 Settings.System.STYLUS_ICON_ENABLED, mStylusIconEnabled.isChecked() ? 1 : 0);
+        } else if (preference == mHighTouchSensitivity) {
+            return mHardware.set(CMHardwareManager.FEATURE_HIGH_TOUCH_SENSITIVITY,
+                    mHighTouchSensitivity.isChecked());
+        } else if (preference == mTouchscreenHovering) {
+            return mHardware.set(CMHardwareManager.FEATURE_TOUCH_HOVERING,
+                    mTouchscreenHovering.isChecked());
         } else if (preference instanceof PreferenceScreen) {
             if (preference.getFragment() != null) {
                 // Fragment will be handled correctly by the super class.
@@ -421,19 +440,22 @@ public class InputMethodAndLanguageSettings extends SettingsPreferenceFragment
                         getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.showInputMethodPicker();
             }
-        } else if (preference instanceof CheckBoxPreference) {
-            final CheckBoxPreference chkPref = (CheckBoxPreference) preference;
-            if (chkPref == mGameControllerCategory.findPreference("vibrate_input_devices")) {
+        } else if (preference instanceof SwitchPreference) {
+            final SwitchPreference pref = (SwitchPreference) preference;
+            if (pref == mGameControllerCategory.findPreference("vibrate_input_devices")) {
                 System.putInt(getContentResolver(), Settings.System.VIBRATE_INPUT_DEVICES,
-                        chkPref.isChecked() ? 1 : 0);
+                        pref.isChecked() ? 1 : 0);
                 return true;
             }
-        } else if (preference == mHighTouchSensitivity) {
-            return mCmHardwareManager.set(CmHardwareManager.FEATURE_HIGH_TOUCH_SENSITIVITY,
-                    mHighTouchSensitivity.isChecked());
-        } else if (preference == mTouchscreenHovering) {
-            return mCmHardwareManager.set(CmHardwareManager.FEATURE_TOUCH_HOVERING,
-                    mTouchscreenHovering.isChecked());
+            if (!mHardKeyboardPreferenceList.isEmpty()) {
+                for (int i = 0; i < sHardKeyboardKeys.length; ++i) {
+                    if (pref == mHardKeyboardCategory.findPreference(sHardKeyboardKeys[i])) {
+                        System.putInt(getContentResolver(), sSystemSettingNames[i],
+                                pref.isChecked() ? 1 : 0);
+                        return true;
+                    }
+                }
+            }
         }
         return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
@@ -702,9 +724,9 @@ public class InputMethodAndLanguageSettings extends SettingsPreferenceFragment
         if (haveInputDeviceWithVibrator()) {
             getPreferenceScreen().addPreference(mGameControllerCategory);
 
-            CheckBoxPreference chkPref = (CheckBoxPreference)
+            SwitchPreference pref = (SwitchPreference)
                     mGameControllerCategory.findPreference("vibrate_input_devices");
-            chkPref.setChecked(System.getInt(getContentResolver(),
+            pref.setChecked(System.getInt(getContentResolver(),
                     Settings.System.VIBRATE_INPUT_DEVICES, 1) > 0);
         } else {
             getPreferenceScreen().removePreference(mGameControllerCategory);
@@ -749,22 +771,21 @@ public class InputMethodAndLanguageSettings extends SettingsPreferenceFragment
 
     public static void restore(Context context) {
         final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        final CmHardwareManager cmHardwareManager =
-                (CmHardwareManager) context.getSystemService(Context.CMHW_SERVICE);
-        if (cmHardwareManager.isSupported(CmHardwareManager.FEATURE_HIGH_TOUCH_SENSITIVITY)) {
+        final CMHardwareManager hardware = CMHardwareManager.getInstance(context);
+        if (hardware.isSupported(CMHardwareManager.FEATURE_HIGH_TOUCH_SENSITIVITY)) {
             final boolean enabled = prefs.getBoolean(KEY_HIGH_TOUCH_SENSITIVITY,
-                    cmHardwareManager.get(CmHardwareManager.FEATURE_HIGH_TOUCH_SENSITIVITY));
-            if (!cmHardwareManager.set(CmHardwareManager.FEATURE_HIGH_TOUCH_SENSITIVITY,
+                    hardware.get(CMHardwareManager.FEATURE_HIGH_TOUCH_SENSITIVITY));
+            if (!hardware.set(CMHardwareManager.FEATURE_HIGH_TOUCH_SENSITIVITY,
                     enabled)) {
                 Log.e(TAG, "Failed to restore high touch sensitivity settings.");
             } else {
                 Log.d(TAG, "High touch sensitivity settings restored.");
             }
         }
-        if (cmHardwareManager.isSupported(CmHardwareManager.FEATURE_TOUCH_HOVERING)) {
+        if (hardware.isSupported(CMHardwareManager.FEATURE_TOUCH_HOVERING)) {
             final boolean enabled = prefs.getBoolean(KEY_TOUCHSCREEN_HOVERING,
-                    cmHardwareManager.get(CmHardwareManager.FEATURE_TOUCH_HOVERING));
-            if (!cmHardwareManager.set(CmHardwareManager.FEATURE_TOUCH_HOVERING, enabled)) {
+                    hardware.get(CMHardwareManager.FEATURE_TOUCH_HOVERING));
+            if (!hardware.set(CMHardwareManager.FEATURE_TOUCH_HOVERING, enabled)) {
                 Log.e(TAG, "Failed to restore touch hovering settings.");
             } else {
                 Log.d(TAG, "Touch hovering settings restored.");
@@ -797,6 +818,7 @@ public class InputMethodAndLanguageSettings extends SettingsPreferenceFragment
             indexable.key = KEY_SPELL_CHECKERS;
             indexable.title = context.getString(R.string.spellcheckers_settings_title);
             indexable.screenTitle = screenTitle;
+            indexable.keywords = context.getString(R.string.keywords_spell_checker);
             indexables.add(indexable);
 
             // User dictionary.
@@ -813,6 +835,7 @@ public class InputMethodAndLanguageSettings extends SettingsPreferenceFragment
             indexable.key = "keyboard_settings";
             indexable.title = context.getString(R.string.keyboard_settings_category);
             indexable.screenTitle = screenTitle;
+            indexable.keywords = context.getString(R.string.keywords_keyboard_and_ime);
             indexables.add(indexable);
 
             InputMethodSettingValuesWrapper immValues = InputMethodSettingValuesWrapper
@@ -911,6 +934,33 @@ public class InputMethodAndLanguageSettings extends SettingsPreferenceFragment
                         R.string.builtin_keyboard_settings_title);
                 indexable.screenTitle = screenTitle;
                 indexables.add(indexable);
+
+                // Auto replace.
+                indexable = new SearchIndexableRaw(context);
+                indexable.key = "auto_replace";
+                indexable.title = context.getString(R.string.auto_replace);
+                indexable.summaryOn = context.getString(R.string.auto_replace_summary);
+                indexable.summaryOff = context.getString(R.string.auto_replace_summary);
+                indexable.screenTitle = screenTitle;
+                indexables.add(indexable);
+
+                // Auto caps.
+                indexable = new SearchIndexableRaw(context);
+                indexable.key = "auto_caps";
+                indexable.title = context.getString(R.string.auto_caps);
+                indexable.summaryOn = context.getString(R.string.auto_caps_summary);
+                indexable.summaryOff = context.getString(R.string.auto_caps_summary);
+                indexable.screenTitle = screenTitle;
+                indexables.add(indexable);
+
+                // Auto punctuate.
+                indexable = new SearchIndexableRaw(context);
+                indexable.key = "auto_punctuate";
+                indexable.title = context.getString(R.string.auto_punctuate);
+                indexable.summaryOn = context.getString(R.string.auto_punctuate_summary);
+                indexable.summaryOff = context.getString(R.string.auto_punctuate_summary);
+                indexable.screenTitle = screenTitle;
+                indexables.add(indexable);
             }
 
             // Voice input
@@ -918,6 +968,7 @@ public class InputMethodAndLanguageSettings extends SettingsPreferenceFragment
             indexable.key = "voice_input_settings";
             indexable.title = context.getString(R.string.voice_input_settings);
             indexable.screenTitle = screenTitle;
+            indexable.keywords = context.getString(R.string.keywords_voice_input);
             indexables.add(indexable);
 
             // Text-to-speech.
@@ -927,6 +978,7 @@ public class InputMethodAndLanguageSettings extends SettingsPreferenceFragment
                 indexable.key = "tts_settings";
                 indexable.title = context.getString(R.string.tts_settings_title);
                 indexable.screenTitle = screenTitle;
+                indexable.keywords = context.getString(R.string.keywords_text_to_speech_output);
                 indexables.add(indexable);
             }
 

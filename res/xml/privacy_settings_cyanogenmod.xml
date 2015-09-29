@@ -15,7 +15,7 @@
      limitations under the License.
 -->
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
-        android:title="@string/privacy_settings_title">
+        android:title="@string/privacy_settings_cyanogenmod_title">
 
         <Preference
             android:key="privacy_guard_manager"
@@ -29,12 +29,6 @@
             android:summary="@string/blacklist_summary"
             android:fragment="com.android.settings.blacklist.BlacklistSettings" />
 
-        <com.android.settings.cyanogenmod.SecureSettingSwitchPreference
-            android:key="stats_collection"
-            android:title="@string/stats_collection_title"
-            android:summary="@string/stats_collection_summary"
-            android:defaultValue="true" />
-
         <Preference
             android:key="whisperpush"
             android:title="@string/whisperpush_title"
@@ -43,4 +37,11 @@
                     android:targetClass="org.whispersystems.whisperpush.ui.PreferenceActivity" />
         </Preference>
 
+        <!-- Anonymous statistics - (CMStats) -->
+        <PreferenceScreen
+            android:key="cmstats"
+            android:title="@string/anonymous_statistics_title"
+            android:summary="@string/anonymous_statistics_summary"
+            android:fragment="com.android.settings.cmstats.AnonymousStats" >
+        </PreferenceScreen>
 </PreferenceScreen>

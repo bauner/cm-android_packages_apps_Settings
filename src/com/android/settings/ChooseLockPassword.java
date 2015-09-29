@@ -24,14 +24,12 @@ import com.android.settings.notification.RedactionInterstitial;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.admin.DevicePolicyManager;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.inputmethodservice.KeyboardView;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.provider.Settings;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.Selection;
@@ -61,11 +59,12 @@ public class ChooseLockPassword extends SettingsActivity {
     @Override
     public Intent getIntent() {
         Intent modIntent = new Intent(super.getIntent());
-        modIntent.putExtra(EXTRA_SHOW_FRAGMENT, ChooseLockPasswordFragment.class.getName());
+        modIntent.putExtra(EXTRA_SHOW_FRAGMENT, getFragmentClass().getName());
         return modIntent;
     }
 
     public static Intent createIntent(Context context, int quality, final boolean isFallback,
+            final boolean isFingerprintFallback,
             int minLength, final int maxLength, boolean requirePasswordToDecrypt,
             boolean confirmCredentials) {
         Intent intent = new Intent().setClass(context, ChooseLockPassword.class);
@@ -74,6 +73,7 @@ public class ChooseLockPassword extends SettingsActivity {
         intent.putExtra(PASSWORD_MAX_KEY, maxLength);
         intent.putExtra(ChooseLockGeneric.CONFIRM_CREDENTIALS, confirmCredentials);
         intent.putExtra(LockPatternUtils.LOCKSCREEN_BIOMETRIC_WEAK_FALLBACK, isFallback);
+        intent.putExtra(LockPatternUtils.LOCKSCREEN_FINGERPRINT_FALLBACK, isFingerprintFallback);
         intent.putExtra(EncryptionInterstitial.EXTRA_REQUIRE_PASSWORD, requirePasswordToDecrypt);
         return intent;
     }
@@ -82,6 +82,10 @@ public class ChooseLockPassword extends SettingsActivity {
     protected boolean isValidFragment(String fragmentName) {
         if (ChooseLockPasswordFragment.class.getName().equals(fragmentName)) return true;
         return false;
+    }
+
+    /* package */ Class<? extends Fragment> getFragmentClass() {
+        return ChooseLockPasswordFragment.class;
     }
 
     @Override
@@ -120,7 +124,7 @@ public class ChooseLockPassword extends SettingsActivity {
         private boolean mIsAlphaMode;
         private Button mCancelButton;
         private Button mNextButton;
-        private static final int CONFIRM_EXISTING_REQUEST = 58;
+        protected static final int CONFIRM_EXISTING_REQUEST = 58;
         static final int RESULT_FINISHED = RESULT_FIRST_USER;
         private static final long ERROR_MESSAGE_TIMEOUT = 3000;
         private static final int MSG_SHOW_ERROR = 1;
@@ -200,8 +204,12 @@ public class ChooseLockPassword extends SettingsActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                 Bundle savedInstanceState) {
+            return inflater.inflate(R.layout.choose_lock_password, container, false);
+        }
 
-            View view = inflater.inflate(R.layout.choose_lock_password, null);
+        @Override
+        public void onViewCreated(View view, Bundle savedInstanceState) {
+            super.onViewCreated(view, savedInstanceState);
 
             mCancelButton = (Button) view.findViewById(R.id.cancel_button);
             mCancelButton.setOnClickListener(this);
@@ -254,8 +262,6 @@ public class ChooseLockPassword extends SettingsActivity {
                 CharSequence title = getText(id);
                 sa.setTitle(title);
             }
-
-            return view;
         }
 
         @Override
@@ -291,6 +297,10 @@ public class ChooseLockPassword extends SettingsActivity {
                     }
                     break;
             }
+        }
+
+        protected Intent getRedactionInterstitialIntent(Context context) {
+            return RedactionInterstitial.createStartIntent(context);
         }
 
         protected void updateStage(Stage stage) {
@@ -406,7 +416,7 @@ public class ChooseLockPassword extends SettingsActivity {
             return null;
         }
 
-        private void handleNext() {
+        public void handleNext() {
             if (mDone) return;
 
             final String pin = mPasswordEntry.getText().toString();
@@ -425,15 +435,22 @@ public class ChooseLockPassword extends SettingsActivity {
                 if (mFirstPin.equals(pin)) {
                     final boolean isFallback = getActivity().getIntent().getBooleanExtra(
                             LockPatternUtils.LOCKSCREEN_BIOMETRIC_WEAK_FALLBACK, false);
+                    final boolean isFingerprintFallback = getActivity().getIntent().getBooleanExtra(
+                            LockPatternUtils.LOCKSCREEN_FINGERPRINT_FALLBACK, false);
+
+                    boolean wasSecureBefore = mLockPatternUtils.isSecure();
                     mLockPatternUtils.clearLock(isFallback);
                     final boolean required = getActivity().getIntent().getBooleanExtra(
                             EncryptionInterstitial.EXTRA_REQUIRE_PASSWORD, true);
                     mLockPatternUtils.setCredentialRequiredToDecrypt(required);
-                    mLockPatternUtils.saveLockPassword(pin, mRequestedQuality, isFallback);
+                    mLockPatternUtils.saveLockPassword(pin, mRequestedQuality, isFallback,
+                            isFingerprintFallback);
                     getActivity().setResult(RESULT_FINISHED);
                     getActivity().finish();
                     mDone = true;
-                    startActivity(RedactionInterstitial.createStartIntent(getActivity()));
+                    if (!wasSecureBefore) {
+                        startActivity(getRedactionInterstitialIntent(getActivity()));
+                    }
                 } else {
                     CharSequence tmp = mPasswordEntry.getText();
                     if (tmp != null) {
@@ -445,6 +462,14 @@ public class ChooseLockPassword extends SettingsActivity {
             if (errorMsg != null) {
                 showError(errorMsg, mUiStage);
             }
+        }
+
+        protected void setNextEnabled(boolean enabled) {
+            mNextButton.setEnabled(enabled);
+        }
+
+        protected void setNextText(int text) {
+            mNextButton.setText(text);
         }
 
         public void onClick(View v) {
@@ -489,22 +514,22 @@ public class ChooseLockPassword extends SettingsActivity {
                     String msg = getString(mIsAlphaMode ? R.string.lockpassword_password_too_short
                             : R.string.lockpassword_pin_too_short, mPasswordMinLength);
                     mHeaderText.setText(msg);
-                    mNextButton.setEnabled(false);
+                    setNextEnabled(false);
                 } else {
                     String error = validatePassword(password);
                     if (error != null) {
                         mHeaderText.setText(error);
-                        mNextButton.setEnabled(false);
+                        setNextEnabled(false);
                     } else {
                         mHeaderText.setText(R.string.lockpassword_press_continue);
-                        mNextButton.setEnabled(true);
+                        setNextEnabled(true);
                     }
                 }
             } else {
                 mHeaderText.setText(mIsAlphaMode ? mUiStage.alphaHint : mUiStage.numericHint);
-                mNextButton.setEnabled(length > 0);
+                setNextEnabled(length > 0);
             }
-            mNextButton.setText(mUiStage.buttonText);
+            setNextText(mUiStage.buttonText);
         }
 
         public void afterTextChanged(Editable s) {

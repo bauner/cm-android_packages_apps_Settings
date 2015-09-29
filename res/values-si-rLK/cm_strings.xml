@@ -122,13 +122,8 @@
   <string name="sunlight_enhancement_summary">දීප්තිමත් හිරු එළියේදී සංදර්ශක දීප්තිය සහ කියවීමේ හැකියාව වැඩි කරන්න</string>
   <string name="color_enhancement_title">පාට වැඩිදියුණු කිරීම</string>
   <string name="color_enhancement_summary">සංදර්ශකයේ පාට ක්‍රියාශීලීව වැඩිදියුණු කරන්න</string>
-  <string name="app_security_title">යෙදුම් ආරක්ෂාව</string>
-  <string name="blacklist_title">අපලේඛණය</string>
-  <string name="blacklist_edit_dialog_title">අපලේඛණ පිවිසුම සකසන්න</string>
   <string name="blacklist_prefs">සැකසීම්</string>
   <string name="blacklist_button_delete">මකන්න</string>
-  <string name="blacklist_empty_text">ඔබ සතුව අපලේඛනගත අංක කිසිවක් නැත. එක් කරන්න (+) බොත්තම ස්පර්ශකර පිවිසුමක් එක් කරන්න.</string>
-  <string name="blacklist_disabled_empty_text">නියමිත අංක සඳහා ඇමතුම් සහ/හෝ පනිවිඩ අපලේඛණය කිරීමට, අපලේඛණය සක්‍රීය කරන්න.</string>
   <string name="blacklist_summary_disabled">අබලයි</string>
   <string name="blacklist_notify">දැනුම්දීම් පෙන්වන්න</string>
   <string name="blacklist_private_numbers_title">පුද්ගලික අංක</string>
@@ -144,9 +139,7 @@
   <string name="blacklist_regex_summary">ආදේශකයක් ලෙස . සහ ප්‍රාසය සඳහා * භාවිතාකරන්න. උදා. 123.* 123 න් ඇරඹෙන අංක අවහිර කරන අතර .*123.* 123 ඇතුළත් වෙන අංක අවහිර කරයි</string>
   <string name="blacklist_policy_block_calls">පැමිණෙන ඇමතුම් අවහිර කරන්න</string>
   <string name="blacklist_policy_block_messages">පැමිණෙන පණිවිඩ අවහිර කරන්න</string>
-  <string name="blacklist_bad_number_add">අවලංගු අංකය අපලේඛණයට එක් කල නොහැක</string>
   <string name="remove_blacklist_number_title">අංකයක් ඉවත්කරන්න</string>
-  <string name="remove_blacklist_entry">ඔබට මෙම අපලේඛණ සටහන ඉවත්කිරීමට අවශ්‍යද?</string>
   <string name="select_contact">සම්බන්ධතාවක් තෝරන්න</string>
   <string name="lockpattern_reset_button">රටාව යළි පිහිටුවන්න</string>
   <string name="lockpattern_settings_reset_summary">රටාව අගුල යළි පිහිටුවීමට මූලික ඊ-තැපැල් ගිණුම සහ ආශ්‍රිත මුරපදය ඇතුල් කරන්න</string>
@@ -170,14 +163,12 @@
   <string name="display_rotation_270_title">අංශක 270</string>
   <string name="app_security_title">යෙදුම් ආරක්ෂාව</string>
   <string name="sms_security_check_limit_title">කෙටි පණිවිඩ සීමාව</string>
-  <string name="sms_security_check_limit_summary">තහවුරු කිරීම අවශ්‍යවීමට පෙර මිනිත්තු 30 තුල පණිවිඩ %d ක් යැවීමට යෙදුම් වෙත හැකියාව ඇත</string>
   <string name="block_notifications_title">දැනුම්දීම් පෙරන්න</string>
   <string name="block_notifications_summary">නොසලකා හැරූ දැනුම්දීම් සහ පෙරහන් හසුරුවන්න</string>
   <string name="cmupdate_settings_title">CyanogenMod යාවත්කාලීනයන්</string>
   <string name="mod_version">CyanogenMod අනුවාදය</string>
   <string name="mod_version_default">නොදනී</string>
   <string name="build_date">නිමැවූ දිනය</string>
-  <string name="contributor_cloud_title">ආධාරකරුවන්</string>
   <string name="double_tap_to_wake_title">ඇහැරවීමට දෙවරක් තට්ටු කරන්න</string>
   <string name="proximity_wake_title">අහඹු අවදි වීම් වළක්වන්න</string>
   <string name="proximity_wake_summary">තිරය අවදි කිරීමට පෙර සන්නිකර්ෂණ සංවේදකය පරීක්ෂා කරන්න</string>
@@ -401,16 +392,11 @@
   <string name="bluetooth_dun_profile_summary_use_for">ඩයලිත ජාල ප්‍රවේශය සඳහා භාවිතා කරන්න</string>
   <string name="bluetooth_sap_profile_summary_use_for">SIM ප්‍රවේශය සඳහා භාවිතා කරන්න</string>
   <string name="bluetooth_accept_all_files">සියලුම ගොනු වර්ග පිළිගන්න</string>
-  <string name="subs_settings">සිම් කාඩ්පතේ තත්වය</string>
   <string name="usb_unmount_inform_text" product="default">USB ආචයනය අනාරූඩ වනු ඇත.</string>
   <string name="usb_media_format_button_text" product="default">USB ආචයනය මකන්න</string>
   <string name="usb_media_format_final_desc" product="default">USB ආචයනයෙහි ආචයිත සියලුම ගොනු විනාශ කර එය මකාදමන්ද? ඔබට මෙම ක්‍රියාව ප්‍රතිවර්ත කල නොහැක!</string>
   <string name="usb_media_format_gesture_explanation" product="default">ඔබට USB ආචයනය මකාදැමීමට අවශ්‍ය බව තහවුරු කිරීම සඳහා, ඔබගේ අගුළු ඇරීමේ රටාව ඇඳීමට ඔබට සිදුවේ.</string>
   <string name="enable_quickboot_title">ඉක්මන් ඇරඹුම් ප්‍රකාරය සබල කරන්න</string>
-  <string name="menu_hidden_apps_delete">යලි පිහිටුවන්න</string>
-  <string name="menu_hidden_apps_reset_lock">රටාව අගුල යළි පිහිටුවන්න</string>
-  <string name="protected_apps">ආරක්ෂිත යෙදුම්</string>
-  <string name="saving_protected_components">සංරචකයේ තත්වය සුරකිමින්\u2026</string>
   <string name="power_notifications_category_title">ආරෝපණ ශබ්ද</string>
   <string name="power_notifications_enable_title">සබලයි</string>
   <string name="power_notifications_enable_summary">බල මූලාශ්‍රය සම්බන්ධ කිරීමේදී හෝ විසන්ධි කිරීමේදී ශබ්දයක් ධාවනය කරන්න</string>
@@ -424,27 +410,13 @@
   <string name="picker_activities">ක්‍රියාකාරකම්</string>
   <string name="select_custom_app_title">රිසිකළ යෙදුමක් තෝරන්න</string>
   <string name="select_custom_activity_title">රිසිකළ ක්‍රියාවක් තෝරන්න</string>
-  <string name="performance_settings_title">ක්‍රියාකාරීත්වය</string>
-  <string name="io_scheds_title">I/O නියමාකාරකය</string>
-  <string name="io_sched_title">I/O නියමාකාරකය</string>
+  <string name="autoperf_title">යෙදුම් පැතිකඩ සබල කරන්න</string>
   <string name="pref_force_highend_gfx_title">උසස් නිමාවැති චිත්‍රක බල කරන්න</string>
   <string name="pref_force_highend_gfx_summary">පාරදෘශ්‍ය තත්ව/සංචාලන තීරු වැනි උසස් නිමාවැති දෘශ්‍ය ආටෝප සබල කරන්න (නැවත පණගැන්වීමට අවශ්‍යයි)</string>
-  <string name="performance_settings_warning_title">අවදානම අනුදැන ඉදිරියට යන්න</string>
-  <string name="performance_settings_warning">මෙම සැකසීම් පරීක්ෂණාත්මකය, එබැවින් අස්ථායිතා , බිඳ වැටීම්, දත්ත නැතිවීම් හෝ දෘඩාංග ඇනහිටීම් ඇතිකිරීමේ හැකියාව යොදාගන්නා සෑම වෙනසකම ඇත.\n\nකිසියම් හෝ සැකසීමක් ඒවායේ පෙරනිමියෙන් වෙනස් කර ඇත්නම් දෝෂ වාර්තා ගොනු නොකරන මෙන් අපි ඔබෙන් ඉල්ලා සිටිමු.</string>
-  <string name="performance_set_on_boot">ඇරඹීමේදී සකසන්න</string>
-  <string name="processor_title">සකසනය</string>
-  <string name="cpu_cur_freq_title">පවත්නා CPU සංඛ්‍යාතය</string>
-  <string name="cpu_governors_title">CPU අධිපතියා</string>
-  <string name="cpu_min_freq_title">අවම CPU සංඛ්‍යාතය</string>
-  <string name="cpu_max_freq_title">උපරිම CPU සංඛ්‍යාතය</string>
-  <string name="autoperf_title">යෙදුම් පැතිකඩ සබල කරන්න</string>
-  <string name="autoperf_summary">විවිධ යෙදුම් සඳහා ඔබින ක්‍රියාකාරී පැතිකඩ ස්වයංක්‍රීයව තෝරන්න</string>
-  <string name="graphics_title">චිත්‍රක සහ විදැහුම</string>
   <string name="edge_gesture_service_title">අභින ස්පර්ශ සිදුවීම් අවහිර කරන්න</string>
   <string name="edge_gesture_service_summary">සංචාලන සහ තත්ව තීරු අභින අතරතුර යෙදුම් වෙත ස්පර්ශ සිදුවීම් නොයවන්න</string>
   <string name="cmlicense_title">CyanogenMod නීතිමය තොරතුරු</string>
   <string name="settings_cmlicense_activity_title">CyanogenMod නීතිමය තොරතුරු</string>
-  <string name="settings_cmlicense_activity_unreachable">ඔබට දත්ත සම්බන්ධතාවක් නොමැත. මෙම තොරතුර දැන් බැලීමට, අන්තර්ජාලයට සම්බන්ධිත ඕනෑම පරිගණකයකින් %s වෙත පිවිසෙන්න.</string>
   <string name="unlock_quick_unlock_control_title">ඉක්මන් අගුළු ඇරීම</string>
   <string name="unlock_quick_unlock_control_summary">නිවැරදි PIN හෝ මුරපදය ඇතුලත් කලවිට ස්වයංක්‍රීයව අගුළු අරින්න</string>
   <string name="unlock_scramble_pin_layout_title">සැලැස්ම පටලවන්න</string>

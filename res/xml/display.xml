@@ -84,11 +84,10 @@
                 android:defaultValue="true" />
 
         <!-- Prevent accidental wake-up -->
-        <com.android.settings.cyanogenmod.SystemSettingSwitchPreference
+        <SwitchPreference
                 android:key="proximity_on_wake"
                 android:title="@string/proximity_wake_title"
                 android:summary="@string/proximity_wake_summary"
-                android:defaultValue="true"
                 settings:advanced="true"/>
 
         <!-- Seconds before sleep -->
@@ -107,6 +106,12 @@
                 android:summary="@string/wake_when_plugged_or_unplugged_summary"
                 android:defaultValue="false"
                 settings:advanced="true"/>
+
+        <ListPreference
+                android:key="lcd_density"
+                android:title="@string/lcd_density"
+                android:persistent="false"
+                settings:advanced="true" />
 
         <!-- Cast screen -->
         <PreferenceScreen

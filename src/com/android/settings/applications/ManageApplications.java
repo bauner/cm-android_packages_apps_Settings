@@ -100,20 +100,23 @@ final class CanBeOnSdCardChecker {
         }
     }
     
-    boolean check(ApplicationInfo info) {
+    boolean check(PackageInfo info) {
         boolean canBe = false;
-        if ((info.flags & ApplicationInfo.FLAG_EXTERNAL_STORAGE) != 0) {
+        if (info.isThemeApk || !PackageHelper.isExternalInstallPossible()) {
+            // Don't even bother checking the other cases, no media is available or it's a theme
+        } else if ((info.applicationInfo.flags & ApplicationInfo.FLAG_EXTERNAL_STORAGE) != 0) {
             canBe = true;
         } else {
-            if ((info.flags & ApplicationInfo.FLAG_SYSTEM) == 0) {
+            if ((info.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0) {
                 if (info.installLocation == PackageInfo.INSTALL_LOCATION_PREFER_EXTERNAL ||
                         info.installLocation == PackageInfo.INSTALL_LOCATION_AUTO) {
                     canBe = true;
                 } else if (info.installLocation
                         == PackageInfo.INSTALL_LOCATION_UNSPECIFIED) {
-                    if (mInstallLocation == PackageHelper.APP_INSTALL_EXTERNAL) {
-                        // For apps with no preference and the default value set
-                        // to install on sdcard.
+                    if (mInstallLocation != PackageHelper.APP_INSTALL_INTERNAL) {
+                        // For apps with no preference, let the app be moved
+                        // unless the user specifically selected that they want
+                        // to have apps stored on internal storage.
                         canBe = true;
                     }
                 }
@@ -146,6 +149,7 @@ public class ManageApplications extends Fragment implements
     private static final String EXTRA_SHOW_BACKGROUND = "showBackground";
     private static final String EXTRA_DEFAULT_LIST_TYPE = "defaultListType";
     private static final String EXTRA_RESET_DIALOG = "resetDialog";
+    private static final String EXTRA_APP_INSTALL_LOCATION_DIALOG = "appInstallLocationDialog";
 
     // attributes used as keys when passing values to InstalledAppDetails activity
     public static final String APP_CHG = "chg";
@@ -180,14 +184,9 @@ public class ManageApplications extends Fragment implements
     public static final int SHOW_BACKGROUND_PROCESSES = MENU_OPTIONS_BASE + 7;
     public static final int RESET_APP_PREFERENCES = MENU_OPTIONS_BASE + 8;
 
-    // add for new feature for search applications
-    public static final int SHOW_SEARCH_APPLICATIONS = MENU_OPTIONS_BASE + 9;
-
-    private boolean mSearchappEnabled;
+    public static final int APP_INSTALL_LOCATION = MENU_OPTIONS_BASE + 9;
 
     public static final int SHOW_PROTECTED_APPS = MENU_OPTIONS_BASE + 11;
-
-    public static final int APP_INSTALL_LOCATION = MENU_OPTIONS_BASE + 12;
 
     // sort order
     private int mSortOrder = SORT_ORDER_ALPHA;
@@ -214,8 +213,6 @@ public class ManageApplications extends Fragment implements
         private View mLoadingContainer;
 
         private View mListContainer;
-
-        private ViewGroup mPinnedHeader;
 
         // ListView used to display list
         private ListView mListView;
@@ -263,19 +260,10 @@ public class ManageApplications extends Fragment implements
             if (mRootView != null) {
                 return mRootView;
             }
-
             mInflater = inflater;
             mRootView = inflater.inflate(mListType == LIST_TYPE_RUNNING
                     ? R.layout.manage_applications_running
                     : R.layout.manage_applications_apps, null);
-            mPinnedHeader = (ViewGroup) mRootView.findViewById(R.id.pinned_header);
-            if (mOwner.mProfileSpinnerAdapter != null) {
-                Spinner spinner = (Spinner) inflater.inflate(R.layout.spinner_view, null);
-                spinner.setAdapter(mOwner.mProfileSpinnerAdapter);
-                spinner.setOnItemSelectedListener(mOwner);
-                mPinnedHeader.addView(spinner);
-                mPinnedHeader.setVisibility(View.VISIBLE);
-            }
             mLoadingContainer = mRootView.findViewById(R.id.loading_container);
             mLoadingContainer.setVisibility(View.VISIBLE);
             mListContainer = mRootView.findViewById(R.id.list_container);
@@ -500,10 +488,13 @@ public class ManageApplications extends Fragment implements
     private ViewGroup mContentContainer;
     private View mRootView;
     private ViewPager mViewPager;
+    private ViewGroup mPinnedHeader;
     private UserSpinnerAdapter mProfileSpinnerAdapter;
+    private Spinner mSpinner;
     private Context mContext;
 
     AlertDialog mResetDialog;
+    AlertDialog mAppInstallLocationDialog;
 
     class MyPagerAdapter extends PagerAdapter
             implements ViewPager.OnPageChangeListener {
@@ -948,7 +939,14 @@ public class ManageApplications extends Fragment implements
                 container, false);
         mContentContainer = container;
         mRootView = rootView;
-
+        mPinnedHeader = (ViewGroup) mRootView.findViewById(R.id.pinned_header);
+        if (mProfileSpinnerAdapter != null) {
+            mSpinner = (Spinner) inflater.inflate(R.layout.spinner_view, null);
+            mSpinner.setAdapter(mProfileSpinnerAdapter);
+            mSpinner.setOnItemSelectedListener(this);
+            mPinnedHeader.addView(mSpinner);
+            mPinnedHeader.setVisibility(View.VISIBLE);
+        }
         mViewPager = (ViewPager) rootView.findViewById(R.id.pager);
         MyPagerAdapter adapter = new MyPagerAdapter();
         mViewPager.setAdapter(adapter);
@@ -964,6 +962,11 @@ public class ManageApplications extends Fragment implements
 
         if (savedInstanceState != null && savedInstanceState.getBoolean(EXTRA_RESET_DIALOG)) {
             buildResetDialog();
+        }
+
+        if (savedInstanceState != null
+                && savedInstanceState.getBoolean(EXTRA_APP_INSTALL_LOCATION_DIALOG)) {
+            showAppInstallLocationSettingDlg();
         }
 
         if (savedInstanceState == null) {
@@ -1009,6 +1012,9 @@ public class ManageApplications extends Fragment implements
         if (mResetDialog != null) {
             outState.putBoolean(EXTRA_RESET_DIALOG, true);
         }
+        if (mAppInstallLocationDialog != null) {
+            outState.putBoolean(EXTRA_APP_INSTALL_LOCATION_DIALOG, true);
+        }
     }
 
     @Override
@@ -1026,6 +1032,10 @@ public class ManageApplications extends Fragment implements
         if (mResetDialog != null) {
             mResetDialog.dismiss();
             mResetDialog = null;
+        }
+        if (mAppInstallLocationDialog != null) {
+            mAppInstallLocationDialog.dismiss();
+            mAppInstallLocationDialog = null;
         }
     }
 
@@ -1058,6 +1068,9 @@ public class ManageApplications extends Fragment implements
             int currentTab = mViewPager.getCurrentItem();
             intent.putExtra(EXTRA_LIST_TYPE, mTabs.get(currentTab).mListType);
             mContext.startActivityAsUser(intent, selectedUser);
+            // Go back to default selection, which is the first one; this makes sure that pressing
+            // the back button takes you into a consistent state
+            mSpinner.setSelection(0);
         }
     }
 
@@ -1114,12 +1127,18 @@ public class ManageApplications extends Fragment implements
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
         menu.add(0, RESET_APP_PREFERENCES, 4, R.string.reset_app_preferences)
                 .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+        int lastOptionOrder = 5;
         if (!Utils.isRestrictedProfile(getActivity())) {
             menu.add(0, SHOW_PROTECTED_APPS, 5, R.string.protected_apps)
                     .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+            lastOptionOrder = 6;
         }
-        menu.add(0, APP_INSTALL_LOCATION, 4, R.string.app_install_location_title)
-                .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+        if (!getResources().getBoolean(R.bool.config_hide_app_install_location)
+                && Environment.getSecondaryStorageDirectory() != null
+                && Environment.MEDIA_MOUNTED.equals(Environment.getSecondaryStorageState())) {
+            menu.add(0, APP_INSTALL_LOCATION, lastOptionOrder, R.string.app_install_location_title)
+                    .setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER);
+        }
         updateOptionsMenu();
     }
     
@@ -1167,11 +1186,6 @@ public class ManageApplications extends Fragment implements
             mOptionsMenu.findItem(SHOW_RUNNING_SERVICES).setVisible(false);
             mOptionsMenu.findItem(SHOW_BACKGROUND_PROCESSES).setVisible(false);
             mOptionsMenu.findItem(RESET_APP_PREFERENCES).setVisible(true);
-
-            if(mSearchappEnabled) {
-                //add for new feature for search applications
-                mOptionsMenu.findItem(SHOW_SEARCH_APPLICATIONS).setVisible(true);
-            }
             if (!Utils.isRestrictedProfile(getActivity())) {
                 mOptionsMenu.findItem(SHOW_PROTECTED_APPS).setVisible(true);
             }
@@ -1194,6 +1208,9 @@ public class ManageApplications extends Fragment implements
     public void onDismiss(DialogInterface dialog) {
         if (mResetDialog == dialog) {
             mResetDialog = null;
+        }
+        if (mAppInstallLocationDialog == dialog) {
+            mAppInstallLocationDialog = null;
         }
     }
 
@@ -1289,12 +1306,12 @@ public class ManageApplications extends Fragment implements
             }
         } else if (menuId == RESET_APP_PREFERENCES) {
             buildResetDialog();
+        } else if (menuId == APP_INSTALL_LOCATION) {
+            showAppInstallLocationSettingDlg();
         } else if (menuId == SHOW_PROTECTED_APPS) {
             //Launch Protected Apps Fragment
             Intent intent = new Intent(getActivity(), ProtectedAppsActivity.class);
             startActivity(intent);
-        } else if (menuId == APP_INSTALL_LOCATION) {
-            showAppInstallLocationSettingDlg();
         } else {
             // Handle the home button
             return false;
@@ -1324,35 +1341,41 @@ public class ManageApplications extends Fragment implements
 
         final String[] items = getActivity().getResources().getStringArray(
                 R.array.app_install_location_entries);
-        new AlertDialog.Builder(getActivity()).setTitle(R.string.app_install_location_title)
-                .setSingleChoiceItems(items, selectedLocation,
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int item) {
-                                final String[] itemValues = getActivity().getResources()
-                                        .getStringArray(
-                                                R.array.app_install_location_values);
-                                if (APP_INSTALL_DEVICE_ID.equals(itemValues[item])) {
-                                    Settings.Global.putInt(getActivity().getContentResolver(),
-                                            Settings.Global.DEFAULT_INSTALL_LOCATION,
-                                            APP_INSTALL_DEVICE);
-                                } else if (APP_INSTALL_SDCARD_ID.equals(itemValues[item])) {
-                                    Settings.Global.putInt(getActivity().getContentResolver(),
-                                            Settings.Global.DEFAULT_INSTALL_LOCATION,
-                                            APP_INSTALL_SDCARD);
-                                } else if (APP_INSTALL_AUTO_ID.equals(itemValues[item])) {
-                                    Settings.Global.putInt(getActivity().getContentResolver(),
-                                            Settings.Global.DEFAULT_INSTALL_LOCATION,
-                                            APP_INSTALL_AUTO);
-                                } else {
-                                    // Should not happen, default to prompt.
-                                    Settings.Global.putInt(getActivity().getContentResolver(),
-                                            Settings.Global.DEFAULT_INSTALL_LOCATION,
-                                            APP_INSTALL_AUTO);
+        if (mAppInstallLocationDialog == null) {
+            mAppInstallLocationDialog = new AlertDialog.Builder(getActivity())
+                    .setTitle(R.string.app_install_location_title)
+                    .setSingleChoiceItems(items, selectedLocation,
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int item) {
+                                    final String[] itemValues = getActivity().getResources()
+                                            .getStringArray(
+                                                    R.array.app_install_location_values);
+                                    if (APP_INSTALL_DEVICE_ID.equals(itemValues[item])) {
+                                        Settings.Global.putInt(getActivity().getContentResolver(),
+                                                Settings.Global.DEFAULT_INSTALL_LOCATION,
+                                                APP_INSTALL_DEVICE);
+                                    } else if (APP_INSTALL_SDCARD_ID.equals(itemValues[item])) {
+                                        Settings.Global.putInt(getActivity().getContentResolver(),
+                                                Settings.Global.DEFAULT_INSTALL_LOCATION,
+                                                APP_INSTALL_SDCARD);
+                                    } else if (APP_INSTALL_AUTO_ID.equals(itemValues[item])) {
+                                        Settings.Global.putInt(getActivity().getContentResolver(),
+                                                Settings.Global.DEFAULT_INSTALL_LOCATION,
+                                                APP_INSTALL_AUTO);
+                                    } else {
+                                        // Should not happen, default to prompt.
+                                        Settings.Global.putInt(getActivity().getContentResolver(),
+                                                Settings.Global.DEFAULT_INSTALL_LOCATION,
+                                                APP_INSTALL_AUTO);
+                                    }
+                                    dialog.cancel();
                                 }
-                                dialog.cancel();
                             }
-                        }
-                ).show();
+                    ).show();
+        } else {
+            mAppInstallLocationDialog.show();
+        }
+        mAppInstallLocationDialog.setOnDismissListener(this);
     }
 
     public void onItemClick(TabInfo tab, AdapterView<?> parent, View view, int position,

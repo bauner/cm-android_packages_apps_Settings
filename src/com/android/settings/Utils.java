@@ -50,9 +50,11 @@ import android.net.ConnectivityManager;
 import android.net.LinkProperties;
 import android.net.Uri;
 import android.os.BatteryManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.os.RemoteException;
+import android.os.SystemProperties;
 import android.os.UserHandle;
 import android.os.UserManager;
 import android.preference.Preference;
@@ -64,9 +66,9 @@ import android.provider.ContactsContract.Data;
 import android.provider.ContactsContract.Profile;
 import android.provider.ContactsContract.RawContacts;
 import android.service.persistentdata.PersistentDataBlockManager;
+import android.telephony.SubscriptionInfo;
+import android.telephony.SubscriptionManager;
 import android.telephony.TelephonyManager;
-import android.text.BidiFormatter;
-import android.text.TextDirectionHeuristics;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Surface;
@@ -75,11 +77,9 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TabWidget;
 
-import com.android.internal.util.ImageUtils;
 import com.android.internal.util.UserIcons;
 import com.android.settings.UserSpinnerAdapter.UserDetails;
 import com.android.settings.bluetooth.BluetoothSettings;
-import com.android.settings.dashboard.DashboardCategory;
 import com.android.settings.dashboard.DashboardTile;
 import com.android.settings.drawable.CircleFramedDrawable;
 
@@ -319,7 +319,8 @@ public final class Utils {
                         Bundle metaData = resolveInfo.activityInfo.metaData;
 
                         if (res != null && metaData != null) {
-                            icon = res.getDrawable(metaData.getInt(META_DATA_PREFERENCE_ICON));
+                            icon = res.getDrawable(
+                                    metaData.getInt(META_DATA_PREFERENCE_ICON), null);
                             title = res.getString(metaData.getInt(META_DATA_PREFERENCE_TITLE));
                             summary = res.getString(metaData.getInt(META_DATA_PREFERENCE_SUMMARY));
                         }
@@ -443,8 +444,7 @@ public final class Utils {
 
     /** Formats a double from 0.0..1.0 as a percentage. */
     private static String formatPercentage(double percentage) {
-      BidiFormatter bf = BidiFormatter.getInstance();
-      return bf.unicodeWrap(NumberFormat.getPercentInstance().format(percentage));
+      return NumberFormat.getPercentInstance().format(percentage);
     }
 
     public static boolean isBatteryPresent(Intent batteryChangedIntent) {
@@ -458,6 +458,20 @@ public final class Utils {
     public static int getBatteryLevel(Intent batteryChangedIntent) {
         int level = batteryChangedIntent.getIntExtra(BatteryManager.EXTRA_LEVEL, 0);
         int scale = batteryChangedIntent.getIntExtra(BatteryManager.EXTRA_SCALE, 100);
+        return (level * 100) / scale;
+    }
+
+    public static boolean isDockBatteryPresent(Intent batteryChangedIntent) {
+        return batteryChangedIntent.getBooleanExtra(BatteryManager.EXTRA_DOCK_PRESENT, true);
+    }
+
+    public static String getDockBatteryPercentage(Intent batteryChangedIntent) {
+        return formatPercentage(getDockBatteryLevel(batteryChangedIntent));
+    }
+
+    public static int getDockBatteryLevel(Intent batteryChangedIntent) {
+        int level = batteryChangedIntent.getIntExtra(BatteryManager.EXTRA_DOCK_LEVEL, 0);
+        int scale = batteryChangedIntent.getIntExtra(BatteryManager.EXTRA_DOCK_SCALE, 100);
         return (level * 100) / scale;
     }
 
@@ -476,6 +490,36 @@ public final class Utils {
                 resId = R.string.battery_info_status_charging_usb;
             } else if (plugType == BatteryManager.BATTERY_PLUGGED_WIRELESS) {
                 resId = R.string.battery_info_status_charging_wireless;
+            } else {
+                resId = R.string.battery_info_status_charging;
+            }
+            statusString = res.getString(resId);
+        } else if (status == BatteryManager.BATTERY_STATUS_DISCHARGING) {
+            statusString = res.getString(R.string.battery_info_status_discharging);
+        } else if (status == BatteryManager.BATTERY_STATUS_NOT_CHARGING) {
+            statusString = res.getString(R.string.battery_info_status_not_charging);
+        } else if (status == BatteryManager.BATTERY_STATUS_FULL) {
+            statusString = res.getString(R.string.battery_info_status_full);
+        } else {
+            statusString = res.getString(R.string.battery_info_status_unknown);
+        }
+
+        return statusString;
+    }
+
+    public static String getDockBatteryStatus(Resources res, Intent batteryChangedIntent) {
+        final Intent intent = batteryChangedIntent;
+
+        int plugType = intent.getIntExtra(BatteryManager.EXTRA_DOCK_PLUGGED, 0);
+        int status = intent.getIntExtra(BatteryManager.EXTRA_DOCK_STATUS,
+                BatteryManager.BATTERY_STATUS_UNKNOWN);
+        String statusString;
+        if (status == BatteryManager.BATTERY_STATUS_CHARGING) {
+            int resId;
+            if (plugType == BatteryManager.BATTERY_DOCK_PLUGGED_AC) {
+                resId = R.string.battery_info_status_charging_dock_ac;
+            } else if (plugType == BatteryManager.BATTERY_DOCK_PLUGGED_USB) {
+                resId = R.string.battery_info_status_charging_dock_usb;
             } else {
                 resId = R.string.battery_info_status_charging;
             }
@@ -757,16 +801,52 @@ public final class Utils {
      * @param title String to display for the title of this set of preferences.
      */
     public static void startWithFragment(Context context, String fragmentName, Bundle args,
-            Fragment resultTo, int resultRequestCode, int titleResId, CharSequence title) {
+            Fragment resultTo, int resultRequestCode, int titleResId,
+            CharSequence title) {
         startWithFragment(context, fragmentName, args, resultTo, resultRequestCode,
-                titleResId, title, false /* not a shortcut */);
+                null /* titleResPackageName */, titleResId, title, false /* not a shortcut */);
+    }
+
+    /**
+     * Start a new instance of the activity, showing only the given fragment.
+     * When launched in this mode, the given preference fragment will be instantiated and fill the
+     * entire activity.
+     *
+     * @param context The context.
+     * @param fragmentName The name of the fragment to display.
+     * @param args Optional arguments to supply to the fragment.
+     * @param resultTo Option fragment that should receive the result of the activity launch.
+     * @param resultRequestCode If resultTo is non-null, this is the request code in which
+     *                          to report the result.
+     * @param titleResPackageName Optional package name for the resource id of the title.
+     * @param titleResId resource id for the String to display for the title of this set
+     *                   of preferences.
+     * @param title String to display for the title of this set of preferences.
+     */
+    public static void startWithFragment(Context context, String fragmentName, Bundle args,
+            Fragment resultTo, int resultRequestCode, String titleResPackageName, int titleResId,
+            CharSequence title) {
+        startWithFragment(context, fragmentName, args, resultTo, resultRequestCode,
+                titleResPackageName, titleResId, title, false /* not a shortcut */);
     }
 
     public static void startWithFragment(Context context, String fragmentName, Bundle args,
-            Fragment resultTo, int resultRequestCode, int titleResId, CharSequence title,
-            boolean isShortcut) {
-        Intent intent = onBuildStartFragmentIntent(context, fragmentName, args, titleResId,
-                title, isShortcut);
+            Fragment resultTo, int resultRequestCode, int titleResId,
+            CharSequence title, boolean isShortcut) {
+        Intent intent = onBuildStartFragmentIntent(context, fragmentName, args,
+                null /* titleResPackageName */, titleResId, title, isShortcut);
+        if (resultTo == null) {
+            context.startActivity(intent);
+        } else {
+            resultTo.startActivityForResult(intent, resultRequestCode);
+        }
+    }
+
+    public static void startWithFragment(Context context, String fragmentName, Bundle args,
+            Fragment resultTo, int resultRequestCode, String titleResPackageName, int titleResId,
+            CharSequence title, boolean isShortcut) {
+        Intent intent = onBuildStartFragmentIntent(context, fragmentName, args, titleResPackageName,
+                titleResId, title, isShortcut);
         if (resultTo == null) {
             context.startActivity(intent);
         } else {
@@ -775,9 +855,20 @@ public final class Utils {
     }
 
     public static void startWithFragmentAsUser(Context context, String fragmentName, Bundle args,
-            int titleResId, CharSequence title, boolean isShortcut, UserHandle userHandle) {
-        Intent intent = onBuildStartFragmentIntent(context, fragmentName, args, titleResId,
-                title, isShortcut);
+            int titleResId, CharSequence title, boolean isShortcut,
+            UserHandle userHandle) {
+        Intent intent = onBuildStartFragmentIntent(context, fragmentName, args,
+                null /* titleResPackageName */, titleResId, title, isShortcut);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        context.startActivityAsUser(intent, userHandle);
+    }
+
+    public static void startWithFragmentAsUser(Context context, String fragmentName, Bundle args,
+            String titleResPackageName, int titleResId, CharSequence title, boolean isShortcut,
+            UserHandle userHandle) {
+        Intent intent = onBuildStartFragmentIntent(context, fragmentName, args, titleResPackageName,
+                titleResId, title, isShortcut);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         context.startActivityAsUser(intent, userHandle);
@@ -792,6 +883,7 @@ public final class Utils {
      * @param context The Context.
      * @param fragmentName The name of the fragment to display.
      * @param args Optional arguments to supply to the fragment.
+     * @param titleResPackageName Optional package name for the resource id of the title.
      * @param titleResId Optional title resource id to show for this item.
      * @param title Optional title to show for this item.
      * @param isShortcut  tell if this is a Launcher Shortcut or not
@@ -799,7 +891,8 @@ public final class Utils {
      * fragment.
      */
     public static Intent onBuildStartFragmentIntent(Context context, String fragmentName,
-            Bundle args, int titleResId, CharSequence title, boolean isShortcut) {
+            Bundle args, String titleResPackageName, int titleResId, CharSequence title,
+            boolean isShortcut) {
         Intent intent = new Intent(Intent.ACTION_MAIN);
         if (BluetoothSettings.class.getName().equals(fragmentName)) {
             intent.setClass(context, SubSettings.BluetoothSubSettings.class);
@@ -809,6 +902,8 @@ public final class Utils {
         }
         intent.putExtra(SettingsActivity.EXTRA_SHOW_FRAGMENT, fragmentName);
         intent.putExtra(SettingsActivity.EXTRA_SHOW_FRAGMENT_ARGUMENTS, args);
+        intent.putExtra(SettingsActivity.EXTRA_SHOW_FRAGMENT_TITLE_RES_PACKAGE_NAME,
+                titleResPackageName);
         intent.putExtra(SettingsActivity.EXTRA_SHOW_FRAGMENT_TITLE_RESID, titleResId);
         intent.putExtra(SettingsActivity.EXTRA_SHOW_FRAGMENT_TITLE, title);
         intent.putExtra(SettingsActivity.EXTRA_SHOW_FRAGMENT_AS_SHORTCUT, isShortcut);
@@ -1028,6 +1123,12 @@ public final class Utils {
      * Returns a circular icon for a user.
      */
     public static Drawable getUserIcon(Context context, UserManager um, UserInfo user) {
+        if (user.isManagedProfile()) {
+            // We use predefined values for managed profiles
+            Bitmap b = BitmapFactory.decodeResource(context.getResources(),
+                    com.android.internal.R.drawable.ic_corp_icon);
+            return CircleFramedDrawable.getInstance(context, b);
+        }
         if (user.iconPath != null) {
             Bitmap icon = um.getUserIcon(user.id);
             if (icon != null) {
@@ -1038,6 +1139,23 @@ public final class Utils {
     }
 
     /**
+     * Returns a label for the user, in the form of "User: user name" or "Work profile".
+     */
+    public static String getUserLabel(Context context, UserInfo info) {
+        if (info.isManagedProfile()) {
+            // We use predefined values for managed profiles
+            return context.getString(R.string.managed_user_title);
+        }
+        String name = info != null ? info.name : null;
+        if (name == null && info != null) {
+            name = Integer.toString(info.id);
+        } else if (info == null) {
+            name = context.getString(R.string.unknown);
+        }
+        return context.getResources().getString(R.string.running_process_item_user_label, name);
+    }
+
+    /**
      * Return whether or not the user should have a SIM Cards option in Settings.
      * TODO: Change back to returning true if count is greater than one after testing.
      * TODO: See bug 16533525.
@@ -1045,8 +1163,9 @@ public final class Utils {
     public static boolean showSimCardTile(Context context) {
         final TelephonyManager tm =
                 (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        final boolean isPrimary = UserHandle.myUserId() == UserHandle.USER_OWNER;
 
-        return tm.getSimCount() > 1;
+        return tm.getSimCount() > 1 && isPrimary;
     }
 
     /**
@@ -1133,6 +1252,66 @@ public final class Utils {
         return sb.toString();
     }
 
+    /**
+     * finds a record with subId.
+     * Since the number of SIMs are few, an array is fine.
+     */
+    public static SubscriptionInfo findRecordBySubId(Context context, final int subId) {
+        final List<SubscriptionInfo> subInfoList =
+                SubscriptionManager.from(context).getActiveSubscriptionInfoList();
+        if (subInfoList != null) {
+            final int subInfoLength = subInfoList.size();
+
+            for (int i = 0; i < subInfoLength; ++i) {
+                final SubscriptionInfo sir = subInfoList.get(i);
+                if (sir != null && sir.getSubscriptionId() == subId) {
+                    return sir;
+                }
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * finds a record with slotId.
+     * Since the number of SIMs are few, an array is fine.
+     */
+    public static SubscriptionInfo findRecordBySlotId(Context context, final int slotId) {
+        final List<SubscriptionInfo> subInfoList =
+                SubscriptionManager.from(context).getActiveSubscriptionInfoList();
+        if (subInfoList != null) {
+            final int subInfoLength = subInfoList.size();
+
+            for (int i = 0; i < subInfoLength; ++i) {
+                final SubscriptionInfo sir = subInfoList.get(i);
+                if (sir.getSimSlotIndex() == slotId) {
+                    //Right now we take the first subscription on a SIM.
+                    return sir;
+                }
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Queries for the UserInfo of a user. Returns null if the user doesn't exist (was removed).
+     * @param userManager Instance of UserManager
+     * @param checkUser The user to check the existence of.
+     * @return UserInfo of the user or null for non-existent user.
+     */
+    public static UserInfo getExistingUser(UserManager userManager, UserHandle checkUser) {
+        final List<UserInfo> users = userManager.getUsers(true /* excludeDying */);
+        final int checkUserId = checkUser.getIdentifier();
+        for (UserInfo user : users) {
+            if (user.id == checkUserId) {
+                return user;
+            }
+        }
+        return null;
+    }
+
     public static boolean isPackageInstalled(Context context, String pkg, boolean ignoreState) {
         if (pkg != null) {
             try {
@@ -1201,5 +1380,14 @@ public final class Utils {
                 break;
         }
         activity.setRequestedOrientation(frozenRotation);
+    }
+
+    public static boolean isDozeAvailable(Context context) {
+        String name = Build.IS_DEBUGGABLE ? SystemProperties.get("debug.doze.component") : null;
+        if (TextUtils.isEmpty(name)) {
+            name = context.getResources().getString(
+                    com.android.internal.R.string.config_dozeComponent);
+        }
+        return !TextUtils.isEmpty(name);
     }
 }

@@ -55,6 +55,9 @@
   <string name="profile_app_group_category_title">Sostituzioni notifica</string>
   <string name="profile_app_group_item_instructions">Aggiungi o rimuovi gruppi</string>
   <string name="profile_app_group_item_instructions_summary">Aggiungi o rimuovi gruppi di notifica di sostituzione app per questo profilo</string>
+  <string name="profile_entries_on">Attivato</string>
+  <string name="profile_entries_off">Disattivato</string>
+  <string name="profile_entries_no_override">Non sovrascrivere</string>
   <string name="profile_name_title">Nome</string>
   <string name="new_profile_name">&lt;nuovo profilo&gt;</string>
   <string name="rename_dialog_title">Rinomina</string>
@@ -80,9 +83,13 @@
   <string name="profile_choose_app">Scegli app</string>
   <string name="profile_system_settings_title">Impostazioni sistema</string>
   <string name="profile_lockmode_title">Modalità blocco schermo</string>
+  <string name="profile_lockmode_policy_disabled_summary">I profili sono stati disattivati dall\'amministratore</string>
   <string name="profile_lockmode_insecure_summary">Non chiedere password o PIN</string>
   <string name="profile_lockmode_disabled_summary">Disattiva schermata di sblocco</string>
   <string name="profile_airplanemode_title">Modalità aereo</string>
+  <string name="profile_brightness_title">Luminosità schermo</string>
+  <string name="profile_brightness_override_summary">Imposta su %1$d%%</string>
+  <string name="profile_brightness_override_checkbox_label">Sovrascrivi luminosità</string>
   <string name="toggleWifi">Wi\u2011Fi</string>
   <string name="toggleWifiAp">Hotspot Wi\u2011Fi portatile</string>
   <string name="toggleBluetooth">Bluetooth</string>
@@ -98,6 +105,7 @@
   <string name="hardware_keys_menu_key_title">Tasto Menu</string>
   <string name="hardware_keys_assist_key_title">Tasto Cerca</string>
   <string name="hardware_keys_appswitch_key_title">Tasto Recenti</string>
+  <string name="hardware_keys_camera_key_title">Tasto fotocamera</string>
   <string name="hardware_keys_volume_keys_title">Tasti Volume</string>
   <string name="hardware_keys_short_press_title">Azione pressione breve</string>
   <string name="hardware_keys_long_press_title">Azione pressione prolungata</string>
@@ -111,6 +119,10 @@
   <string name="hardware_keys_action_launch_camera">Avvia Fotocamera</string>
   <string name="hardware_keys_action_sleep">Spegni lo schermo</string>
   <string name="hardware_keys_action_last_app">Ultima app</string>
+  <string name="camera_sleep_on_release_title">Sbirciata allo schermo</string>
+  <string name="camera_sleep_on_release_summary">Una pressione leggera terrà lo schermo acceso solo mentre il pulsante è premuto</string>
+  <string name="camera_launch_title">Avvia fotocamera</string>
+  <string name="camera_launch_summary">Una pressione prolungata e un rilascio attiveranno la fotocamera</string>
   <string name="volbtn_music_controls_title">Cambia traccia</string>
   <string name="volbtn_music_controls_summary">Quando lo schermo è spento la pressione prolungata dei tasti volume cambia traccia</string>
   <string name="volbtn_cursor_control_title">Controllo cursore con tasti</string>
@@ -119,6 +131,8 @@
   <string name="volbtn_cursor_control_on_reverse">Volume su/giù muove il cursore a destra/sinistra</string>
   <string name="swap_volume_buttons_title">Riorienta</string>
   <string name="swap_volume_buttons_summary">Scambia i tasti del volume quando lo schermo è ruotato</string>
+  <string name="volume_keys_control_ring_stream_title">I tasti volume regolano la suoneria</string>
+  <string name="volume_keys_control_ring_stream_summary">Se attivo, i volume tasti controllano il volume della suoneria. Se disattivo, i tasti del volume controllano il contenuto multimediale.</string>
   <string name="power_end_call_title">Termina chiamata</string>
   <string name="power_end_call_summary">Premendo il pulsante alimentazione si concluderà la chiamata corrente</string>
   <string name="button_wake_title">Risveglio dispositivo</string>
@@ -153,15 +167,14 @@
   <string name="sunlight_enhancement_summary">Migliora la luminosità del display e la leggibilità sotto la luce del sole</string>
   <string name="color_enhancement_title">Miglioramento colore</string>
   <string name="color_enhancement_summary">Migliora dinamicamente il colore del display</string>
-  <string name="app_security_title">Sicurezza app</string>
-  <string name="blacklist_title">Blacklist</string>
-  <string name="blacklist_edit_dialog_title">Modifica voci blacklist</string>
+  <string name="blacklist_title">Elenco bloccati</string>
+  <string name="blacklist_edit_dialog_title">Modifica il numero telefonico bloccato</string>
   <string name="blacklist_prefs">Impostazioni</string>
   <string name="blacklist_button_delete">Elimina</string>
-  <string name="blacklist_empty_text">Non sono presenti numeri nella blacklist. Puoi aggiungere una voce toccando il pulsante Aggiungi (+).</string>
-  <string name="blacklist_disabled_empty_text">Per bloccare chiamate e/o messaggi da determinati numeri, attivare la blacklist.</string>
+  <string name="blacklist_empty_text">Non hai nessun numero bloccato. Aggiungi un elemento toccando il pulsante Aggiungi (+).</string>
+  <string name="blacklist_disabled_empty_text">Per prevenire chiamate e messaggi da numeri telefonici, attiva la lista bloccati.</string>
   <string name="blacklist_summary_disabled">Disattivata</string>
-  <string name="blacklist_summary">Le chiamate e messaggi provenienti da numeri di telefono presenti in blacklist saranno bloccati</string>
+  <string name="blacklist_summary">Non riceverai nessuna chiamata o messaggio da numeri nella lista bloccati</string>
   <string name="blacklist_notify">Mostra notifiche</string>
   <string name="blacklist_private_numbers_title">Numeri privati</string>
   <string name="blacklist_private_numbers_summary_disabled">Non bloccare le chiamate provenienti da numeri privati</string>
@@ -176,9 +189,9 @@
   <string name="blacklist_regex_summary">Usa . come carattere jolly e * per la ripetizione. Ad esempio 123.* blocca i numeri che iniziano con 123 e .*123.* blocca i numeri che contengono 123</string>
   <string name="blacklist_policy_block_calls">Blocca chiamate in arrivo</string>
   <string name="blacklist_policy_block_messages">Blocca messaggi in arrivo</string>
-  <string name="blacklist_bad_number_add">Impossibile aggiungere un numero non corretto in blacklist</string>
+  <string name="blacklist_bad_number_add">Impossibile aggiungere un numero non valido alla lista bloccati</string>
   <string name="remove_blacklist_number_title">Rimuovi numero</string>
-  <string name="remove_blacklist_entry">Vuoi rimuovere questa voce dalla blacklist?</string>
+  <string name="remove_blacklist_entry">Vuoi rimuovere questo numero bloccato?</string>
   <string name="select_contact">Seleziona contatto</string>
   <string name="lockpattern_reset_button">Reimposta la sequenza</string>
   <string name="lockpattern_settings_reset_summary">Inserisci l\'email principale e la relativa password per reimpostare la sequenza di sblocco</string>
@@ -202,7 +215,9 @@
   <string name="display_rotation_270_title">270 gradi</string>
   <string name="app_security_title">Sicurezza app</string>
   <string name="sms_security_check_limit_title">Limite invio SMS</string>
-  <string name="sms_security_check_limit_summary">Mostra un avviso per impedire alle app di inviare SMS troppo frequentemente. Limite attuale: %d messaggi in 15 minuti</string>
+  <string name="sms_security_check_limit_summary">Le applicazioni possono inviare %d messaggi in 1 minuto prima di richiedere conferma</string>
+  <string name="sms_security_check_limit_summary_none">Non è consentito alle app l\'invio di messaggi senza conferma</string>
+  <string name="sms_security_check_limit_none">Nessuno</string>
   <string name="spam_added_title">Aggiunto %1$s</string>
   <string name="spam_last_blocked_title">Ultimo bloccato %1$s</string>
   <string name="block_notifications_title">Filtra notifiche</string>
@@ -215,9 +230,9 @@
   <string name="update_recovery_off_warning">Attenzione: Quando questa funzionalità è disattivata, la recovery installata non verrà aggiornata con il sistema.\n\nFuturi aggiornamenti potrebbero non installarsi con recovery personalizzate o vecchie.\n\nDisattivare questa funzione?</string>
   <string name="mod_version">Versione CyanogenMod</string>
   <string name="mod_version_default">Sconosciuto</string>
-  <string name="model_name">Nome modello</string>
+  <string name="device_model">Modello dispositivo</string>
+  <string name="device_name">Nome dispositivo</string>
   <string name="build_date">Data build</string>
-  <string name="contributor_cloud_title">Collaboratori</string>
   <string name="phone_service_state">Voce: <xliff:g id="voice_state">%1$s</xliff:g>, dati: <xliff:g id="data_state">%2$s</xliff:g></string>
   <string name="double_tap_to_wake_title">Risveglio con doppio tocco</string>
   <string name="double_tap_to_wake_summary">Doppio tocco sullo schermo per accenderlo</string>
@@ -234,6 +249,7 @@
   <string name="privacy_guard_reset_text">Ripristinare i permessi?</string>
   <string name="privacy_guard_help_text">In questa schermata puoi decidere per quali app sarà attivo Privacy Guard semplicemente selezionandole. Le app selezionate non saranno in grado di accedere ai tuoi dati personali, quali contatti, messaggi o elenco chiamate. Una pressione prolungata su di una voce apre la schermata dei dettagli per quell\'app.\n\nLe app integrate non sono visualizzate in modo predefinito. Se vuoi renderle visibili, attiva le rispettive opzioni nel menu.</string>
   <string name="privacy_guard_manager_show_system_apps">Mostra app integrate</string>
+  <string name="app_ops_btn_text">Modifica</string>
   <string name="increasing_ring_volume_option_title">Suoneria incrementale</string>
   <string name="increasing_ring_min_volume_title">Volume iniziale</string>
   <string name="increasing_ring_ramp_up_time_title">Tempo di aumento</string>
@@ -265,9 +281,9 @@
   <string name="navigation_restore_button_text">Ripristina\npredefinite</string>
   <string name="navigation_edit_button_text">Modifica</string>
   <string name="navigation_save_button_text">Salva</string>
-  <string name="navigation_bar_reset_message">Cancellare le impostazioni attuali e ripristinare il layout predefinito?</string>
-  <string name="navigation_bar_arrow_keys_title">Mostra tasti freccia durante la digitazione</string>
-  <string name="navigation_bar_arrow_keys_summary">Visualizza i pulsanti sinistro e destro del cursore durante la digitazione. Nasconde il selettore di input.</string>
+  <string name="navigation_bar_reset_message">Eliminare le impostazioni attuali e ripristinare la disposizione predefinita?</string>
+  <string name="navigation_bar_arrow_keys_title">Tasti controllo cursore</string>
+  <string name="navigation_bar_arrow_keys_summary">Visualizza i pulsanti sinistro e destro del cursore durante la digitazione. Nasconde il selettore di immissione.</string>
   <string name="navigation_bar_recents_title">Azione pressione continuata Recenti</string>
   <string name="header_category_personalization">Personalizzazione</string>
   <string name="status_bar_title">Barra di stato</string>
@@ -275,7 +291,7 @@
   <string name="status_bar_toggle_brightness_summary">Modifica la luminosità strisciando sulla barra di stato</string>
   <string name="status_bar_notif_count_title">Mostra contatore notifiche</string>
   <string name="status_bar_notif_count_summary">Visualizza il numero di notifiche in sospeso</string>
-  <string name="status_bar_clock_style_title">Stile orologio</string>
+  <string name="status_bar_clock_style_title">Posizione orologio</string>
   <string name="status_bar_clock_style_right">Destra</string>
   <string name="status_bar_clock_style_left">Sinistra</string>
   <string name="status_bar_clock_style_center">Centrato</string>
@@ -295,9 +311,6 @@
   <string name="status_bar_battery_percentage_default">Nascosta</string>
   <string name="status_bar_battery_percentage_text_inside">All\'interno dell\'icona</string>
   <string name="status_bar_battery_percentage_text_next">Accanto all\'icona</string>
-  <string name="status_bar_show_unused_sims_title">Visualizza icone SIM vuote</string>
-  <string name="status_bar_show_unused_sims_title_summary_off">Nascondi icone di slot SIM inutilizzati</string>
-  <string name="status_bar_show_unused_sims_title_summary_on">Indica slot SIM inutilizzati</string>
   <string name="edit_light_settings">Modifica impostazioni luce</string>
   <string name="pulse_speed_title">Durata e velocità del lampeggio</string>
   <string name="default_time">Normale</string>
@@ -329,11 +342,13 @@
   <string name="notification_light_default_value">Predefinito</string>
   <string name="notification_light_missed_call_title">Chiamata persa</string>
   <string name="notification_light_voicemail_title">Messaggio vocale</string>
+  <string name="notification_light_screen_on">Luci con schermo acceso</string>
+  <string name="keywords_lights_brightness_level">dim luminosità led</string>
   <string name="notification_ringtone_title_cm">Suoneria notifiche</string>
   <string name="headset_connect_player_title">Avvia lettore musicale</string>
   <string name="headset_connect_player_summary">Lancia il lettore musicale predefinito quando vengono connesse le cuffie</string>
   <string name="ime_switcher_notify">Icona selettore</string>
-  <string name="ime_switcher_notify_summary">Mostra icona selettore tastiera</string>
+  <string name="ime_switcher_notify_summary">Mostra l\'icona del selettore metodo di immissione</string>
   <string name="app_notification_show_on_keyguard_title">Mostra nella schermata di sblocco</string>
   <string name="app_notification_show_on_keyguard_summary">Mostra notifiche di quest\'app nella schermata di sblocco</string>
   <string name="app_notification_no_ongoing_on_keyguard_title">Disabilita la notifica persistente nella schermata di sblocco</string>
@@ -390,7 +405,7 @@
   <string name="app_ops_summaries_toast_window">visualizza messaggi popup</string>
   <string name="app_ops_summaries_project_media">proietta media</string>
   <string name="app_ops_summaries_activate_vpn">attiva VPN</string>
-  <string name="app_ops_summaries_wifi_change">ON/OFF Wi\u2011Fi</string>
+  <string name="app_ops_summaries_wifi_change">modifica stato Wi\u2011Fi</string>
   <string name="app_ops_summaries_bluetooth_change">modifica stato Bluetooth</string>
   <string name="app_ops_summaries_send_mms">invio MMS</string>
   <string name="app_ops_summaries_read_mms">lettura MMS</string>
@@ -442,7 +457,7 @@
   <string name="app_ops_labels_toast_window">Visualizza messaggi popup</string>
   <string name="app_ops_labels_project_media">Proietta media</string>
   <string name="app_ops_labels_activate_vpn">Attiva VPN</string>
-  <string name="app_ops_labels_wifi_change">modifica stato Wi\u2011Fi</string>
+  <string name="app_ops_labels_wifi_change">ON/OFF Wi\u2011Fi</string>
   <string name="app_ops_labels_bluetooth_change">ON/OFF Bluetooth</string>
   <string name="app_ops_labels_send_mms">Invia MMS</string>
   <string name="app_ops_labels_read_mms">Leggi MMS</string>
@@ -464,11 +479,12 @@
   <string name="app_ops_categories_bootup">Avvio</string>
   <string name="app_ops_categories_su">Accesso root</string>
   <string name="app_ops_permissions_allowed">Consentito</string>
-  <string name="app_ops_permissions_ignored">Ignorato</string>
+  <string name="app_ops_permissions_ignored">Negato</string>
   <string name="app_ops_permissions_always_ask">Chiedi sempre</string>
   <string name="ok">OK</string>
   <string name="profile_menu_delete_title">Elimina</string>
   <string name="profile_action_none">Lascia invariato</string>
+  <string name="profile_action_system">Sistema predefinito</string>
   <string name="profile_action_disable">Disattiva</string>
   <string name="profile_action_enable">Attiva</string>
   <string name="profile_trigger_a2dp_connect">Alla connessione A2DP</string>
@@ -564,9 +580,14 @@
   <string name="sim_pin_attempts">\nTentativi rimanenti:</string>
   <string name="sim_pin_enabled">PIN1 attivato</string>
   <string name="sim_pin_disabled">PIN1 disattivato</string>
-  <string name="subs_settings">Stato scheda SIM</string>
   <string name="storage_usb">Archivio USB</string>
   <string name="storage_uicc">Archivio UICC</string>
+  <string name="sdcard_eject" product="default">Smonta scheda SD</string>
+  <string name="sdcard_eject_summary" product="default">Smonta la scheda SD così potrai rimuoverla in sicurezza</string>
+  <string name="sd_card_format" product="default">Formatta scheda SD</string>
+  <string name="sd_card_format_summary" product="default">Elimina tutti i dati sulla scheda SD, come musica e foto</string>
+  <string name="sdcard_mount" product="default">Monta scheda SD</string>
+  <string name="sdcard_insert_summary" product="default">Inserire una scheda SD da montare</string>
   <string name="usb_eject" product="default">Smonta l\'archivio USB</string>
   <string name="usb_eject_summary" product="default">Smonta l\'archivio USB per rimuoverlo in sicurezza</string>
   <string name="usb_format" product="default">Formatta archivio USB</string>
@@ -581,22 +602,36 @@
   <string name="uicc_insert_summary" product="default">Inserire l\'archivio UICC da montare</string>
   <string name="usb_settings_enable_ums_title">Attivare la memoria di massa?</string>
   <string name="usb_settings_enable_ums_message">App e componenti di sistema prevedono che la memoria primaria sia sempre disponibile. Questa opzione disattende tale prerequisito. È consigliabile invece utilizzare MTP. Attivare comunque la memoria di massa?</string>
+  <string name="dlg_confirm_sdcard_unmount_title" product="default">Smontare scheda SD?</string>
   <string name="dlg_confirm_usb_unmount_title" product="default">Smontare l\'archivio USB?</string>
   <string name="dlg_confirm_uicc_unmount_title" product="default">Smontare l\'archivio UICC?</string>
+  <string name="dlg_confirm_sdcard_unmount_text" product="default">Se smonti la scheda SD, alcune app che stai usando potrebbero arrestarsi e non essere più disponibili fino a quando la scheda SD verrà montata di nuovo.</string>
   <string name="dlg_confirm_usb_unmount_text" product="default">Se smonti l\'archivio USB, alcune app che stai usando potrebbero fermarsi e non essere più disponibili fino a quando non verrà montato di nuovo.</string>
   <string name="dlg_confirm_uicc_unmount_text" product="default">Se smonti l\'archivio UICC, alcune app che stai usando potrebbero fermarsi e non essere più disponibili fino a quando non verrà montato di nuovo.</string>
+  <string name="dlg_error_sdcard_unmount_text" product="default">Impossibile smontare la scheda SD. Riprova più tardi.</string>
   <string name="dlg_error_usb_unmount_text" product="default">Impossibile smontare l\'archivio USB. Riprova più tardi.</string>
   <string name="dlg_error_uicc_unmount_text" product="default">Impossibile smontare l\'archivio UICC. Riprova più tardi.</string>
+  <string name="sdcard_unmount_inform_text" product="default">La scheda SD verrà smontata.</string>
   <string name="usb_unmount_inform_text" product="default">L\'archivio USB verrà smontato.</string>
   <string name="uicc_unmount_inform_text" product="default">L\'archivio UICC verrà smontato.</string>
+  <string name="sdcard_media_format_desc" product="default">Formattare la scheda SD? Perderai <b>tutti</b> i dati salvati sulla scheda!</string>
   <string name="usb_media_format_desc" product="default">Cancellare l\'archivio USB? <b>Tutti</b> i dati su di esso andranno perduti!</string>
   <string name="uicc_media_format_desc" product="default">Cancellare l\'archivio UICC? <b>Tutti</b> i dati su di esso andranno perduti!</string>
+  <string name="sdcard_media_format_button_text" product="default">Formatta scheda SD</string>
   <string name="usb_media_format_button_text" product="default">Formatta archivio USB</string>
   <string name="uicc_media_format_button_text" product="default">Cancella archivio UICC</string>
+  <string name="sdcard_media_format_final_desc" product="default">Formatta la scheda SD, eliminando tutti i file presenti su di essa? L\'azione non è reversibile!</string>
   <string name="usb_media_format_final_desc" product="default">Formattare l\'archivio USB, eliminando tutti i file presenti su di esso? L\'azione non è reversibile!</string>
   <string name="uicc_media_format_final_desc" product="default">Formattare l\'archivio UICC, eliminando tutti i file presenti su di esso? L\'azione è irreversibile!</string>
+  <string name="sdcard_media_format_gesture_explanation" product="default">Devi tracciare la tua sequenza di sblocco per confermare la formattazione della scheda SD.</string>
   <string name="usb_media_format_gesture_explanation" product="default">Devi tracciare la tua sequenza di sblocco per confermare la formattazione dell\'archivio USB.</string>
   <string name="uicc_media_format_gesture_explanation" product="default">Devi tracciare la tua sequenza di sblocco per confermare la formattazione dell\'archivio UICC.</string>
+  <string name="internal_sd_format">Elimina memoria interna</string>
+  <string name="internal_sd_format_summary">Elimina tutti i dati sulla memoria interna, come musica e foto</string>
+  <string name="master_clear_desc_erase_internal_storage">\n\nPer rimuovere musica, immagini e altri dati dell\'utente la <b>memoria interna</b> deve essere eliminata.</string>
+  <string name="erase_internal_storage">Elimina memoria interna</string>
+  <string name="erase_internal_storage_description">Elimina tutti i dati nella memoria interna come musica o foto</string>
+  <string name="storage_rescan_media">Riesegui la scansione dei file multimediali sulla memoria di massa</string>
   <string name="location_category_enhanced_location">Localizzazione avanzata (IZat)</string>
   <string name="app_ops_settings_summary">Visualizza o modifica i permessi delle app</string>
   <string name="enable_adb_summary_charging">Dispositivo è in modalità ricarica, il debug USB è disattivato</string>
@@ -621,12 +656,9 @@
   <string name="usb_charging_summary">Disattiva tutti i trasferimenti di dati con il computer e ricarica il dispositivo tramite la porta USB</string>
   <string name="usb_sdcard_title">Memoria di massa (UMS)</string>
   <string name="usb_sdcard_summary">Consente di trasferire file tra il computer e la scheda SD montandola come un dispositivo flash</string>
+  <string name="usb_not_connected">USB disconnesso</string>
   <string name="external_storage_turn_on">Archiviazione esterna è stata attivata</string>
   <string name="external_storage_turn_off">Archiviazione esterna è stata disattivata</string>
-  <string name="menu_hidden_apps_delete">Ripristina</string>
-  <string name="menu_hidden_apps_reset_lock">Ripristina schema blocco</string>
-  <string name="protected_apps">App protette</string>
-  <string name="saving_protected_components">Salvataggio stato componente\u2026</string>
   <string name="stats_collection_title">Raccolta statistiche</string>
   <string name="stats_collection_summary">Quando attivato, consente la raccolta di metriche</string>
   <string name="power_notifications_category_title">Notifica cavo alimentazione</string>
@@ -642,29 +674,17 @@
   <string name="picker_activities">Activity</string>
   <string name="select_custom_app_title">Scegli app</string>
   <string name="select_custom_activity_title">Scegli activity</string>
-  <string name="performance_settings_title">Prestazioni</string>
-  <string name="io_scheds_title">Schedulatore I/O</string>
-  <string name="io_sched_title">Schedulatore I/O</string>
+  <string name="autoperf_title">Attiva profili per app</string>
+  <string name="autoperf_summary">Seleziona automaticamente una modalità batteria adatta per le varie applicazioni</string>
   <string name="perf_profile_title">Modalità batteria</string>
   <string name="pref_force_highend_gfx_title">Forza grafica alta qualità</string>
   <string name="pref_force_highend_gfx_summary">Attiva gli effetti grafici di alta qualità come la trasparenza della barra di stato/navigazione (richiede il riavvio) </string>
-  <string name="performance_settings_warning_title">Procedere con cautela</string>
-  <string name="performance_settings_warning">Queste impostazioni sono sperimentali e qualsiasi loro cambiamento potrebbe causare instabilità, crash, perdita di dati e danni all\'hardware.\n\nNon inviate segnalazioni di bug se una qualsiasi di queste impostazioni è stata modificata.</string>
-  <string name="performance_set_on_boot">Imposta all\'avvio</string>
-  <string name="performance_set_on_boot_summary">Ripristina le impostazioni all\'avvio</string>
-  <string name="processor_title">Processore</string>
-  <string name="cpu_cur_freq_title">Frequenza CPU attuale</string>
-  <string name="cpu_governors_title">Governor CPU</string>
-  <string name="cpu_min_freq_title">Frequenza minima CPU</string>
-  <string name="cpu_max_freq_title">Frequenza massima CPU</string>
-  <string name="autoperf_title">Attiva profili per app</string>
-  <string name="autoperf_summary">Scegli automaticamente un adeguato profilo prestazioni per varie app</string>
-  <string name="graphics_title">Grafica e rendering</string>
   <string name="edge_gesture_service_title">Blocca eventi tocco gesture</string>
   <string name="edge_gesture_service_summary">Non inviare eventi tocco per le gesture della barra di stato e navigazione alle app</string>
   <string name="cmlicense_title">Note legali CyanogenMod</string>
   <string name="settings_cmlicense_activity_title">Note legali CyanogenMod</string>
-  <string name="settings_cmlicense_activity_unreachable">Non disponi di una connessione dati. Per visualizzare queste informazioni ora, visita %s da un qualsiasi computer connesso a Internet.</string>
+  <string name="lockpattern_settings_enable_error_path_title">Mostra sequenza errata</string>
+  <string name="lockpattern_settings_enable_dots_title">Mostra punti sequenza</string>
   <string name="unlock_quick_unlock_control_title">Sblocco rapido</string>
   <string name="unlock_quick_unlock_control_summary">Sblocca automaticamente quando il PIN/la password viene inserito in modo corretto</string>
   <string name="unlock_scramble_pin_layout_title">Mescola disposizione</string>
@@ -683,6 +703,7 @@
   <string name="status_bar_show_weather_summary">Visualizza il tempo sopra il pannello Impostazioni rapide</string>
   <string name="qs_category_title">Pannello Impostazioni rapide</string>
   <string name="qs_brightness_slider_title">Visualizza selettore luminosità</string>
+  <string name="qs_hide_tiles_with_sensitive_data">Nascondi tiles privati quando bloccato</string>
   <string name="qs_order_title">Seleziona e ordina i tile</string>
   <string name="add_qs">Aggiungi nuovo tile</string>
   <string name="qs_action_delete">Elimina</string>
@@ -705,12 +726,21 @@
   <string name="qs_tile_compass">Bussola</string>
   <string name="qs_tile_lockscreen">Schermata di sblocco</string>
   <string name="qs_tile_lte">LTE</string>
+  <string name="qs_tile_volume_panel">Pannello volume</string>
   <string name="qs_tile_screen_timeout">Sospensione schermo</string>
+  <string name="qs_tile_usb_tether">Tethering USB</string>
+  <string name="qs_tile_heads_up">Heads up</string>
+  <string name="qs_tile_ambient_display">Ambient display</string>
+  <string name="qs_tile_sync">Sincronia dati</string>
+  <string name="qs_dynamic_tile_next_alarm">Prossima sveglia</string>
+  <string name="qs_dynamic_tile_ime_selector">Selettore IME</string>
+  <string name="qs_dynamic_tile_su">Accesso root</string>
   <string name="qs_main_tiles_title">Ingrandisci prima riga</string>
   <string name="qs_main_tiles_summary_on">Due tile principali nella prima riga</string>
   <string name="qs_main_tiles_summary_off">Tre tile su ogni riga</string>
-  <string name="qs_advanced_location_title">Impostazioni avanzate di localizzazione</string>
-  <string name="qs_advanced_location_summary">Attiva le impostazioni avanzate per la localizzazione in impostazioni rapide</string>
+  <string name="qs_advanced_location_title">Impostazioni avanzate localizzazione</string>
+  <string name="qs_advanced_location_summary">Attiva le impostazioni avanzate per la localizzazione in Impostazioni rapide</string>
+  <string name="sim_no_number_set">Nessun numero assegnato</string>
   <string name="gesture_settings_title">Gesture</string>
   <string name="themes_settings_title">Temi</string>
   <string name="wifi_mode">Modalità</string>
@@ -719,6 +749,7 @@
   <string name="wifi_ibss_freq_title">Canale / Frequenza</string>
   <string name="wifi_channel">Canale</string>
   <string name="wifi_mhz">MHz</string>
+  <string name="wifi_auto_config_priorities">Priorità automatica</string>
   <string name="maximum_head_level">Testa: %1$s W/kg</string>
   <string name="maximum_body_level">Corpo: %1$s W/kg</string>
   <string name="ic_code_model">Modello: %1$s</string>
@@ -733,15 +764,22 @@
   <string name="expanded_desktop_style">Stile desktop esteso</string>
   <string name="expanded_desktop_style_description">Seleziona lo stile predefinito del desktop esteso</string>
   <string name="expanded_desktop_title">Opzioni desktop esteso</string>
+  <string name="title_general">Generale</string>
   <string name="lockscreen_targets_message">Scorciatoie schermata di sblocco</string>
   <string name="lockscreen_default_target">Predefinito</string>
   <string name="lockscreen_none_target">Nessuno</string>
   <string name="lockscreen_message">Toccare un\'icona sulla sinistra o destra per riassegnare un collegamento.</string>
   <string name="lockscreen_choose_action_title">Scegli azione</string>
+  <string name="lockscreen_visualizer_title">Mostra visualizzatore musicale</string>
   <string name="whisperpush_title">WhisperPush</string>
   <string name="whisperpush_summary">Gestisci le impostazioni SMS sicuri</string>
-  <string name="navigation_ring_title">Collegamenti dell\'anello di navigazione</string>
+  <string name="navigation_ring_title">Collegamenti anello di navigazione</string>
   <string name="navigation_ring_message">Tocca l\'icona di modifica per modificare l\'anello di navigazione.\n\nSeleziona un collegamento per configurarne il comportamento.\n\nTocca l\'icona \'\u2713\' per salvare le modifiche, o \'Ripristina le impostazioni predefinite\' per ritornare ai valori predefiniti.</string>
+  <string name="lcd_density">Densità LCD</string>
+  <string name="dialog_title_lcd_density">Densità LCD</string>
+  <string name="lcd_density_value_format">%d DPI</string>
+  <string name="lcd_density_default_value_format">%d DPI (predefinito)</string>
+  <string name="restarting_ui">Riavvio UI\u2026</string>
   <string name="stylus_icon_enabled_title">Mostra l\'icona quando utilizzi lo stilo</string>
   <string name="stylus_icon_enabled_summary">Mostra l\'icona del puntatore durante il movimento o il disegno con lo stilo</string>
   <string name="gestures_settings_title">Gesture stilo</string>
@@ -765,6 +803,7 @@
   <string name="stylus_app_not_installed">%s non è installato</string>
   <string name="advanced">Avanzate</string>
   <string name="advanced_mode_title">Modalità avanzata</string>
+  <string name="advanced_mode_summary">Mostra opzioni aggiuntive per la configurazione del tuo dispositivo in alcuni menu delle impostazioni</string>
   <string name="category_misc">Varie</string>
   <string name="category_vibrate">Vibrazione</string>
   <string name="category_volume">Volume</string>
@@ -772,15 +811,18 @@
   <string name="category_interface">Interfaccia</string>
   <string name="category_calibration">Calibrazione</string>
   <string name="display_and_lights">Display &amp; Luci</string>
-  <string name="notification_manager">Gestore notifiche</string>
+  <string name="notification_manager">Notifiche</string>
   <string name="lockscreen_settings">Schermata di blocco</string>
   <string name="category_lights">Luci</string>
   <string name="power_usage_history_title">Utilizzo batteria</string>
-  <string name="recents_show_searchbar">Visualizza la barra di ricerca nel menu app recenti</string>
+  <string name="recents_show_searchbar">Barra di ricerca in app recenti</string>
   <string name="keywords_recents_show_searchbar">recente recenti disattiva attiva mostra nascondi barra ricerca</string>
   <string name="sim_ringtone_title">Suoneria SIM %d</string>
   <string name="interruptions_ignore_while_media_title">Previeni abbassamento audio</string>
   <string name="interruptions_ignore_while_media_summary">Non ridurre il volume di riproduzione multimediale quando arriva una notifica</string>
+  <string name="none_is_silent_title">Non silenziare mai le sveglie</string>
+  <string name="none_is_silent_summary">La modalità silenziosa permette sempre le sveglie</string>
+  <string name="allow_lights_title">Consenti luci di notifica</string>
   <string name="live_display_summary">Ottimizza lo schermo in base all\'ora del giorno e alle condizioni ambientali per migliorare la leggibilità e ridurre l\'affaticamento degli occhi</string>
   <string name="live_display_mode">Modalità display</string>
   <string name="live_display_color_temperature_title">Temperatura colore</string>
@@ -794,4 +836,148 @@
   <string name="live_display_low_power_summary">Regola il display per un minore consumo energetico senza degradazione</string>
   <string name="live_display_enhance_color_title">Migliora colori</string>
   <string name="live_display_enhance_color_summary">Migliora la vividezza del colore di toni della pelle, paesaggi e altre immagini</string>
+  <string name="live_display_color_profile_title">Profilo colore</string>
+  <string name="live_display_color_profile_standard_title">Predefinito</string>
+  <string name="live_display_color_profile_standard_summary">Colori accurati e bianchi luminosi</string>
+  <string name="live_display_color_profile_natural_title">Naturale</string>
+  <string name="live_display_color_profile_natural_summary">Colori relalistici e toni forti</string>
+  <string name="live_display_color_profile_dynamic_title">Dinamico</string>
+  <string name="live_display_color_profile_dynamic_summary">Colori intensi e bianchi luminosi</string>
+  <string name="live_display_color_profile_cinema_title">Cinema</string>
+  <string name="live_display_color_profile_cinema_summary">Riproduzione del colore perfetto per contenuti multimediali</string>
+  <string name="live_display_color_profile_astronomy_title">Astronomia</string>
+  <string name="live_display_color_profile_astronomy_summary">Rosso profondo per la visione notturna</string>
+  <string name="battery_saver_threshold">Soglia risparmio energetico</string>
+  <string name="battery_saver_summary">Riduce le prestazioni e limita i dati in background</string>
+  <string name="battery_saver_summary_unavailable">Non disponibile durante la ricarica</string>
+  <string name="anonymous_statistics_title">Statistiche CyanogenMod</string>
+  <string name="anonymous_statistics_summary">Aiuta a migliorare Cyanogenmod consentendo l\'invio di statistiche anonime</string>
+  <string name="anonymous_statistics_warning_title">Info</string>
+  <string name="anonymous_statistics_warning">Attivando le Statistiche CyanogenMod consentirai l\'invio di dati non personali
+        agli sviluppatori per contare il numero di installazioni sui dispositivi. Le informazioni inviate includono
+        un\'identificatore unico che non compromette in alcun modo la tua privacy o dati personali.\n\nPer vedere un esempio di dati inviati, tocca Anteprima Dati.</string>
+  <string name="enable_reporting_title">Attiva report</string>
+  <string name="preview_data_title">Anteprima dati</string>
+  <string name="view_stats_title">Vedi statistiche</string>
+  <string name="anonymous_learn_more">Ulteriori informazioni</string>
+  <string name="preview_id_title">ID Univoco</string>
+  <string name="preview_device_title">Dispositivo</string>
+  <string name="preview_version_title">Versione</string>
+  <string name="preview_country_title">Paese</string>
+  <string name="preview_carrier_title">Operatore</string>
+  <string name="heads_up_notifications">Heads up</string>
+  <string name="summary_heads_up_enabled">Le notifiche pop-up sono attivate</string>
+  <string name="summary_heads_up_disabled">Le notifiche pop-up sono disattivate</string>
+  <string name="master_clear_desc_cm" product="tablet">Questo cancellerà tutti i dati dalla <b>memoria interna</b> del tablet, tra cui:\n\n<li>account</li>\n<li>app e impostazioni del sistema</li>\n<li>app scaricate</li></string>
+  <string name="master_clear_desc_cm" product="default">Questo cancellerà tutti i dati dalla <b>memoria interna</b> del telefono, tra cui:\n\n<li>account</li>\n<li>app e impostazioni del sistema</li>\n<li>app scaricate</li></string>
+  <string name="lock_to_cyanogen_title">Protezione dispositivo</string>
+  <string name="lock_to_cyanogen_summary">Richiedi password dall\'account Cyanogen OS anche dopo il ripristino di fabbrica</string>
+  <string name="lock_to_cyanogen_create_account_msg">Il dispositivo utilizza la password dell\'account Cyanogen OS per proteggerlo anche in caso di un reset di fabbrica. Devi creare un account Cyanogen OS.</string>
+  <string name="lock_to_cyanogen_disable_msg">Disattivando questa funzione gli utenti non autorizzati potranno ripristinare il telefono alle impostazioni di fabbrica, se viene rubato. I dati personali non possono essere protetti. Desideri disattivare questa funzione?</string>
+  <string name="lock_to_cyanogen_master_clear_warning">La protezione del dispositivo è attiva. Disattivala per ripristinare il tuo dispositivo.</string>
+  <string name="bluetooth_pan_profile_summary_use_for_error">Errore di connessione; il tethering Bluetooth è attivo su questo dispositivo?</string>
+  <string name="sim_card_status_title">Status SIM %d</string>
+  <string name="sim_card_lock_settings_title">Impostazioni blocco SIM %d</string>
+  <string name="sim_card_summary_empty">SIM non inserita</string>
+  <string name="sim_mobile_network_settings_category_title">Impostazioni rete cellulare</string>
+  <string name="sim_mobile_network_settings_title">Impostazioni SIM %d</string>
+  <string name="factory_reset_instructions_title">Dati personali &amp; applicazioni</string>
+  <string name="factory_reset_instructions_summary">Questo cancellerà tutti gli account, applicazioni, dati delle app e impostazioni di sistema su questo dispositivo</string>
+  <string name="factory_reset_personal_content">Contenuto personale</string>
+  <string name="factory_reset_erase_stored_content">Cancella il contenuto archiviato</string>
+  <string name="factory_reset_erase_stored_content_summary">Cancellare musica, foto, video e altri dati dell\'utente memorizzati su questo dispositivo</string>
+  <string name="factory_reset_erase_stored_content_summary_forced">Cancellare musica, foto, video e altri dati dell\'utente memorizzati su questo dispositivo. \n\n <b>contenuto non può essere salvato a causa della crittografia dispositivo.</b></string>
+  <string name="factory_reset_erase_sd_card">Formatta scheda SD</string>
+  <string name="factory_reset_erase_sd_card_summary">Cancellare tutti i dati sulla scheda SD, incluso musica e foto</string>
+  <string name="factory_reset_warning_text_reset_now">RIPRISTINA ORA</string>
+  <string name="factory_reset_warning_text_message">Tutti gli account, applicazioni, dati delle app e impostazioni di sistema verranno rimossi da questo dispositivo. Questo non può essere invertito.</string>
+  <string name="wifi_setting_countrycode_title">Codice regione Wi\u2011Fi</string>
+  <string name="wifi_setting_countrycode_summary">Specifica il codice regione per il Wi\u2011Fi</string>
+  <string name="wifi_setting_countrycode_error">Problema nell\'impostazione del codice regione.</string>
+  <string name="wifi_countrycode_entries_us">Stati Uniti</string>
+  <string name="wifi_countrycode_entries_ca">Canada, Taiwan</string>
+  <string name="wifi_countrycode_entries_de">Germania</string>
+  <string name="wifi_countrycode_entries_gb">Europa</string>
+  <string name="wifi_countrycode_entries_jp">Giappone, Russia</string>
+  <string name="wifi_countrycode_entries_au">Australia</string>
+  <string name="wifi_countrycode_entries_cn">Cina</string>
+  <string name="wifi_countrycode_entries_kr">Corea</string>
+  <string name="wifi_countrycode_entries_tr">Sud Africa, Turchia</string>
+  <string name="wifi_countrycode_entries_sg">Israele, Singapore</string>
+  <string name="wifi_countrycode_entries_br">Brasile</string>
+  <string name="wifi_countrycode_entries_in">India</string>
+  <string name="unlock_set_unlock_launch_picker_title_with_fingerprint">Sblocca schermo &amp; impronte</string>
+  <string name="unlock_set_unlock_mode_fingerprint">Impronte digitali</string>
+  <string name="unlock_set_unlock_fingerprint_title">Impronte digitali</string>
+  <string name="fingerprint_item_add_new_fingerprint">Aggiungi una nuova impronta</string>
+  <string name="fingerprint_manage_fingerprints">Gestisci impronte</string>
+  <string name="fingerprint_manage_fingerprints_summary">Aggiungi o rimuovi impronte digitali</string>
+  <string name="unlock_backup_fingerprint_info_summary">Se non puoi usare il tuo dito, come desideri sbloccare il dispositivo?</string>
+  <string name="fingerprint_dialog_title_rename">Modifica impronta digitale</string>
+  <string name="fingerprint_dialog_name_label">Nome impronta</string>
+  <string name="fingerprint_dialog_title_max_fingers_reached">Limite di impronte raggiunto</string>
+  <string name="fingerprint_dialog_msg_max_fingers_reached">Puoi registrare solo <xliff:g id="finger" example="5 fingerprints">%d</xliff:g> impronte. Eliminane una esistente.</string>
+  <string name="fingerprint_title_manage_fingerprints">Gestione impronte <xliff:g id="finger">%d</xliff:g>/<xliff:g id="max">%d</xliff:g></string>
+  <string name="manage_fingerprints_description">Le impronte digitali ti consentono di sbloccare velocemente il tuo telefono e scattare foto.</string>
+  <string name="fingerprint_enrollment_introduction_title">Trova il sensore</string>
+  <string name="fingerprint_enrollment_introduction_instructions">Il sensore è posizionato nel retro del tuo telefono.</string>
+  <string name="fingerprint_enrollment_scan_title">Tieni premuto per 3 secondi</string>
+  <string name="fingerprint_enrollment_scan_instructions">Posiziona il dito sul sensore d\'impronte per iniziare il setup. Solleva il dito quando senti una vibrazione.</string>
+  <string name="fingerprint_enrollment_error_title_wrong_sensor">Prova di nuovo</string>
+  <string name="fingerprint_enrollment_error_message">Posiziona saldamente il dito sul sensore d\'impronte per una scansione accurata. Assicurati anche di usare lo stesso dito di prima. Sollevalo quando senti una vibrazione.</string>
+  <string name="fingerprint_enrollment_scan_instructions">Posiziona il dito sul sensore d\'impronte per iniziare il setup. Solleva il dito quando senti una vibrazione.</string>
+  <string name="fingerprint_enrollment_break_title">Tienilo premuto ancora</string>
+  <string name="fingerprint_enrollment_break_instructions">Continua a scansionare i bordi della tua impronta. Solleva il dito quando senti una vibrazione.</string>
+  <string name="fingerprint_enrollment_finished_title">Impronta aggiunta!</string>
+  <string name="fingerprint_enrollment_finished_message">L\'impronta può essere usata per sbloccare lo schermo o scattare selfie con la tua fotocamera.</string>
+  <string name="fingerprint_enrollment_found_it_label">Trovato</string>
+  <string name="fingerprint_enrollment_add_another_label">Aggiungine un\'altra</string>
+  <string name="fingerprint_enrollment_done_label">Fatto</string>
+  <string name="fingerprint_dialog_title_wrong_sensor">Ops, quello non è il tuo sensore</string>
+  <string name="fingerprint_dialog_msg_wrong_sensor">Usa il sensore d\'impronte digitali sulla parte frontale o posteriore del tuo telefono</string>
+  <string name="fingerprint_dialog_title_failed_enrollment">Impossibile leggere impronta</string>
+  <string name="fingerprint_dialog_msg_failed_enrollment">Prova ad usare un altro dito. Quest\'impronta non può essere letta.</string>
+  <string name="fingerprint_enrollment_restart_label">Ricomincia</string>
+  <string name="fingerprint_successful_scan_title_first">Perfetto! Ora ripeti</string>
+  <string name="fingerprint_successful_scan_final">Ancora un\'altra volta</string>
+  <string name="fingerprint_successful_scan_title_1">Ottimo! Continua</string>
+  <string name="fingerprint_successful_scan_title_2">Ottimo! Ancora</string>
+  <string name="fingerprint_successful_scan_title_3">Ben fatto! Continua così</string>
+  <string name="fingerprint_successful_scan_title_4">Solo ancora un paio di volte</string>
+  <string name="fingerprint_successful_scan_title_5">Stai andando benissimo! Ancora</string>
+  <string name="fingerprint_successful_scan_title_6">Ce l\'hai quasi fatta</string>
+  <string name="fingerprint_enrollment_error_title_1">Ops. Riprova</string>
+  <string name="fingerprint_enrollment_error_title_2">Impossibile ottenere l\'impronta</string>
+  <string name="fingerprint_enrollment_error_title_3">Hmm, qualcosa è andato storto</string>
+  <string name="fingerprint_enrollment_error_title_4">Uh oh, riprova</string>
+  <string name="fingerprint_enrollment_error_title_5">Whoos, c\'è stato un problema</string>
+  <string name="lockscreen_settings_and_fingerprint">Blocco schermo &amp; impronta digitale</string>
+  <string name="menu_stats_reset">Reimposta statistiche</string>
+  <string name="reset_stats_msg">Le statistiche delle batteria saranno resettate</string>
+  <string name="dock_battery_not_present">Batteria dock non presente</string>
+  <string name="battery_info_status_charging_dock_ac">Ricarica su Dock AC</string>
+  <string name="battery_info_status_charging_dock_usb">Ricarica su Dock USB</string>
+  <string name="setup_lock_pattern_size_title">Complessità  sequenza</string>
+  <string name="setup_lock_pattern_size_details">Quanti punti vorresti avere per la tua sequenza? Più ne hai più complessa sarà.</string>
+  <string name="lto_download_data_wifi_only">Download dati GPS-A</string>
+  <string name="lto_download_data_wifi_only_on">Da tutte le reti</string>
+  <string name="lto_download_data_wifi_only_off">Solo da reti Wi\u2011Fi</string>
+  <string name="keep_screen_on_never">Mai</string>
+  <string name="keep_screen_on_debugging">Durante il debug USB</string>
+  <string name="keep_screen_on_charging">Durante la ricarica</string>
+  <string name="contributors_cloud_fragment_title">Collaboratori</string>
+  <string name="contributors_cloud_loading_message">Caricamento dati collaboratori\u2026</string>
+  <string name="contributors_cloud_failed_message">Impossibile caricare dati collaboratori</string>
+  <string name="contributor_info_menu">Info collaboratore</string>
+  <string name="contributor_info_msg">
+        <![CDATA[<b>Nome:</b> <xliff:g id="name">%1$s</xliff:g><br/><br/>
+                 <b>Nick:</b> <xliff:g id="nick">%2$s</xliff:g><br/><br/>
+                 <b>Commit:</b> <xliff:g id="commits">%3$s</xliff:g><br/><br/>
+                 <b>Numero:</b> <xliff:g id="rank">%4$s</xliff:g>]]></string>
+  <string name="contributions_info_menu">Info contributi</string>
+  <string name="contributions_info_msg">
+        <![CDATA[<b>Totale collaboratori:</b> <xliff:g id="total_contributors">%1$s</xliff:g><br/><br/>
+                 <b>Totale commit:</b> <xliff:g id="total_commits">%2$s</xliff:g><br/><br/>
+                 <b>Ultimo aggiornamento:</b> <xliff:g id="date">%3$s</xliff:g>]]></string>
+  <string name="quick_settings_reset_message">Reimpostare tile rapidi?</string>
 </resources>

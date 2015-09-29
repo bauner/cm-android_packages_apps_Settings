@@ -31,7 +31,6 @@
     <PreferenceScreen
             android:key="spellcheckers_settings"
             android:title="@string/spellcheckers_settings_title"
-            settings:keywords="@string/keywords_spell_checker"
             android:persistent="false"
             />
 
@@ -43,8 +42,7 @@
 
     <PreferenceCategory
             android:key="keyboard_settings_category"
-            android:title="@string/keyboard_settings_category"
-            settings:keywords="@string/keywords_keyboard_and_ime">
+            android:title="@string/keyboard_settings_category">
 
         <PreferenceScreen
                 android:key="current_input_method"
@@ -59,6 +57,34 @@
             android:persistent="false">
         <!-- Additional preference screens are inserted here programmatically
              with low order values to set the key map of each attached keyboard. -->
+
+        <SwitchPreference
+                android:key="auto_replace"
+                android:title="@string/auto_replace"
+                android:summaryOn="@string/auto_replace_summary"
+                android:summaryOff="@string/auto_replace_summary"
+                android:order="1000"
+                android:persistent="false"
+                />
+
+        <SwitchPreference
+                android:key="auto_caps"
+                android:title="@string/auto_caps"
+                android:summaryOn="@string/auto_caps_summary"
+                android:summaryOff="@string/auto_caps_summary"
+                android:order="1001"
+                android:persistent="false"
+                />
+
+        <SwitchPreference
+                android:key="auto_punctuate"
+                android:title="@string/auto_punctuate"
+                android:summaryOn="@string/auto_punctuate_summary"
+                android:summaryOff="@string/auto_punctuate_summary"
+                android:order="1002"
+                android:persistent="false"
+                />
+
     </PreferenceCategory>
 
     <com.android.settings.cyanogenmod.SystemSettingSwitchPreference
@@ -80,14 +106,12 @@
         <PreferenceScreen
                 android:key="voice_input_settings"
                 android:title="@string/voice_input_settings_title"
-                settings:keywords="@string/keywords_voice_input"
                 android:fragment="com.android.settings.voice.VoiceInputSettings"
                 />
 
         <PreferenceScreen
                 android:key="tts_settings"
                 android:title="@string/tts_settings_title"
-                settings:keywords="@string/keywords_text_to_speech_output"
                 android:fragment="com.android.settings.tts.TextToSpeechSettings"
                 />
 
@@ -140,7 +164,7 @@
             android:key="game_controller_settings_category"
             android:title="@string/game_controller_settings_category">
 
-        <CheckBoxPreference
+        <SwitchPreference
                 android:key="vibrate_input_devices"
                 android:title="@string/vibrate_input_devices"
                 android:summaryOn="@string/vibrate_input_devices_summary"

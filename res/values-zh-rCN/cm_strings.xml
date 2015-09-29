@@ -54,6 +54,9 @@
   <string name="profile_app_group_category_title">通知覆盖</string>
   <string name="profile_app_group_item_instructions">添加或移除组</string>
   <string name="profile_app_group_item_instructions_summary">添加或移除通知覆盖应用组到此配置文件</string>
+  <string name="profile_entries_on">开启</string>
+  <string name="profile_entries_off">关闭</string>
+  <string name="profile_entries_no_override">不覆盖</string>
   <string name="profile_name_title">名称</string>
   <string name="new_profile_name">&lt;新情景模式&gt;</string>
   <string name="rename_dialog_title">重命名</string>
@@ -79,9 +82,13 @@
   <string name="profile_choose_app">选择应用</string>
   <string name="profile_system_settings_title">系统设置</string>
   <string name="profile_lockmode_title">锁屏模式</string>
+  <string name="profile_lockmode_policy_disabled_summary">此配置文件选项已由设备管理员策略禁用</string>
   <string name="profile_lockmode_insecure_summary">不请求 PIN 码或密码</string>
   <string name="profile_lockmode_disabled_summary">禁用锁屏</string>
   <string name="profile_airplanemode_title">飞行模式</string>
+  <string name="profile_brightness_title">屏幕亮度</string>
+  <string name="profile_brightness_override_summary">设置到 %1$d%%</string>
+  <string name="profile_brightness_override_checkbox_label">覆盖亮度</string>
   <string name="toggleWifi">Wi\u2011Fi</string>
   <string name="toggleWifiAp">便携式 Wi\u2011Fi 热点</string>
   <string name="toggleBluetooth">蓝牙</string>
@@ -97,6 +104,7 @@
   <string name="hardware_keys_menu_key_title">菜单键</string>
   <string name="hardware_keys_assist_key_title">搜索键</string>
   <string name="hardware_keys_appswitch_key_title">应用键</string>
+  <string name="hardware_keys_camera_key_title">相机键</string>
   <string name="hardware_keys_volume_keys_title">音量键</string>
   <string name="hardware_keys_short_press_title">短按行为</string>
   <string name="hardware_keys_long_press_title">长按行为</string>
@@ -110,7 +118,11 @@
   <string name="hardware_keys_action_launch_camera">启动相机</string>
   <string name="hardware_keys_action_sleep">关闭屏幕</string>
   <string name="hardware_keys_action_last_app">上次运行应用</string>
-  <string name="volbtn_music_controls_title">音量键音乐控制</string>
+  <string name="camera_sleep_on_release_title">屏幕窥探</string>
+  <string name="camera_sleep_on_release_summary">仅当按钮被按下时，半按将会保持屏幕点亮</string>
+  <string name="camera_launch_title">启动相机</string>
+  <string name="camera_launch_summary">长按并松开将会启动相机</string>
+  <string name="volbtn_music_controls_title">播放控制</string>
   <string name="volbtn_music_controls_summary">屏幕关闭时，长按音量键将改变音乐曲目</string>
   <string name="volbtn_cursor_control_title">键盘光标控制</string>
   <string name="volbtn_cursor_control_off">禁用</string>
@@ -118,10 +130,12 @@
   <string name="volbtn_cursor_control_on_reverse">音量+/-光标右/左移动</string>
   <string name="swap_volume_buttons_title">重新调整</string>
   <string name="swap_volume_buttons_summary">旋转屏幕时交换音量键的布局</string>
+  <string name="volume_keys_control_ring_stream_title">音量键控制铃声音量</string>
+  <string name="volume_keys_control_ring_stream_summary">如果启用，音量键将控制铃声音量。如果禁用，音量键将控制媒体音量。</string>
   <string name="power_end_call_title">结束通话</string>
   <string name="power_end_call_summary">按下电源按钮将结束当前通话</string>
   <string name="button_wake_title">唤醒设备</string>
-  <string name="button_wake_summary">覆写重放控制</string>
+  <string name="button_wake_summary">覆盖播放控制</string>
   <string name="home_answer_call_title">接听电话</string>
   <string name="home_answer_call_summary">按 Home 键将接听当前来电</string>
   <string name="button_backlight_title">背光灯</string>
@@ -152,15 +166,14 @@
   <string name="sunlight_enhancement_summary">在明亮的阳光下提高显示亮度和可读性</string>
   <string name="color_enhancement_title">色彩增强</string>
   <string name="color_enhancement_summary">动态增强屏幕色彩</string>
-  <string name="app_security_title">应用安全</string>
-  <string name="blacklist_title">黑名单</string>
-  <string name="blacklist_edit_dialog_title">编辑黑名单</string>
+  <string name="blacklist_title">呼叫黑名单列表</string>
+  <string name="blacklist_edit_dialog_title">编辑已屏蔽的电话号码</string>
   <string name="blacklist_prefs">设置</string>
   <string name="blacklist_button_delete">删除</string>
-  <string name="blacklist_empty_text">您没有任何的黑名单号码。您可以点击添加 (+) 按钮来添加。</string>
-  <string name="blacklist_disabled_empty_text">要阻止来自特定号码的来电或短信，请启用黑名单。</string>
+  <string name="blacklist_empty_text">您的黑名单中没有任何号码。您可以点击 (+) 按钮来添加。</string>
+  <string name="blacklist_disabled_empty_text">要阻止特定的号码拨打电话或发送短信给您，可启用呼叫黑名单列表。</string>
   <string name="blacklist_summary_disabled">禁用</string>
-  <string name="blacklist_summary">来自黑名单上的号码的电话与短信将被阻止</string>
+  <string name="blacklist_summary">您将不会收到来自呼叫黑名单列表中的来电或短信</string>
   <string name="blacklist_notify">显示通知</string>
   <string name="blacklist_private_numbers_title">私人号码</string>
   <string name="blacklist_private_numbers_summary_disabled">不要阻止私人号码的来电</string>
@@ -175,9 +188,9 @@
   <string name="blacklist_regex_summary">使用 . 作为通配符和 * 作为重复字符，例如：123.* 将会阻止所有 123 为前缀的号码；.*123.* 将会阻止所有包含 123 的号码</string>
   <string name="blacklist_policy_block_calls">阻止来电</string>
   <string name="blacklist_policy_block_messages">阻止接收短信</string>
-  <string name="blacklist_bad_number_add">无法添加无效号码到黑名单</string>
+  <string name="blacklist_bad_number_add">无法添加无效的电话号码到呼叫黑名单列表</string>
   <string name="remove_blacklist_number_title">移除号码</string>
-  <string name="remove_blacklist_entry">您确定要从黑名单中移除吗？</string>
+  <string name="remove_blacklist_entry">您要将此号码从呼叫黑名单列表中移除吗？</string>
   <string name="select_contact">选择联系人</string>
   <string name="lockpattern_reset_button">重设图案</string>
   <string name="lockpattern_settings_reset_summary">输入主要的电子邮件帐户和对应的密码来重设图案锁</string>
@@ -201,7 +214,9 @@
   <string name="display_rotation_270_title">270 度</string>
   <string name="app_security_title">应用安全</string>
   <string name="sms_security_check_limit_title">短信限制</string>
-  <string name="sms_security_check_limit_summary">应用在 30 分钟内发送 %d 条信息后需要用户认可才能继续</string>
+  <string name="sms_security_check_limit_summary">应用在 1 分钟内发送 %d 条信息后需要用户认可才能继续</string>
+  <string name="sms_security_check_limit_summary_none">未经确认时应用不允许发送任何短信</string>
+  <string name="sms_security_check_limit_none">无</string>
   <string name="spam_added_title">已添加 %1$s</string>
   <string name="spam_last_blocked_title">最后一次被阻止： %1$s</string>
   <string name="block_notifications_title">通知过滤</string>
@@ -214,9 +229,9 @@
   <string name="update_recovery_off_warning">警告：此功能被禁用后，你安装的恢复模式将不会随着系统一起更新。\n\n未来的系统更新可能不支持用过旧的或自制的恢复模式安装。\n\n您确定要禁用此功能？</string>
   <string name="mod_version">CyanogenMod 版本</string>
   <string name="mod_version_default">未知</string>
-  <string name="model_name">型号名称</string>
+  <string name="device_model">设备型号</string>
+  <string name="device_name">设备名称</string>
   <string name="build_date">编译日期</string>
-  <string name="contributor_cloud_title">贡献者</string>
   <string name="phone_service_state">语音： <xliff:g id="voice_state">%1$s</xliff:g>，数据： <xliff:g id="data_state">%2$s</xliff:g></string>
   <string name="double_tap_to_wake_title">双击唤醒</string>
   <string name="double_tap_to_wake_summary">双击屏幕来开启屏幕显示</string>
@@ -233,6 +248,7 @@
   <string name="privacy_guard_reset_text">重置权限？</string>
   <string name="privacy_guard_help_text">在这个页面上，您可以简单地通过点击来选择在哪些应用上启用隐私防护。选中的应用将无法访问个人数据，例如：联系人、短信或通话记录。长按一个应用的条目打开应用详细页面。\n\n默认不显示内置应用，在菜单中选择相应选项可以显示它们。</string>
   <string name="privacy_guard_manager_show_system_apps">显示内置应用</string>
+  <string name="app_ops_btn_text">修改</string>
   <string name="increasing_ring_volume_option_title">铃声音量渐强</string>
   <string name="increasing_ring_min_volume_title">初始音量</string>
   <string name="increasing_ring_ramp_up_time_title">增强时间</string>
@@ -294,9 +310,6 @@
   <string name="status_bar_battery_percentage_default">隐藏</string>
   <string name="status_bar_battery_percentage_text_inside">图标内</string>
   <string name="status_bar_battery_percentage_text_next">图标旁</string>
-  <string name="status_bar_show_unused_sims_title">显示空 SIM 卡图标</string>
-  <string name="status_bar_show_unused_sims_title_summary_off">隐藏未使用的 SIM 卡槽图标</string>
-  <string name="status_bar_show_unused_sims_title_summary_on">显示未使用的 SIM 卡槽</string>
   <string name="edit_light_settings">编辑指示灯设置</string>
   <string name="pulse_speed_title">呼吸长度与速度</string>
   <string name="default_time">正常</string>
@@ -328,6 +341,8 @@
   <string name="notification_light_default_value">默认</string>
   <string name="notification_light_missed_call_title">未接来电</string>
   <string name="notification_light_voicemail_title">语音信箱</string>
+  <string name="notification_light_screen_on">屏幕开启时点亮指示灯</string>
+  <string name="keywords_lights_brightness_level">降低 LED 亮度</string>
   <string name="notification_ringtone_title_cm">通知铃声</string>
   <string name="headset_connect_player_title">启动音乐播放器</string>
   <string name="headset_connect_player_summary">插入耳机时启动默认音乐播放器</string>
@@ -468,6 +483,7 @@
   <string name="ok">确定</string>
   <string name="profile_menu_delete_title">删除</string>
   <string name="profile_action_none">保持不变</string>
+  <string name="profile_action_system">系统默认</string>
   <string name="profile_action_disable">关闭</string>
   <string name="profile_action_enable">打开</string>
   <string name="profile_trigger_a2dp_connect">A2DP 连接时</string>
@@ -563,9 +579,14 @@
   <string name="sim_pin_attempts">\n剩余次数：</string>
   <string name="sim_pin_enabled">PIN1 已启用</string>
   <string name="sim_pin_disabled">PIN1 已禁用</string>
-  <string name="subs_settings">SIM 卡状态</string>
   <string name="storage_usb">USB 存储</string>
   <string name="storage_uicc">UICC 存储</string>
+  <string name="sdcard_eject" product="default">卸载 SD 卡</string>
+  <string name="sdcard_eject_summary" product="default">卸载 SD 卡后您就可以安全地移除它</string>
+  <string name="sd_card_format" product="default">擦除 SD 卡</string>
+  <string name="sd_card_format_summary" product="default">擦除 SD 卡中的全部数据，例如音乐和照片</string>
+  <string name="sdcard_mount" product="default">挂载 SD 卡</string>
+  <string name="sdcard_insert_summary" product="default">插入 SD 卡来挂载</string>
   <string name="usb_eject" product="default">卸载 USB 存储</string>
   <string name="usb_eject_summary" product="default">卸载 USB 存储后您就可以安全地移除它</string>
   <string name="usb_format" product="default">擦除 USB 存储</string>
@@ -580,22 +601,36 @@
   <string name="uicc_insert_summary" product="default">插入 UICC 存储以挂载</string>
   <string name="usb_settings_enable_ums_title">启用大容量存储吗？</string>
   <string name="usb_settings_enable_ums_message">系统组件和应用依赖于永远可用的主存储器。大容量存储模式破坏了此功能。强烈建议您使用 MTP 作为替代。您确定要打开大容量存储模式吗？</string>
+  <string name="dlg_confirm_sdcard_unmount_title" product="default">卸载 SD 卡？</string>
   <string name="dlg_confirm_usb_unmount_title" product="default">卸载 USB 存储？</string>
   <string name="dlg_confirm_uicc_unmount_title" product="default">卸载 UICC 存储</string>
+  <string name="dlg_confirm_sdcard_unmount_text" product="default">如果卸载该 SD 卡，您当前使用的某些应用会停止，并且在您重新挂载该 SD 卡前，这些应用可能都无法使用。</string>
   <string name="dlg_confirm_usb_unmount_text" product="default">如果卸载 USB 存储，您正在使用的一些应用将停止并且可能无法使用，直到您重新挂载 USB 存储。</string>
   <string name="dlg_confirm_uicc_unmount_text" product="default">如果卸载 UICC 存储，您正在使用的一些应用将停止并且可能无法使用，直到您重新挂载 UICC 存储。</string>
+  <string name="dlg_error_sdcard_unmount_text" product="default">无法卸载 SD 卡。请稍后重试。</string>
   <string name="dlg_error_usb_unmount_text" product="default">无法卸载 USB 存储。请稍后重试。</string>
   <string name="dlg_error_uicc_unmount_text" product="default">无法卸载 UICC 存储。请稍后重试。</string>
+  <string name="sdcard_unmount_inform_text" product="default">SD 卡将被卸载。</string>
   <string name="usb_unmount_inform_text" product="default">USB 存储将被卸载。</string>
   <string name="uicc_unmount_inform_text" product="default">UICC 存储将被卸载。</string>
+  <string name="sdcard_media_format_desc" product="default">要擦除 SD 卡吗？您将会丢失其中存储的<b>全部</b>数据！</string>
   <string name="usb_media_format_desc" product="default">确定擦除 USB 储存吗？这样您将丢失<b>所有</b>的存储数据！</string>
   <string name="uicc_media_format_desc" product="default">确定擦除 UICC 储存吗？这样您将丢失<b>所有</b>的存储数据！</string>
+  <string name="sdcard_media_format_button_text" product="default">擦除 SD 卡</string>
   <string name="usb_media_format_button_text" product="default">擦除 USB 存储</string>
   <string name="uicc_media_format_button_text" product="default">擦除 UICC 存储</string>
+  <string name="sdcard_media_format_final_desc" product="default">确定要擦除 SD 卡，删除其中存储的全部文件吗？您无法撤消该操作！</string>
   <string name="usb_media_format_final_desc" product="default">确定要擦除该 USB 存储，删除其中存储的全部文件吗？您无法撤消此操作！</string>
   <string name="uicc_media_format_final_desc" product="default">确定擦除该 UICC 存储，并删除其中储存的全部文件吗？您无法撤消此操作！</string>
+  <string name="sdcard_media_format_gesture_explanation" product="default">您需要绘制解锁图案以确认要擦除 SD 卡。</string>
   <string name="usb_media_format_gesture_explanation" product="default">您需要绘制解锁图案以确认要擦除 USB 存储。</string>
   <string name="uicc_media_format_gesture_explanation" product="default">您需要绘制解锁图案以确认要擦除 USB 存储。</string>
+  <string name="internal_sd_format">擦除内部存媒体存储</string>
+  <string name="internal_sd_format_summary">擦除所有内部媒体存储上的数据，比如音乐和照片</string>
+  <string name="master_clear_desc_erase_internal_storage">\n\n要清除音乐、图片和其他用户数据。<b>内置媒体存储</b>需要被擦除。</string>
+  <string name="erase_internal_storage">擦除内部存媒体存储</string>
+  <string name="erase_internal_storage_description">擦除内置媒体存储的所有数据，例如音乐或照片</string>
+  <string name="storage_rescan_media">为存储卷重新扫描媒体</string>
   <string name="location_category_enhanced_location">增强的位置 (IZat)</string>
   <string name="app_ops_settings_summary">查看或更改应用的权限</string>
   <string name="enable_adb_summary_charging">设备正处于充电模式，USB 调试已被禁用</string>
@@ -620,12 +655,9 @@
   <string name="usb_charging_summary">禁用通过 USB 接口的全部数据传输</string>
   <string name="usb_sdcard_title">大容量存储 (UMS)</string>
   <string name="usb_sdcard_summary">挂载 SD 卡为闪存设备，使您可以在计算机和 SD 卡之间传输文件</string>
+  <string name="usb_not_connected">USB 目前已断开连接</string>
   <string name="external_storage_turn_on">外部存储已打开</string>
   <string name="external_storage_turn_off">外部存储已关闭</string>
-  <string name="menu_hidden_apps_delete">重置</string>
-  <string name="menu_hidden_apps_reset_lock">重置锁定图案</string>
-  <string name="protected_apps">受保护的应用</string>
-  <string name="saving_protected_components">正在保存组件状态\u2026</string>
   <string name="stats_collection_title">统计数据收集</string>
   <string name="stats_collection_summary">启用时，允许数据收集</string>
   <string name="power_notifications_category_title">充电提示音</string>
@@ -641,29 +673,17 @@
   <string name="picker_activities">活动</string>
   <string name="select_custom_app_title">选择自定义应用</string>
   <string name="select_custom_activity_title">选择自定义活动</string>
-  <string name="performance_settings_title">性能</string>
-  <string name="io_scheds_title">I/O 调度器</string>
-  <string name="io_sched_title">I/O 调度器</string>
+  <string name="autoperf_title">启用单应用配置</string>
+  <string name="autoperf_summary">为不同应用自动选择合适的电池模式</string>
   <string name="perf_profile_title">电池模式</string>
   <string name="pref_force_highend_gfx_title">强制高端图形</string>
   <string name="pref_force_highend_gfx_summary">启用高端视觉特效，如透明状态栏/导航栏 (需要重启)</string>
-  <string name="performance_settings_warning_title">请谨慎前进</string>
-  <string name="performance_settings_warning">这些设置是实验性的，任何应用的改变都有可能导致不稳定、崩溃、数据丢失或硬件故障。\n\n如果您更改了默认设置，我们请求您不要提交错误报告。</string>
-  <string name="performance_set_on_boot">启动时设置</string>
-  <string name="performance_set_on_boot_summary">启动时恢复设置</string>
-  <string name="processor_title">处理器</string>
-  <string name="cpu_cur_freq_title">当前 CPU 频率</string>
-  <string name="cpu_governors_title">CPU 调节器</string>
-  <string name="cpu_min_freq_title">最低 CPU 频率</string>
-  <string name="cpu_max_freq_title">最高 CPU 频率</string>
-  <string name="autoperf_title">启用单应用配置</string>
-  <string name="autoperf_summary">自动为各种应用选择适当的性能配置</string>
-  <string name="graphics_title">图形和渲染</string>
   <string name="edge_gesture_service_title">拦截手势触摸事件</string>
   <string name="edge_gesture_service_summary">不向应用发送导航栏和状态栏的触摸事件</string>
   <string name="cmlicense_title">CyanogenMod 法律信息</string>
   <string name="settings_cmlicense_activity_title">CyanogenMod 法律信息</string>
-  <string name="settings_cmlicense_activity_unreachable">您没有数据连接。要立即查看此信息，请通过已联网的任意计算机访问 %s。</string>
+  <string name="lockpattern_settings_enable_error_path_title">显示图案错误</string>
+  <string name="lockpattern_settings_enable_dots_title">显示图案圆点</string>
   <string name="unlock_quick_unlock_control_title">快速解锁</string>
   <string name="unlock_quick_unlock_control_summary">当输入正确的 PIN 码或密码后自动解锁</string>
   <string name="unlock_scramble_pin_layout_title">乱序布局</string>
@@ -682,6 +702,7 @@
   <string name="status_bar_show_weather_summary">在快速设置面板上方显示天气</string>
   <string name="qs_category_title">快速设置面板</string>
   <string name="qs_brightness_slider_title">显示亮度滑块</string>
+  <string name="qs_hide_tiles_with_sensitive_data">锁定时隐藏敏感瓷块</string>
   <string name="qs_order_title">选择和排序瓷块</string>
   <string name="add_qs">添加新瓷块</string>
   <string name="qs_action_delete">删除</string>
@@ -704,12 +725,21 @@
   <string name="qs_tile_compass">指南针</string>
   <string name="qs_tile_lockscreen">锁屏</string>
   <string name="qs_tile_lte">LTE</string>
+  <string name="qs_tile_volume_panel">音量面板</string>
   <string name="qs_tile_screen_timeout">屏幕超时</string>
+  <string name="qs_tile_usb_tether">USB 共享网络</string>
+  <string name="qs_tile_heads_up">浮动通知</string>
+  <string name="qs_tile_ambient_display">环境显示</string>
+  <string name="qs_tile_sync">同步</string>
+  <string name="qs_dynamic_tile_next_alarm">下一个闹铃</string>
+  <string name="qs_dynamic_tile_ime_selector">输入法选择器</string>
+  <string name="qs_dynamic_tile_su">Root 授权</string>
   <string name="qs_main_tiles_title">扩大第一行</string>
   <string name="qs_main_tiles_summary_on">第一行两个主要瓷块</string>
   <string name="qs_main_tiles_summary_off">每行三个瓷块</string>
   <string name="qs_advanced_location_title">高级位置设置</string>
   <string name="qs_advanced_location_summary">启用快速设置中的高级位置信息设置</string>
+  <string name="sim_no_number_set">没有分配号码</string>
   <string name="gesture_settings_title">手势</string>
   <string name="themes_settings_title">主题</string>
   <string name="wifi_mode">模式</string>
@@ -718,6 +748,7 @@
   <string name="wifi_ibss_freq_title">频带/频率</string>
   <string name="wifi_channel">频带</string>
   <string name="wifi_mhz">MHz</string>
+  <string name="wifi_auto_config_priorities">自动优先</string>
   <string name="maximum_head_level">头部：%1$s 瓦特/公斤</string>
   <string name="maximum_body_level">身体：%1$s 瓦特/公斤</string>
   <string name="ic_code_model">型号：%1$s</string>
@@ -732,6 +763,7 @@
   <string name="expanded_desktop_style">扩展桌面样式</string>
   <string name="expanded_desktop_style_description">选择一个默认的扩展桌面样式</string>
   <string name="expanded_desktop_title">扩展桌面选项</string>
+  <string name="title_general">常规</string>
   <string name="lockscreen_targets_message">锁屏快捷方式</string>
   <string name="lockscreen_default_target">默认</string>
   <string name="lockscreen_none_target">无</string>
@@ -742,6 +774,11 @@
   <string name="whisperpush_summary">管理安全短信设置</string>
   <string name="navigation_ring_title">导航环目标</string>
   <string name="navigation_ring_message">轻按编辑图标以打开导航环编辑。\n\n选择一个目标以配置其行为。\n\n轻按“\u2713”图标以保存您的变更，或“还原默认值”以重置设置到默认状态。</string>
+  <string name="lcd_density">LCD 密度</string>
+  <string name="dialog_title_lcd_density">LCD 密度</string>
+  <string name="lcd_density_value_format">%d DPI</string>
+  <string name="lcd_density_default_value_format">%d DPI (默认值)</string>
+  <string name="restarting_ui">正在重启界面\u2026</string>
   <string name="stylus_icon_enabled_title">使用触控笔时显示光标</string>
   <string name="stylus_icon_enabled_summary">使用触控笔悬停或书写时显示指示光标</string>
   <string name="gestures_settings_title">触控笔手势</string>
@@ -773,7 +810,7 @@
   <string name="category_interface">界面</string>
   <string name="category_calibration">校准</string>
   <string name="display_and_lights">显示 &amp; 指示灯</string>
-  <string name="notification_manager">通知管理器</string>
+  <string name="notification_manager">通知</string>
   <string name="lockscreen_settings">锁屏</string>
   <string name="category_lights">指示灯</string>
   <string name="power_usage_history_title">电量使用情况</string>
@@ -782,6 +819,9 @@
   <string name="sim_ringtone_title">SIM 卡 %d 铃声</string>
   <string name="interruptions_ignore_while_media_title">阻止音频回避</string>
   <string name="interruptions_ignore_while_media_summary">当通知到达时，不要降低媒体播放音量</string>
+  <string name="none_is_silent_title">永不静音闹钟</string>
+  <string name="none_is_silent_summary">静音模式下闹钟总是响铃</string>
+  <string name="allow_lights_title">允许通知指示灯</string>
   <string name="live_display_summary">基于时间和环境条件来优化您的屏幕以改善可读性和减少眼睛疲劳</string>
   <string name="live_display_mode">显示模式</string>
   <string name="live_display_color_temperature_title">色温</string>
@@ -795,7 +835,147 @@
   <string name="live_display_low_power_summary">在不降低亮度的情况下调整屏幕使耗电最低</string>
   <string name="live_display_enhance_color_title">增强色彩</string>
   <string name="live_display_enhance_color_summary">为肤色、风景和其他图像提高颜色活力</string>
+  <string name="live_display_color_profile_title">颜色配置文件</string>
+  <string name="live_display_color_profile_standard_title">标准</string>
+  <string name="live_display_color_profile_standard_summary">准确的颜色和明亮的白色</string>
+  <string name="live_display_color_profile_natural_title">自然</string>
+  <string name="live_display_color_profile_natural_summary">写实的颜色和肤色</string>
+  <string name="live_display_color_profile_dynamic_title">动态</string>
+  <string name="live_display_color_profile_dynamic_summary">增强的颜色和明亮的白色</string>
+  <string name="live_display_color_profile_cinema_title">影院</string>
+  <string name="live_display_color_profile_cinema_summary">印刷质量的完美颜色</string>
+  <string name="live_display_color_profile_astronomy_title">天文</string>
+  <string name="live_display_color_profile_astronomy_summary">夜视的深红色</string>
   <string name="battery_saver_threshold">节电助手阈值</string>
   <string name="battery_saver_summary">降低性能并限制后台流量</string>
   <string name="battery_saver_summary_unavailable">在充电时不可用</string>
+  <string name="anonymous_statistics_title">CyanogenMod 统计</string>
+  <string name="anonymous_statistics_summary">开启匿名统计报告以便帮助 CyanogenMod 未来向更好的方向发展</string>
+  <string name="anonymous_statistics_warning_title">关于</string>
+  <string name="anonymous_statistics_warning">开启 CyanogenMod 统计将允许非个人数据被提交到 CyanogenMod 的开发者以便记录各种设备上的唯一安装。提交的信息包含一个唯一的标识符，而不会涉及您的隐私与个人数据。该数据将在每次启动时被提交。\n\n如您想看一个作为被提交数据的实例，请点击预览数据。</string>
+  <string name="enable_reporting_title">开启报告</string>
+  <string name="preview_data_title">预览数据</string>
+  <string name="view_stats_title">查看统计</string>
+  <string name="anonymous_learn_more">了解更多</string>
+  <string name="preview_id_title">唯一 ID</string>
+  <string name="preview_device_title">设备</string>
+  <string name="preview_version_title">版本</string>
+  <string name="preview_country_title">国家</string>
+  <string name="preview_carrier_title">运营商</string>
+  <string name="heads_up_notifications">浮动通知</string>
+  <string name="summary_heads_up_enabled">弹出通知已启用</string>
+  <string name="summary_heads_up_disabled">弹出通知已禁用</string>
+  <string name="master_clear_desc_cm" product="tablet">这将会从您平板的<b>内部存储</b>中擦出所有数据，包括：\n\n<li>您的设备账号</li>\n<li>系统和应用数据设置</li>\n<li>已下载的应用</li></string>
+  <string name="master_clear_desc_cm" product="default">这将会从您手机的<b>内部存储</b>中擦出所有数据，包括：\n\n<li>您的设备账号</li>\n<li>系统和应用数据设置</li>\n<li>已下载的应用</li></string>
+  <string name="lock_to_cyanogen_title">设备保护</string>
+  <string name="lock_to_cyanogen_summary">即使设备被恢复出厂设置，也要求输入 Cyanogen OS 帐户密码</string>
+  <string name="lock_to_cyanogen_create_account_msg">即使设备被恢复出厂设置，也可以被 Cyanogen OS 帐户密码所保护。您将需要创建一个 Cyanogen OS 帐户。</string>
+  <string name="lock_to_cyanogen_disable_msg">如果您的手机被盗，禁用此功能将会使得未经授权的用户重置您的手机为出厂默认值。您的个人数据可能无法被保护。您确定要禁用此功能？</string>
+  <string name="lock_to_cyanogen_master_clear_warning">设备保护已启用。请在重设您的设备前先将其禁用。</string>
+  <string name="bluetooth_pan_profile_summary_use_for_error">连接错误；是否在该设备上启用了蓝牙网络共享？</string>
+  <string name="sim_card_status_title">SIM 卡 %d 状态</string>
+  <string name="sim_card_lock_settings_title">SIM 卡 %d 锁设置</string>
+  <string name="sim_card_summary_empty">SIM 卡没有插入</string>
+  <string name="sim_mobile_network_settings_category_title">移动网络设置</string>
+  <string name="sim_mobile_network_settings_title">SIM 卡 %d 设置</string>
+  <string name="factory_reset_instructions_title">个人数据 &amp; 应用</string>
+  <string name="factory_reset_instructions_summary">这将删除此设备上所有的帐户、 应用、 应用数据和系统设置</string>
+  <string name="factory_reset_personal_content">个人内容</string>
+  <string name="factory_reset_erase_stored_content">擦除已存储的内容</string>
+  <string name="factory_reset_erase_stored_content_summary">擦除此设备上的音乐、照片、视频和其他用户数据。</string>
+  <string name="factory_reset_erase_stored_content_summary_forced">擦除音乐、照片、视频，并且存储在此设备上的其他用户数据。
+\n\n<b>由于设备加密，将无法保存内容。</b></string>
+  <string name="factory_reset_erase_sd_card">格式化 SD 卡</string>
+  <string name="factory_reset_erase_sd_card_summary">擦除 SD 卡上的所有数据，包括音乐和照片</string>
+  <string name="factory_reset_warning_text_reset_now">立即重置</string>
+  <string name="factory_reset_warning_text_message">您的所有帐户、应用、应用数据和系统设置将会从该设备上删除。此操作不可撤销。</string>
+  <string name="wifi_setting_countrycode_title">Wi\u2011Fi 区域码</string>
+  <string name="wifi_setting_countrycode_summary">为 Wi\u2011Fi 指定区域码</string>
+  <string name="wifi_setting_countrycode_error">设置区域码时遇到了问题。</string>
+  <string name="wifi_countrycode_entries_us">美国</string>
+  <string name="wifi_countrycode_entries_ca">加拿大，台湾</string>
+  <string name="wifi_countrycode_entries_de">德国</string>
+  <string name="wifi_countrycode_entries_gb">欧洲</string>
+  <string name="wifi_countrycode_entries_jp">日本，俄罗斯</string>
+  <string name="wifi_countrycode_entries_au">澳大利亚</string>
+  <string name="wifi_countrycode_entries_cn">中国</string>
+  <string name="wifi_countrycode_entries_kr">韩国</string>
+  <string name="wifi_countrycode_entries_tr">南非，土耳其</string>
+  <string name="wifi_countrycode_entries_sg">以色列，新加坡</string>
+  <string name="wifi_countrycode_entries_br">巴西</string>
+  <string name="wifi_countrycode_entries_in">印度</string>
+  <string name="unlock_set_unlock_launch_picker_title_with_fingerprint">屏幕解锁 &amp; 指纹</string>
+  <string name="unlock_set_unlock_mode_fingerprint">指纹</string>
+  <string name="unlock_set_unlock_fingerprint_title">指纹</string>
+  <string name="fingerprint_item_add_new_fingerprint">添加新的指纹</string>
+  <string name="fingerprint_manage_fingerprints">管理指纹</string>
+  <string name="fingerprint_manage_fingerprints_summary">添加或移除已登记的指纹</string>
+  <string name="unlock_backup_fingerprint_info_summary">如果您不能使用您的手指，您想要如何解锁？</string>
+  <string name="fingerprint_dialog_title_rename">编辑指纹</string>
+  <string name="fingerprint_dialog_name_label">指纹名称</string>
+  <string name="fingerprint_dialog_title_max_fingers_reached">已达到最大指纹数量</string>
+  <string name="fingerprint_dialog_msg_max_fingers_reached">您只能登记 <xliff:g id="finger" example="5 fingerprints">%d</xliff:g> 个指纹。删除一个现有指纹。</string>
+  <string name="fingerprint_title_manage_fingerprints">管理指纹  <xliff:g id="finger">%d</xliff:g>/<xliff:g id="max">%d</xliff:g></string>
+  <string name="manage_fingerprints_description">使用指纹将可以快速解锁您的手机和拍照。</string>
+  <string name="fingerprint_enrollment_introduction_title">找到您的传感器</string>
+  <string name="fingerprint_enrollment_introduction_instructions">指纹传感器位于您手机的正面或背面。</string>
+  <string name="fingerprint_enrollment_scan_title">保持 3 秒</string>
+  <string name="fingerprint_enrollment_scan_instructions">将您的食指放在指纹传感器上以便开始设置。当您感觉到震动，请抬起手指。</string>
+  <string name="fingerprint_enrollment_error_title_wrong_sensor">请再试一次</string>
+  <string name="fingerprint_enrollment_error_message">请将您的手指稳定地按在指纹传感器上，以便准确地扫描。此外，请确保您正在使用和之前相同的手指。当您感觉到震动，请抬起手指。</string>
+  <string name="fingerprint_enrollment_scan_instructions">将您的食指放在指纹传感器上以便开始设置。当您感觉到震动，请抬起手指。</string>
+  <string name="fingerprint_enrollment_break_title">保持当前的力度并继续</string>
+  <string name="fingerprint_enrollment_break_instructions">请继续，以便捕获您的指纹边缘。当您感觉到震动，请抬起手指。</string>
+  <string name="fingerprint_enrollment_finished_title">指纹已添加！</string>
+  <string name="fingerprint_enrollment_finished_message">您的指纹目前已经可以用于解锁屏幕或使用您的相机进行自拍。</string>
+  <string name="fingerprint_enrollment_found_it_label">找到它</string>
+  <string name="fingerprint_enrollment_add_another_label">添加另一个</string>
+  <string name="fingerprint_enrollment_done_label">完成</string>
+  <string name="fingerprint_dialog_title_wrong_sensor">哎哟，这不是您的传感器</string>
+  <string name="fingerprint_dialog_msg_wrong_sensor">使用在您手机正面或背面的指纹传感器</string>
+  <string name="fingerprint_dialog_title_failed_enrollment">无法读取指纹</string>
+  <string name="fingerprint_dialog_msg_failed_enrollment">请尝试使用另一根手指。无法读取当前指纹。</string>
+  <string name="fingerprint_enrollment_restart_label">重新开始</string>
+  <string name="fingerprint_successful_scan_title_first">完美！现在再来一次</string>
+  <string name="fingerprint_successful_scan_final">请再来一次</string>
+  <string name="fingerprint_successful_scan_title_1">您做的很棒！请继续</string>
+  <string name="fingerprint_successful_scan_title_2">太好了！再来一次</string>
+  <string name="fingerprint_successful_scan_title_3">做的不错！保持下去</string>
+  <string name="fingerprint_successful_scan_title_4">只需再来几次</string>
+  <string name="fingerprint_successful_scan_title_5">您做的很棒！再来一次</string>
+  <string name="fingerprint_successful_scan_title_6">就快好了</string>
+  <string name="fingerprint_enrollment_error_title_1">糟糕，请再试一次</string>
+  <string name="fingerprint_enrollment_error_title_2">抱歉，获取失败</string>
+  <string name="fingerprint_enrollment_error_title_3">嗯，出错了</string>
+  <string name="fingerprint_enrollment_error_title_4">啊哦，请再试一次</string>
+  <string name="fingerprint_enrollment_error_title_5">糟糕，发生了一个错误</string>
+  <string name="lockscreen_settings_and_fingerprint">锁屏 &amp; 指纹</string>
+  <string name="menu_stats_reset">重置统计数据</string>
+  <string name="reset_stats_msg">即将重置电池使用数据</string>
+  <string name="dock_battery_not_present">基座电池不存在</string>
+  <string name="battery_info_status_charging_dock_ac">正在通过基座交流电充电</string>
+  <string name="battery_info_status_charging_dock_usb">正在通过基座 USB 充电</string>
+  <string name="setup_lock_pattern_size_title">图案复杂程度</string>
+  <string name="setup_lock_pattern_size_details">您希望使用多少个节点的图案？节点越多，图案就可以越复杂。</string>
+  <string name="lto_download_data_wifi_only">辅助 GPS 数据下载</string>
+  <string name="lto_download_data_wifi_only_on">经由任何网络</string>
+  <string name="lto_download_data_wifi_only_off">仅经由 Wi\u2011Fi 网络</string>
+  <string name="keep_screen_on_never">永不</string>
+  <string name="keep_screen_on_debugging">当 USB 调试时</string>
+  <string name="keep_screen_on_charging">当充电时</string>
+  <string name="contributors_cloud_fragment_title">贡献者</string>
+  <string name="contributors_cloud_loading_message">正在载入贡献者数据\u2026</string>
+  <string name="contributors_cloud_failed_message">无法读取贡献者数据</string>
+  <string name="contributor_info_menu">贡献者信息</string>
+  <string name="contributor_info_msg">
+        <![CDATA[<b>姓名：</b> <xliff:g id="name">%1$s</xliff:g><br/><br/>
+                 <b>昵称：</b> <xliff:g id="nick">%2$s</xliff:g><br/><br/>
+                 <b>评论：</b> <xliff:g id="commits">%3$s</xliff:g><br/><br/>
+                 <b>星级</b> <xliff:g id="rank">%4$s</xliff:g>]]></string>
+  <string name="contributions_info_menu">贡献信息</string>
+  <string name="contributions_info_msg">
+        <![CDATA[<b>贡献者总数：</b> <xliff:g id="total_contributors">%1$s</xliff:g><br/><br/>
+                 <b>提交总数：</b> <xliff:g id="total_commits">%2$s</xliff:g><br/><br/>
+                 <b>最后更新：</b> <xliff:g id="date">%3$s</xliff:g>]]></string>
+  <string name="quick_settings_reset_message">重置快速设置瓷块吗？</string>
 </resources>

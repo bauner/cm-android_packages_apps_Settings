@@ -18,11 +18,10 @@ package com.android.settings.cyanogenmod.qs;
 import android.content.Context;
 
 import android.text.TextUtils;
+
 import com.android.internal.util.cm.QSConstants;
 import com.android.internal.util.cm.QSUtils;
 import com.android.settings.R;
-
-import java.util.Arrays;
 
 /**
  * This class holds the icon, the name - or the string the user sees,
@@ -74,7 +73,7 @@ public class QSTileHolder {
                 stringId = R.string.qs_tile_bluetooth;
                 break;
             case QSConstants.TILE_INVERSION:
-                resourceName = "ic_qs_inversion_on";
+                resourceName = "ic_invert_colors_disable";
                 stringId = R.string.qs_tile_display_inversion;
                 break;
             case QSConstants.TILE_CELLULAR:
@@ -82,15 +81,15 @@ public class QSTileHolder {
                 stringId = R.string.qs_tile_cellular_data;
                 break;
             case QSConstants.TILE_AIRPLANE:
-                resourceName = "ic_qs_airplane_on";
+                resourceName = "ic_signal_airplane_disable";
                 stringId = R.string.qs_tile_airplane_mode;
                 break;
             case QSConstants.TILE_ROTATION:
-                resourceName = "ic_qs_rotation_locked";
+                resourceName = "ic_portrait_to_auto_rotate";
                 stringId = R.string.qs_tile_display_rotation;
                 break;
             case QSConstants.TILE_FLASHLIGHT:
-                resourceName = "ic_qs_flashlight_on";
+                resourceName = "ic_signal_flashlight_disable";
                 stringId = R.string.qs_tile_flashlight;
                 break;
             case QSConstants.TILE_LOCATION:
@@ -102,7 +101,7 @@ public class QSTileHolder {
                 stringId = R.string.qs_tile_cast_screen;
                 break;
             case QSConstants.TILE_HOTSPOT:
-                resourceName = "ic_qs_hotspot_on";
+                resourceName = "ic_hotspot_disable";
                 stringId = R.string.qs_tile_hotspot;
                 break;
             case QSConstants.TILE_ADB_NETWORK:
@@ -137,6 +136,10 @@ public class QSTileHolder {
                 resourceName = "ic_qs_visualizer_static";
                 stringId = R.string.qs_tile_visualizer;
                 break;
+            case QSConstants.TILE_VOLUME:
+                resourceName = "ic_qs_volume_panel";
+                stringId = R.string.qs_tile_volume_panel;
+                break;
             case QSConstants.TILE_SCREEN_TIMEOUT:
                 resourceName = "ic_qs_screen_timeout_vector";
                 stringId = R.string.qs_tile_screen_timeout;
@@ -145,6 +148,41 @@ public class QSTileHolder {
                 resourceName ="ic_livedisplay_day";
                 stringId = R.string.live_display_title;
                 break;
+            case QSConstants.TILE_USB_TETHER:
+                resourceName = "ic_qs_usb_tether_on";
+                stringId = R.string.qs_tile_usb_tether;
+                break;
+            case QSConstants.TILE_HEADS_UP:
+                resourceName = "ic_qs_heads_up_on";
+                stringId = R.string.qs_tile_heads_up;
+                break;
+            case QSConstants.TILE_AMBIENT_DISPLAY:
+                resourceName = "ic_qs_ambientdisplay_on";
+                stringId = R.string.qs_tile_ambient_display;
+                break;
+            case QSConstants.TILE_SYNC:
+                resourceName = "ic_qs_sync_on";
+                stringId = R.string.qs_tile_sync;
+                break;
+
+            // Dynamic tiles
+            case QSConstants.DYNAMIC_TILE_NEXT_ALARM:
+                resourceName = "ic_dynamic_qs_next_alarm";
+                stringId = R.string.qs_dynamic_tile_next_alarm;
+                break;
+            case QSConstants.DYNAMIC_TILE_IME_SELECTOR:
+                resourceName = "ic_dynamic_qs_ime_selector";
+                stringId = R.string.qs_dynamic_tile_ime_selector;
+                break;
+            case QSConstants.DYNAMIC_TILE_SU:
+                resourceName = "ic_dynamic_qs_su";
+                stringId = R.string.qs_dynamic_tile_su;
+                break;
+            case QSConstants.DYNAMIC_TILE_ADB:
+                resourceName = "ic_dynamic_qs_adb";
+                stringId = R.string.qs_dynamic_tile_adb;
+                break;
+
             default:
                 return null;
         }

@@ -29,6 +29,7 @@ public class ItemListAdapter extends ArrayAdapter<Item> {
 
     public enum RowType {
         HEADER_ITEM,
+        DISABLED_ITEM,
         CONNECTION_ITEM,
         VOLUME_STREAM_ITEM,
         NAME_ITEM,
@@ -36,7 +37,9 @@ public class ItemListAdapter extends ArrayAdapter<Item> {
         AIRPLANEMODE_ITEM,
         LOCKSCREENMODE_ITEM,
         TRIGGER_ITEM,
-        APP_GROUP_ITEM
+        APP_GROUP_ITEM,
+        BRIGHTNESS_ITEM,
+        DOZEMODE_ITEM
     }
 
     public ItemListAdapter(Context context, List<Item> items) {

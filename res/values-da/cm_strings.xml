@@ -55,6 +55,9 @@
   <string name="profile_app_group_category_title">Tilsidesætning af underretninger</string>
   <string name="profile_app_group_item_instructions">Tilføj eller fjern grupper</string>
   <string name="profile_app_group_item_instructions_summary">Tilføj eller fjern tilsidesættelse af underretninger fra grupper af apps til denne profil</string>
+  <string name="profile_entries_on">Til</string>
+  <string name="profile_entries_off">Fra</string>
+  <string name="profile_entries_no_override">Tilsidesæt ikke</string>
   <string name="profile_name_title">Navn</string>
   <string name="new_profile_name">&lt;ny profil&gt;</string>
   <string name="rename_dialog_title">Omdøb</string>
@@ -80,9 +83,13 @@
   <string name="profile_choose_app">Vælg app</string>
   <string name="profile_system_settings_title">Systemindstillinger</string>
   <string name="profile_lockmode_title">Skærmlåstilstand</string>
+  <string name="profile_lockmode_policy_disabled_summary">Denne profil-indstilling er deaktiveret af en administrator-enhedspolitik</string>
   <string name="profile_lockmode_insecure_summary">Spørg ikke efter PIN-kode eller kodeord</string>
   <string name="profile_lockmode_disabled_summary">Deaktiver låseskærmen</string>
   <string name="profile_airplanemode_title">Flytilstand</string>
+  <string name="profile_brightness_title">Skærmens lysstyrke</string>
+  <string name="profile_brightness_override_summary">Indstil til %1$d%%</string>
+  <string name="profile_brightness_override_checkbox_label">Tilsidesæt lysstyrke</string>
   <string name="toggleWifi">Wi\u2011Fi</string>
   <string name="toggleWifiAp">Flytbar Wi\u2011Fi-hotspot</string>
   <string name="toggleBluetooth">Bluetooth</string>
@@ -98,6 +105,7 @@
   <string name="hardware_keys_menu_key_title">Knappen Menu</string>
   <string name="hardware_keys_assist_key_title">Knappen Søg</string>
   <string name="hardware_keys_appswitch_key_title">Knappen Senest anvendt</string>
+  <string name="hardware_keys_camera_key_title">Kamera-knap</string>
   <string name="hardware_keys_volume_keys_title">Lydstyrkeknapper</string>
   <string name="hardware_keys_short_press_title">Handling ved kort tryk</string>
   <string name="hardware_keys_long_press_title">Handling ved langt tryk</string>
@@ -111,6 +119,10 @@
   <string name="hardware_keys_action_launch_camera">Start kamera</string>
   <string name="hardware_keys_action_sleep">Sluk skærmen</string>
   <string name="hardware_keys_action_last_app">Seneste app</string>
+  <string name="camera_sleep_on_release_title">Skærm smugkig</string>
+  <string name="camera_sleep_on_release_summary">Et halvt tryk vil holde skærmen tændt, men kun mens knappen holdes nede</string>
+  <string name="camera_launch_title">Start kamera</string>
+  <string name="camera_launch_summary">Et langt tryk og slip, vil starte kameraet</string>
   <string name="volbtn_music_controls_title">Styre musik med lydstyrkeknap</string>
   <string name="volbtn_music_controls_summary">Når skærmen er slukket, vil langt tryk på lydstyrkeknapperne søge musiknumre</string>
   <string name="volbtn_cursor_control_title">Kontrol af tastaturmarkør</string>
@@ -119,6 +131,8 @@
   <string name="volbtn_cursor_control_on_reverse">Lydstyrke op/ned flytter markør højre/venstre</string>
   <string name="swap_volume_buttons_title">Omlæg</string>
   <string name="swap_volume_buttons_summary">Ombyt lydstyrkeknapper, når skærmen roteres</string>
+  <string name="volume_keys_control_ring_stream_title">Lydstyrkeknapper styrer ringelydstyrke</string>
+  <string name="volume_keys_control_ring_stream_summary">Hvis til, styrer lydstyrkeknapper lydstyrken for ringetonen. Hvis fra, styrer lydstyrkeknapper lydstyrken for medier.</string>
   <string name="power_end_call_title">Afslut opkald</string>
   <string name="power_end_call_summary">At trykke på strømknappen slutter det aktuelle opkald</string>
   <string name="button_wake_title">Væk enheden</string>
@@ -153,15 +167,14 @@
   <string name="sunlight_enhancement_summary">Øger skærmens lysstyrke og læsbarhed under direkte sollys</string>
   <string name="color_enhancement_title">Farveforbedring</string>
   <string name="color_enhancement_summary">Forbedrer dynamisk farven på skærmen</string>
-  <string name="app_security_title">App-sikkerhed</string>
-  <string name="blacklist_title">Sortliste</string>
-  <string name="blacklist_edit_dialog_title">Redigér sortlistet nummer</string>
+  <string name="blacklist_title">Blokeret opkaldsliste</string>
+  <string name="blacklist_edit_dialog_title">Redigér blokeret telefonnummer</string>
   <string name="blacklist_prefs">Indstillinger</string>
   <string name="blacklist_button_delete">Slet</string>
-  <string name="blacklist_empty_text">Du har ikke nogle sortlistede numre. Tilføj et nummer ved berøre knappen Tilføj (+).</string>
-  <string name="blacklist_disabled_empty_text">Aktivér sortlisten for at sortliste opkald og/eller beskeder fra bestemte numre.</string>
+  <string name="blacklist_empty_text">Du har ikke nogle blokeret numre. Tilføj et nummer ved at trykke på knappen Tilføj (+).</string>
+  <string name="blacklist_disabled_empty_text">For at forhindre telefonnumre i at ringe op eller sende beskeder til dig, skal du aktivere den blokeret opkaldsliste.</string>
   <string name="blacklist_summary_disabled">Deaktiveret</string>
-  <string name="blacklist_summary">Indgående opkald og beskeder fra telefonnumre på sortlisten vil blive blokeret</string>
+  <string name="blacklist_summary">Du vil ikke modtage indgående opkald eller beskeder fra telefonnumre på den blokeret opkaldsliste</string>
   <string name="blacklist_notify">Vis underretning</string>
   <string name="blacklist_private_numbers_title">Private numre</string>
   <string name="blacklist_private_numbers_summary_disabled">Blokér ikke opkald fra private numre</string>
@@ -176,9 +189,9 @@
   <string name="blacklist_regex_summary">Brug . som et wildcard og * for gentagelse. Fx 123.* blokerer numre, der starter med 123, og .*123.* blokerer numre, som indeholder 123</string>
   <string name="blacklist_policy_block_calls">Blokér indgående opkald</string>
   <string name="blacklist_policy_block_messages">Blokér indgående beskeder</string>
-  <string name="blacklist_bad_number_add">Kunne ikke tilføje ugyldigt nummer til sortliste</string>
+  <string name="blacklist_bad_number_add">Kunne ikke tilføje ugyldigt telefonnummer til den blokeret opkaldsliste</string>
   <string name="remove_blacklist_number_title">Fjern nummer</string>
-  <string name="remove_blacklist_entry">Vil du fjerne dette sortlistede nummer?</string>
+  <string name="remove_blacklist_entry">Vil du fjerne dette blokeret telefonnummer?</string>
   <string name="select_contact">Vælg kontakt</string>
   <string name="lockpattern_reset_button">Nulstil mønster</string>
   <string name="lockpattern_settings_reset_summary">Angiv den primære e-mail-konto og tilhørende adgangskode for at nulstille mønsterlåsen</string>
@@ -202,7 +215,9 @@
   <string name="display_rotation_270_title">270 grader</string>
   <string name="app_security_title">App-sikkerhed</string>
   <string name="sms_security_check_limit_title">SMS-grænse</string>
-  <string name="sms_security_check_limit_summary">Vis en advarselsdialog for at forhindre programmer i at sende SMS-beskeder for ofte. Aktuel grænse: %d beskeder på 30 minutter (kræver genstart)</string>
+  <string name="sms_security_check_limit_summary">Apps kan sende %d meddelelser i 1 minut før der kræves en bekræftelse</string>
+  <string name="sms_security_check_limit_summary_none">Apps har ikke lov til at sende nogen beskeder uden bekræftelse</string>
+  <string name="sms_security_check_limit_none">Ingen</string>
   <string name="spam_added_title">Tilføjet %1$s</string>
   <string name="spam_last_blocked_title">Sidste blokerede %1$s</string>
   <string name="block_notifications_title">Filtrere meddelelser</string>
@@ -215,9 +230,9 @@
   <string name="update_recovery_off_warning">ARVARSEL: Med denne funktion slået fra, vil din \'recovery\' ikke blive opdateret sammen med styresystemet.\n\nFremtidige opdateringer til styresystemet kan måske ikke installeres med en forældet \'recovery\'\n\nVil du virkelig slå denne funktion fra?</string>
   <string name="mod_version">CyanogenMod-version</string>
   <string name="mod_version_default">Ukendt</string>
-  <string name="model_name">Modelnavn</string>
+  <string name="device_model">Enhedsmodel</string>
+  <string name="device_name">Enhedens navn</string>
   <string name="build_date">Kørselsdato</string>
-  <string name="contributor_cloud_title">Bidragydere</string>
   <string name="phone_service_state">Stemme: <xliff:g id="voice_state">%1$s</xliff:g>, data: <xliff:g id="data_state">%2$s</xliff:g></string>
   <string name="double_tap_to_wake_title">Dobbelttryk for at vække</string>
   <string name="double_tap_to_wake_summary">Dobbelttryk på skærmen for at tænde den</string>
@@ -234,6 +249,7 @@
   <string name="privacy_guard_reset_text">Nulstil tilladelser?</string>
   <string name="privacy_guard_help_text">På denne skærm kan du vælge, hvilke apps, Privatlivsvagt skal være aktive for, ved simpelthen at trykke på dem. De valgte apps vil ikke kunne tilgå dine personlige data såsom kontakter, beskeder eller opkald. At trykke længe på en app åbner detaljeskærmen for denne apps.\n\nIndbyggede apps vises ikke som standard, men kan aktiveres ved at vælge den respektive menuindstilling.</string>
   <string name="privacy_guard_manager_show_system_apps">Vis indbyggede apps</string>
+  <string name="app_ops_btn_text">Tilpas</string>
   <string name="increasing_ring_volume_option_title">Stigende ringelydstyrke</string>
   <string name="increasing_ring_min_volume_title">Start lydstyrke</string>
   <string name="increasing_ring_ramp_up_time_title">Forøgelsestid</string>
@@ -295,9 +311,6 @@
   <string name="status_bar_battery_percentage_default">Skjult</string>
   <string name="status_bar_battery_percentage_text_inside">Inde i ikonet</string>
   <string name="status_bar_battery_percentage_text_next">Ved siden af ikonet</string>
-  <string name="status_bar_show_unused_sims_title">Vis tomme SIM-ikoner</string>
-  <string name="status_bar_show_unused_sims_title_summary_off">Skjul ikoner fra ubrugte SIM-slots</string>
-  <string name="status_bar_show_unused_sims_title_summary_on">Vis ikoner fra ubrugte SIM-slots</string>
   <string name="edit_light_settings">Rediger LED-indstillinger</string>
   <string name="pulse_speed_title">Blinklængde og hastighed</string>
   <string name="default_time">Normal</string>
@@ -469,6 +482,7 @@
   <string name="ok">OK</string>
   <string name="profile_menu_delete_title">Slet</string>
   <string name="profile_action_none">Efterlad uændret</string>
+  <string name="profile_action_system">Systemstandard</string>
   <string name="profile_action_disable">Sluk</string>
   <string name="profile_action_enable">Tænd</string>
   <string name="profile_trigger_a2dp_connect">Ved tilslutning til A2DP</string>
@@ -564,9 +578,14 @@
   <string name="sim_pin_attempts">\nForsøg tilbage:</string>
   <string name="sim_pin_enabled">PIN1 aktiveret</string>
   <string name="sim_pin_disabled">PIN1 deaktiveret</string>
-  <string name="subs_settings">SIM-kort status</string>
   <string name="storage_usb">USB-hukommelse</string>
   <string name="storage_uicc">UICC-hukommelse</string>
+  <string name="sdcard_eject" product="default">Frakoble SD-kort</string>
+  <string name="sdcard_eject_summary" product="default">Frakoble SD-kortet, så du sikkert kan fjerne det</string>
+  <string name="sd_card_format" product="default">Slet SD-kort</string>
+  <string name="sd_card_format_summary" product="default">Sletter alle data på SD-kortet som musik og billeder</string>
+  <string name="sdcard_mount" product="default">Tilslut SD-kort</string>
+  <string name="sdcard_insert_summary" product="default">Indsæt et SD-kort for at tilslutte</string>
   <string name="usb_eject" product="default">Frakoble USB-hukommelse</string>
   <string name="usb_eject_summary" product="default">Frakoble USB-hukommelsen, så du sikkert kan fjerne den</string>
   <string name="usb_format" product="default">Slet USB-hukommelse</string>
@@ -581,22 +600,36 @@
   <string name="uicc_insert_summary" product="default">Indsæt UICC-hukommelse til tilslutning</string>
   <string name="usb_settings_enable_ums_title">Aktiver lagerenhed?</string>
   <string name="usb_settings_enable_ums_message">Systemkomponenter og apps afhænger af, at primær hukommelse altid er tilgængelig. Denne funktion bryder denne funktionalitet. Det anbefales kraftigt at bruge MTP i stedet. Er du sikker på, du vil aktivere lagerenhed?</string>
+  <string name="dlg_confirm_sdcard_unmount_title" product="default">Frakoble SD-kort?</string>
   <string name="dlg_confirm_usb_unmount_title" product="default">Frakoble USB-hukommelse?</string>
   <string name="dlg_confirm_uicc_unmount_title" product="default">Frakoble UICC-hukommelse?</string>
+  <string name="dlg_confirm_sdcard_unmount_text" product="default">Hvis du frakobler SD-kortet, vil nogle apps stoppe og kan være utilgængelige, indtil du tilslutter SD-kortet igen.</string>
   <string name="dlg_confirm_usb_unmount_text" product="default">Hvis du frakobler USB-hukommelsen, vil nogle apps stoppe og kan være utilgængelige, indtil du tilslutter USB-hukommelsen igen.</string>
   <string name="dlg_confirm_uicc_unmount_text" product="default">Hvis du frakobler UICC-hukommelsen, vil nogle apps stoppe og kan være utilgængelige, indtil du tilslutter UICC-hukommelsen igen.</string>
+  <string name="dlg_error_sdcard_unmount_text" product="default">Kunne ikke frakoble SD-kortet. Prøv igen senere.</string>
   <string name="dlg_error_usb_unmount_text" product="default">Kunne ikke frakoble USB-hukommelse. Prøv igen senere.</string>
   <string name="dlg_error_uicc_unmount_text" product="default">Kunne ikke frakoble UICC-hukommelse. Prøv igen senere.</string>
+  <string name="sdcard_unmount_inform_text" product="default">SD-kortet bliver frakoblet.</string>
   <string name="usb_unmount_inform_text" product="default">USB-hukommelse bliver frakoblet.</string>
   <string name="uicc_unmount_inform_text" product="default">UICC-hukommelse bliver frakoblet.</string>
+  <string name="sdcard_media_format_desc" product="default">Slet SD-kortet? Du vil miste <b>alle</b> data på kortet!</string>
   <string name="usb_media_format_desc" product="default">Slet USB-hukommelsen? Du vil miste <b>alle</b> data på hukommelsen!</string>
   <string name="uicc_media_format_desc" product="default">Slet UICC-hukommelsen? Du vil miste <b>alle</b> data på hukommelsen!</string>
+  <string name="sdcard_media_format_button_text" product="default">Slet SD-kort</string>
   <string name="usb_media_format_button_text" product="default">Slet USB-hukommelse</string>
   <string name="uicc_media_format_button_text" product="default">Slet UICC-hukommelse</string>
+  <string name="sdcard_media_format_final_desc" product="default">Slet SD-kortet og alle filer, der er gemt? Du kan ikke fortryde denne handling!</string>
   <string name="usb_media_format_final_desc" product="default">Slet hele USB-hukommelsen og alle filer, der er gemt? Du kan ikke fortryde denne handling!</string>
   <string name="uicc_media_format_final_desc" product="default">Slet UICC-hukommelsen og alle filer der er gemt der? Du kan ikke fortryde denne handling!</string>
+  <string name="sdcard_media_format_gesture_explanation" product="default">Du skal tegne dit oplåsningsmønster for at bekræfte, du vil slette SD-kortet.</string>
   <string name="usb_media_format_gesture_explanation" product="default">Du skal tegne dit oplåsningsmønster for at bekræfte, du vil slette USB-hukommelsen.</string>
   <string name="uicc_media_format_gesture_explanation" product="default">Du skal tegne dit oplåsningsmønster for at bekræfte, at du vil slette UICC-hukommelsen.</string>
+  <string name="internal_sd_format">Slet internt medie-lager</string>
+  <string name="internal_sd_format_summary">Sletter alle data på det interne medie-lager som f.eks. musik og billeder</string>
+  <string name="master_clear_desc_erase_internal_storage">\n\nFor at slette musik, billeder og andre brugerdata, skal <b>det interne medie-lager</b> slettes.</string>
+  <string name="erase_internal_storage">Slet internt medie-lager</string>
+  <string name="erase_internal_storage_description">Slet alle data på det interne medie-lager, som f.eks. musik og billeder</string>
+  <string name="storage_rescan_media">Scan lagerenheden igen for medier</string>
   <string name="location_category_enhanced_location">Forbedret placering (IZat)</string>
   <string name="app_ops_settings_summary">Vis eller redigér app-tilladelser</string>
   <string name="enable_adb_summary_charging">Enheden er i oplader-tilstand, USB debugging er deaktiveret</string>
@@ -621,12 +654,9 @@
   <string name="usb_charging_summary">Deaktiverer alle dataoverførsler med computer og oplader enhed via USB-port</string>
   <string name="usb_sdcard_title">Lagerenhed (UMS)</string>
   <string name="usb_sdcard_summary">Lader dig overføre filer mellem din computer og SD-kortet ved tilslutte det som et USB-drev</string>
+  <string name="usb_not_connected">USB er nu afbrudt</string>
   <string name="external_storage_turn_on">Ekstern lagring er aktiveret</string>
   <string name="external_storage_turn_off">Ekstern lagring er slået fra</string>
-  <string name="menu_hidden_apps_delete">Nulstil</string>
-  <string name="menu_hidden_apps_reset_lock">Nulstil mønster lås</string>
-  <string name="protected_apps">Beskyttede apps</string>
-  <string name="saving_protected_components">Gemmer komponenttilstand\u2026</string>
   <string name="stats_collection_title">Indsamling af statistik</string>
   <string name="stats_collection_summary">Når aktiveret, tillades indsamling af målinger</string>
   <string name="power_notifications_category_title">Strømlyde</string>
@@ -642,29 +672,17 @@
   <string name="picker_activities">Aktiviteter</string>
   <string name="select_custom_app_title">Vælg brugerdefineret app</string>
   <string name="select_custom_activity_title">Vælg brugerdefineret aktivitet</string>
-  <string name="performance_settings_title">Ydeevne</string>
-  <string name="io_scheds_title">I/O-planlægger</string>
-  <string name="io_sched_title">I/O-planlægger</string>
+  <string name="autoperf_title">Aktivér per-app-profiler</string>
+  <string name="autoperf_summary">Vælg automatisk en passende batteritilstand for forskellige apps</string>
   <string name="perf_profile_title">Batteri tilstand</string>
   <string name="pref_force_highend_gfx_title">Gennemtving højkvalitetsgrafik</string>
   <string name="pref_force_highend_gfx_summary">Aktiverer nogle rigtig flotte visuelle effekter, såsom transparent status-/navigationslinje (kræver genstart)</string>
-  <string name="performance_settings_warning_title">Fortsæt med forsigtighed</string>
-  <string name="performance_settings_warning">Disse indstillinger er eksperimenterende, og alle ændringer her har potentiale til at forårsage ustabilitet, nedbrud, tab af data eller hardwarefejl.\n\nVi anmoder dig om, at du ikke indsender fejlrapporter, hvis nogen af disse indstillinger er blevet ændret fra deres standardværdier.</string>
-  <string name="performance_set_on_boot">Indstil ved opstart</string>
-  <string name="performance_set_on_boot_summary">Gendan indstillingerne ved opstart</string>
-  <string name="processor_title">Processor</string>
-  <string name="cpu_cur_freq_title">Aktuel CPU-frekvens</string>
-  <string name="cpu_governors_title">CPU-guvernør</string>
-  <string name="cpu_min_freq_title">Laveste CPU-frekvens</string>
-  <string name="cpu_max_freq_title">Højeste CPU-frekvens</string>
-  <string name="autoperf_title">Aktivér per-app-profiler</string>
-  <string name="autoperf_summary">Vælg automatisk en passende ydeevneprofil til diverse apps</string>
-  <string name="graphics_title">Grafik og rendering</string>
   <string name="edge_gesture_service_title">Blokér berøringsevents for bevægelser</string>
   <string name="edge_gesture_service_summary">Send ikke berøringsevents for navigations- og statuslinjebevægelser til apps</string>
   <string name="cmlicense_title">Juridisk information for CyanogenMod</string>
   <string name="settings_cmlicense_activity_title">Juridisk information for CyanogenMod</string>
-  <string name="settings_cmlicense_activity_unreachable">Du har ingen dataforbindelse. Gå til %s fra en computer tilsluttet Internettet for at vise denne information nu.</string>
+  <string name="lockpattern_settings_enable_error_path_title">Vis mønsterfejl</string>
+  <string name="lockpattern_settings_enable_dots_title">Vis mønsterprikker</string>
   <string name="unlock_quick_unlock_control_title">Hurtig-oplåsning</string>
   <string name="unlock_quick_unlock_control_summary">Lås automatisk op, når det korrekte PIN/kodeord er indtastet</string>
   <string name="unlock_scramble_pin_layout_title">Ændre layout</string>
@@ -706,11 +724,19 @@
   <string name="qs_tile_lockscreen">Skærmlås</string>
   <string name="qs_tile_lte">LTE</string>
   <string name="qs_tile_screen_timeout">Skærm-timeout</string>
+  <string name="qs_tile_usb_tether">USB-tethering</string>
+  <string name="qs_tile_heads_up">Svævende meddelelser</string>
+  <string name="qs_tile_ambient_display">Inaktivitetsvisning</string>
+  <string name="qs_tile_sync">Synkr</string>
+  <string name="qs_dynamic_tile_next_alarm">Næste alarm</string>
+  <string name="qs_dynamic_tile_ime_selector">IME-vælger</string>
+  <string name="qs_dynamic_tile_su">Root-adgang</string>
   <string name="qs_main_tiles_title">Forstør første række</string>
   <string name="qs_main_tiles_summary_on">To vigtige fliser i den første række</string>
   <string name="qs_main_tiles_summary_off">Tre fliser på hver række</string>
   <string name="qs_advanced_location_title">Avancerede lokationsindstillinger</string>
   <string name="qs_advanced_location_summary">Aktiver avancerede indstilling for lokation i hurtigindstillinger</string>
+  <string name="sim_no_number_set">Intet nummer tildelt</string>
   <string name="gesture_settings_title">Bevægelser</string>
   <string name="themes_settings_title">Temaer</string>
   <string name="wifi_mode">Tilstand</string>
@@ -719,6 +745,7 @@
   <string name="wifi_ibss_freq_title">Kanal / Frekvens</string>
   <string name="wifi_channel">Kanal</string>
   <string name="wifi_mhz">MHz</string>
+  <string name="wifi_auto_config_priorities">Automatisk prioritering</string>
   <string name="maximum_head_level">Hoved: %1$s W/kg</string>
   <string name="maximum_body_level">Krop: %1$s W/kg</string>
   <string name="ic_code_model">Model: %1$s</string>
@@ -733,15 +760,22 @@
   <string name="expanded_desktop_style">Tema for udvidet skrivebord</string>
   <string name="expanded_desktop_style_description">Vælg standardtema for udvidet skrivebord</string>
   <string name="expanded_desktop_title">Indstillinger for udvidet skrivebord</string>
+  <string name="title_general">Generelt</string>
   <string name="lockscreen_targets_message">Genveje på låseskærm</string>
   <string name="lockscreen_default_target">Standard</string>
   <string name="lockscreen_none_target">Ingen</string>
   <string name="lockscreen_message">Tryk på et ikon til venstre eller højre for igen at tildele en genvej til skærmlås.</string>
   <string name="lockscreen_choose_action_title">Vælg handling</string>
+  <string name="lockscreen_visualizer_title">Vis musikvisualisator</string>
   <string name="whisperpush_title">WhisperPush</string>
   <string name="whisperpush_summary">Administrér indstillinger for sikker SMS.</string>
   <string name="navigation_ring_title">Mål for navigationsring</string>
   <string name="navigation_ring_message">Tryk på redigeringsikonet for at åbne navigationsringen for redigering.\n\nVælg et mål for at konfigurere.\n\nTryk på \'\u2713\' ikonet for at gemme dine ændringer eller \'Gendan standard\' for at nulstille indstillingerne.</string>
+  <string name="lcd_density">LCD-tæthed</string>
+  <string name="dialog_title_lcd_density">LCD-tæthed</string>
+  <string name="lcd_density_value_format">%d DPI</string>
+  <string name="lcd_density_default_value_format">%d DPI (standard)</string>
+  <string name="restarting_ui">Genstarter UI\u2026</string>
   <string name="stylus_icon_enabled_title">Vis ikon ved brug af pen</string>
   <string name="stylus_icon_enabled_summary">Vis markøren, når pennen benyttes</string>
   <string name="gestures_settings_title">Penbevægelser</string>
@@ -765,6 +799,7 @@
   <string name="stylus_app_not_installed">%s er ikke installeret</string>
   <string name="advanced">Avanceret</string>
   <string name="advanced_mode_title">Avanceret tilstand</string>
+  <string name="advanced_mode_summary">Vis yderligere indstillinger for konfiguration af enheden i forskellige indstillingsmenuer</string>
   <string name="category_misc">Diverse</string>
   <string name="category_vibrate">Vibrér</string>
   <string name="category_volume">Lydstyrke</string>
@@ -772,7 +807,7 @@
   <string name="category_interface">Brugerflade</string>
   <string name="category_calibration">Kalibrering</string>
   <string name="display_and_lights">Skærm &amp; lys</string>
-  <string name="notification_manager">Notifikationsstyring</string>
+  <string name="notification_manager">Notifikationer</string>
   <string name="lockscreen_settings">Skærmlås</string>
   <string name="category_lights">Lys</string>
   <string name="power_usage_history_title">Batteriforbrug</string>
@@ -781,6 +816,9 @@
   <string name="sim_ringtone_title">SIM-kort %d ringetone</string>
   <string name="interruptions_ignore_while_media_title">Undgå lyddæmpning</string>
   <string name="interruptions_ignore_while_media_summary">Reducér ikke lydstyrken, når en meddelelse modtages</string>
+  <string name="none_is_silent_title">Sluk aldrig for alarmen</string>
+  <string name="none_is_silent_summary">Alarmen ringer altid i lydløs tilstand</string>
+  <string name="allow_lights_title">Tillad notifikationslys</string>
   <string name="live_display_summary">Optimér din skærm baseret på tidspunktet på dagen, samt omgivelserne, for at forbedre læsbarheden og nedsætte anstrengelsen af øjnene</string>
   <string name="live_display_mode">Visningstilstand</string>
   <string name="live_display_color_temperature_title">Farvetemperatur</string>
@@ -794,4 +832,117 @@
   <string name="live_display_low_power_summary">Justér skærmen til laveste strømforbrug uden forringelse</string>
   <string name="live_display_enhance_color_title">Forbedre farver</string>
   <string name="live_display_enhance_color_summary">Forbedr farven for hudfarve, landskab og andre billeder</string>
+  <string name="battery_saver_threshold">Grænse for strømspare</string>
+  <string name="battery_saver_summary">Reducere ydeevnen og begrænser baggrundsdata</string>
+  <string name="battery_saver_summary_unavailable">Ikke tilgængelig under opladning</string>
+  <string name="anonymous_statistics_title">CyanogenMod-statistikker</string>
+  <string name="anonymous_statistics_summary">Hjælp med at gøre CyanogenMod bedre ved at deltage i rapportering af anonyme statistikker</string>
+  <string name="anonymous_statistics_warning_title">Om</string>
+  <string name="anonymous_statistics_warning">Deltagelse af CyanogenMod-statistikker vil tillade ikke-personlige data, der skal forelægges for udviklerne af CyanogenMod, at spore unikke installationer på tværs af enheder. De indsendte oplysninger omfatter en entydig indikator, som ikke kompromitterer dit privatliv eller personlige data. Dataene indsendes under hver opstart.\n\nFor et eksempel på de data, der er indsendt, skal du trykke på Få vist data.</string>
+  <string name="enable_reporting_title">Aktivér rapportering</string>
+  <string name="preview_data_title">Få vist data</string>
+  <string name="view_stats_title">Vis statistikker</string>
+  <string name="anonymous_learn_more">Læs mere</string>
+  <string name="preview_id_title">Unikt ID</string>
+  <string name="preview_device_title">Enhed</string>
+  <string name="preview_version_title">Version</string>
+  <string name="preview_country_title">Land</string>
+  <string name="preview_carrier_title">Operatør</string>
+  <string name="heads_up_notifications">Svævende meddelelser</string>
+  <string name="summary_heads_up_enabled">Pop op-meddelelser er aktiveret</string>
+  <string name="summary_heads_up_disabled">Pop op-meddelelser er deaktiveret</string>
+  <string name="master_clear_desc_cm" product="tablet">Dette vil slette alle data fra din tablet\'s <b>interne lager</b>, inklusiv:\n\n<li>Dine enheds-konti</li>\n<li>System og app-data samt indstillinger</li>\n<li>Hentede apps</li></string>
+  <string name="master_clear_desc_cm" product="default">Dette vil slette alle data fra din telefons <b>interne lager</b>, inklusiv:\n\n<li>Dine enheds-konti</li>\n<li>System og app-data samt indstillinger</li>\n<li>Hentede apps</li></string>
+  <string name="lock_to_cyanogen_title">Enhedsbeskyttelse</string>
+  <string name="lock_to_cyanogen_summary">Kræver adgangskoden til din Cyanogen konto, selv efter en nulstilling til fabriksindstillinger</string>
+  <string name="lock_to_cyanogen_create_account_msg">Din enhed bruger adgangskoden fra din Cyanogen konto til at beskytte din enhed, hvis den nulstilles til fabriksindstillingerne. Du skal oprette en Cyanogen konto.</string>
+  <string name="lock_to_cyanogen_disable_msg">Hvis du slår denne funktion fra, kan andre brugere nulstille telefonen til fabriksindstillingerne, hvis den bliver stjålet. Dine personlige data beskyttes ikke. Vil du deaktivere denne funktion?</string>
+  <string name="lock_to_cyanogen_master_clear_warning">Enhedsbeskyttelse er aktiveret. Venligst deaktivér for at fortsætte med nulstilling af din enhed.</string>
+  <string name="bluetooth_pan_profile_summary_use_for_error">Forbindelsesfejl: er Bluetooth-deling aktiveret på denne enhed?</string>
+  <string name="sim_card_status_title">SIM %d status</string>
+  <string name="sim_card_lock_settings_title">SIM %d låseindstillinger</string>
+  <string name="sim_card_summary_empty">SIM ikke indsat</string>
+  <string name="sim_mobile_network_settings_category_title">Indstillinger for mobilt netværk</string>
+  <string name="sim_mobile_network_settings_title">SIM %d indstillinger</string>
+  <string name="factory_reset_instructions_title">Personlige data &amp; apps</string>
+  <string name="factory_reset_instructions_summary">Dette vil slette alle dine konti, apps, app data og systemindstillinger på denne enhed</string>
+  <string name="factory_reset_personal_content">Personligt indhold</string>
+  <string name="factory_reset_erase_stored_content">Slet gemt indhold</string>
+  <string name="factory_reset_erase_stored_content_summary">Slet musik, fotos, videoer og andre brugerdata, der er gemt på denne enhed</string>
+  <string name="factory_reset_erase_stored_content_summary_forced">Slet musik, fotos, videoer og andre brugerdata, der er gemt på enheden. \n\n <b>Indhold kan ikke gemmes på grund af kryptering af enheden.</b></string>
+  <string name="factory_reset_erase_sd_card">Formatér SD-kort</string>
+  <string name="factory_reset_erase_sd_card_summary">Slet alle data på SD-kortet, herunder musik og billeder</string>
+  <string name="factory_reset_warning_text_reset_now">NULSTIL NU</string>
+  <string name="factory_reset_warning_text_message">Alle dine konti, apps, app data og systemindstillinger vil blive fjernet fra denne enhed. Dette kan ikke fortrydes.</string>
+  <string name="wifi_setting_countrycode_title">Wi\u2011Fi-regionskode</string>
+  <string name="wifi_setting_countrycode_summary">Angiv regionskoden for Wi\u2011Fi</string>
+  <string name="wifi_setting_countrycode_error">Der opstod et problem med indstillingen af regionskoden.</string>
+  <string name="wifi_countrycode_entries_us">USA</string>
+  <string name="wifi_countrycode_entries_ca">Canada, Taiwan</string>
+  <string name="wifi_countrycode_entries_de">Tyskland</string>
+  <string name="wifi_countrycode_entries_gb">Europa</string>
+  <string name="wifi_countrycode_entries_jp">Japan, Rusland</string>
+  <string name="wifi_countrycode_entries_au">Australien</string>
+  <string name="wifi_countrycode_entries_cn">Kina</string>
+  <string name="wifi_countrycode_entries_kr">Korea</string>
+  <string name="wifi_countrycode_entries_tr">Sydafrika, Tyrkiet</string>
+  <string name="wifi_countrycode_entries_sg">Israel, Singapore</string>
+  <string name="wifi_countrycode_entries_br">Brasilien</string>
+  <string name="wifi_countrycode_entries_in">Indien</string>
+  <string name="unlock_set_unlock_launch_picker_title_with_fingerprint">Skærmlåse &amp; fingeraftryk</string>
+  <string name="unlock_set_unlock_mode_fingerprint">Fingeraftryk</string>
+  <string name="unlock_set_unlock_fingerprint_title">Fingeraftryk</string>
+  <string name="fingerprint_item_add_new_fingerprint">Tilføj nyt fingeraftryk</string>
+  <string name="fingerprint_manage_fingerprints">Administrér fingeraftryk</string>
+  <string name="fingerprint_manage_fingerprints_summary">Tilføj eller fjern indlæste fingeraftryk</string>
+  <string name="unlock_backup_fingerprint_info_summary">Hvis du ikke kan bruge fingeren, hvordan vil du så låse op?</string>
+  <string name="fingerprint_dialog_title_rename">Redigér fingeraftryk</string>
+  <string name="fingerprint_dialog_name_label">Navn på fingeraftryk</string>
+  <string name="fingerprint_dialog_title_max_fingers_reached">Det maksimale antal fingeraftryk er nået</string>
+  <string name="fingerprint_dialog_msg_max_fingers_reached">Du kan kun optage <xliff:g id="finger" example="5 fingerprints">%d</xliff:g> fingeraftryk. Slet et eksisterende fingeraftryk.</string>
+  <string name="fingerprint_title_manage_fingerprints">Administrere fingeraftryk <xliff:g id="finger">%d </xliff:g> / <xliff:g id="max"> %d </xliff:g></string>
+  <string name="manage_fingerprints_description">Fingeraftryk tillader dig hurtigt at låse din telefon op og tage billeder.</string>
+  <string name="fingerprint_enrollment_introduction_title">Find din sensor</string>
+  <string name="fingerprint_enrollment_introduction_instructions">Fingeraftrykssensoren er placeret på forsiden eller bagsiden af telefonen.</string>
+  <string name="fingerprint_enrollment_scan_title">Hold i 3 sekunder</string>
+  <string name="fingerprint_enrollment_scan_instructions">Placér pegefingeren på fingeraftrykssensoren for at begynde installationen. Løft fingeren, når du mærker en vibration.</string>
+  <string name="fingerprint_enrollment_error_title_wrong_sensor">Prøv venligst igen</string>
+  <string name="fingerprint_enrollment_error_message">Placer fingeren solidt på fingeraftrykssensoren for at sikre en nøjagtig scanning. Sørg også for at du bruger den samme finger som før. Løft fingeren, når du mærker en vibration.</string>
+  <string name="fingerprint_enrollment_scan_instructions">Placér pegefingeren på fingeraftrykssensoren for at begynde installationen. Løft fingeren, når du mærker en vibration.</string>
+  <string name="fingerprint_enrollment_break_title">Fortsæt med nuværende aftryk</string>
+  <string name="fingerprint_enrollment_break_instructions">Fortsæt med at scanne enderne af dit aftryk. Løft fingeren, når du mærker en vibration.</string>
+  <string name="fingerprint_enrollment_finished_title">Fingeraftryk tilføjet!</string>
+  <string name="fingerprint_enrollment_finished_message">Dit fingeraftryk kan nu bruges til at låse din skærm op eller tage selfies ved hjælp af dit kamera.</string>
+  <string name="fingerprint_enrollment_found_it_label">Fandt det</string>
+  <string name="fingerprint_enrollment_add_another_label">Tilføje et andet</string>
+  <string name="fingerprint_enrollment_done_label">Udført</string>
+  <string name="fingerprint_dialog_title_wrong_sensor">Hovsa, det ikke er din sensor</string>
+  <string name="fingerprint_dialog_msg_wrong_sensor">Brug fingeraftrykssensoren på forsiden eller bagsiden af telefonen</string>
+  <string name="fingerprint_dialog_title_failed_enrollment">Kunne ikke aflæse fingeraftryk</string>
+  <string name="fingerprint_dialog_msg_failed_enrollment">Prøv at bruge en anden finger. Dette fingeraftryk kunne ikke aflæses.</string>
+  <string name="fingerprint_enrollment_restart_label">Start igen</string>
+  <string name="fingerprint_successful_scan_title_first">Perfekt! Gentag så</string>
+  <string name="fingerprint_successful_scan_final">Endnu en gang</string>
+  <string name="fingerprint_successful_scan_title_1">Sådan! Du kan fortsætte</string>
+  <string name="fingerprint_successful_scan_title_2">Flot! En gang til</string>
+  <string name="fingerprint_successful_scan_title_3">Godt gået! Bliv ved</string>
+  <string name="fingerprint_successful_scan_title_4">Bare et par gange til</string>
+  <string name="fingerprint_successful_scan_title_5">Du gør det godt! Kom igen</string>
+  <string name="fingerprint_successful_scan_title_6">Du er der næsten</string>
+  <string name="fingerprint_enrollment_error_title_1">Ups. Prøv igen</string>
+  <string name="fingerprint_enrollment_error_title_2">Fik det desværre ikke</string>
+  <string name="fingerprint_enrollment_error_title_3">Hmm, der gik noget galt</string>
+  <string name="fingerprint_enrollment_error_title_4">Prøv igen</string>
+  <string name="fingerprint_enrollment_error_title_5">Ups, der var en fejl</string>
+  <string name="lockscreen_settings_and_fingerprint">Skærmlås &amp; fingeraftryk</string>
+  <string name="menu_stats_reset">Nulstil statistikker</string>
+  <string name="reset_stats_msg">Batterihistoriestatistik vil blive nulstillet</string>
+  <string name="dock_battery_not_present">Dockbatteri findes ikke</string>
+  <string name="battery_info_status_charging_dock_ac">Oplader på dock AC</string>
+  <string name="battery_info_status_charging_dock_usb">Oplader via dock USB</string>
+  <string name="setup_lock_pattern_size_title">Mønsterkompleksitet</string>
+  <string name="setup_lock_pattern_size_details">Hvor mange noder vil du bruge til mønsteret? Jo flere noder, jo mere komplekse kan mønstrene være.</string>
+  <string name="lto_download_data_wifi_only">GPS-assisteret data-download</string>
+  <string name="lto_download_data_wifi_only_on">Via alle netværk</string>
+  <string name="lto_download_data_wifi_only_off">Kun via Wi\u2011Fi netværk</string>
 </resources>

@@ -39,6 +39,8 @@
   <string name="sms_over_ims_off">SMS iwwer IMS ausmaachen</string>
   <string name="ims_reg_required_on">D\'IMS-Registréierung muss aktivéiert ginn</string>
   <string name="ims_reg_required_off">D\'IMS-Registréierung muss desaktivéiert ginn</string>
+  <string name="volte_provisioned_flag_on">VoLTE-Kennzeechnung aktivéieren</string>
+  <string name="volte_provisioned_flag_off">VoLTE-Kennzeechnung desaktivéieren</string>
   <string name="lte_ram_dump_on">LTE-RAM-Depot aktivéieren</string>
   <string name="lte_ram_dump_off">LTE-RAM-Depot desaktivéieren</string>
   <string name="radioInfo_menu_viewADN">SIM-Adressbuch uweisen</string>
@@ -130,7 +132,7 @@
   <string name="bluetooth_disconnect_title">Deconnectéiert?</string>
   <string name="bluetooth_disconnect_all_profiles">D\'Connectioun gëtt ënnerbrach mat:&lt;br&gt;&lt;b&gt;<xliff:g id="device_name">%1$s</xliff:g>&lt;/b&gt;</string>
   <string name="bluetooth_empty_list_user_restricted">Du hues keng Berechtegung fir d\'Bluetooth-Astellungen z\'änneren.</string>
-  <string name="bluetooth_is_visible_message"><xliff:g id="device_name">%1$s</xliff:g> ass fir Apparater an der Géigend visibel soulaang d\'Bluetooth-Astellungen op sinn.</string>
+  <string name="bluetooth_is_visible_message"><xliff:g id="device_name">%1$s</xliff:g> ass fir d\'Apparater an der Géigend visibel soulaang d\'Bluetooth-Astellungen op sinn.</string>
   <string name="bluetooth_is_disconnect_question"><xliff:g id="device_name">%1$s</xliff:g> deconnectéieren?</string>
   <string name="bluetooth_broadcasting">Broadcasten</string>
   <string name="bluetooth_disable_profile_title">Profil desaktivéieren?</string>
@@ -158,7 +160,9 @@
   <string name="bluetooth_ask_discovery" product="default">Eng App wëll däin Telefon während <xliff:g id="timeout">%1$d</xliff:g> Sekonne fir aner Bluetooth-Apparater siichtbar maachen.</string>
   <string name="bluetooth_ask_lasting_discovery" product="tablet">Eng App wëll däin Tablet fir aner Bluetooth-Apparater siichtbar maachen. Du kanns dat duerno an de Bluetooth-Astellungen änneren.</string>
   <string name="bluetooth_ask_lasting_discovery" product="default">Eng App wëll däin Telefon fir aner Bluetooth-Apparater siichtbar maachen. Du kanns dat duerno an de Bluetooth-Astellungen änneren.</string>
-  <string name="bluetooth_broadcasting_explaination" product="default">Wann dës Funktioun un ass, kann däin Telefon mat Apparater an der Ëmgéigend kommunizéieren.\n\nD\'Broadcasten benotzt Bluetooth-Signaler mat niddregem Energieverbrauch.</string>
+  <string name="bluetooth_ask_start_broadcast" product="default"><xliff:g id="APP_NAME">%1$s</xliff:g> wëll d\'Bluetooth-Iwwerdroung aktivéieren, fir mat aneren Apparater déi an der Géigend sinn ze kommunikéieren. Du kanns dat méi spéit an de Bluetooth-Astellungen änneren.</string>
+  <string name="bluetooth_ask_enablement_and_start_broadcast" product="default"><xliff:g id="APP_NAME">%1$s</xliff:g> wëll de Bluetooth an d\'Bluetooth-Iwwerdroung aktivéieren, fir mat anere Geräter déi an der Géigend sinn ze kommunikéieren. Du kanns dat méi spéit an de Bluetooth-Astellungen änneren.</string>
+  <string name="bluetooth_broadcasting_explaination" product="default">Wann dës Funktioun un ass, kann däin Telefon mat Apparater an der Ëmgéigend kommunizéieren.\n\nD\'Broadcaste benotzt Bluetooth-Signaler mat niddregem Energieverbrauch.</string>
   <string name="bluetooth_ask_enablement_and_discovery" product="tablet">Eng App wëll Bluetooth uschalten an däin Tablet während <xliff:g id="timeout">%1$d</xliff:g> Sekonne siichtbar maachen.</string>
   <string name="bluetooth_ask_enablement_and_discovery" product="default">Eng App wëll Bluetooth uschalten an däin Telefon während <xliff:g id="timeout">%1$d</xliff:g> Sekonne siichtbar maachen.</string>
   <string name="bluetooth_ask_enablement_and_lasting_discovery" product="tablet">Eng App wëll Bluetooth uschalten an däin Tablet fir aner Apparater siichtbar maachen. Du kanns dat duerno an de Bluetooth-Astellungen änneren.</string>
@@ -177,8 +181,6 @@
   <string name="bluetooth_map_acceptance_dialog_text">%1$s wëll op deng Messagen zougräifen. Zougrëff fir %2$s fräischalten?</string>
   <string name="date_and_time">Datum an Zäit</string>
   <string name="choose_timezone">Zäitzon auswielen</string>
-  <string name="default_date_format"><xliff:g id="default_date_format">dd/MM/yyyy</xliff:g></string>
-  <string name="normal_date_format">Regional (<xliff:g id="date" example="12-31-2009">%s</xliff:g>)</string>
   <string name="display_preview_label">Virschau:</string>
   <string name="display_font_size_label">Schrëftgréisst:</string>
   <string name="intent_sender_data_label"><xliff:g id="data">Daten:</xliff:g></string>
@@ -288,6 +290,7 @@
   <string name="wireless_networks_settings_title">Kabellos an Netzwierker</string>
   <string name="radio_controls_summary">WLAN, Bluetooth, Fligermodus, mobil Netzwierker a VPNe verwalten</string>
   <string name="cellular_data_title">Mobil Daten</string>
+  <string name="data_disabled_in_active_call">Datennetzwierker sinn desaktivéiert wann en Uruff aktiv ass.</string>
   <string name="calls_title">Uriff</string>
   <string name="sms_messages_title">SMS-Messagen</string>
   <string name="cellular_data_summary">Datebenotzung iwwer Handynetzwierker erlaben</string>
@@ -320,8 +323,6 @@
   <string name="date_time_set_timezone">Zäitzon auswielen</string>
   <string name="date_time_set_date_title">Datum</string>
   <string name="date_time_set_date">Datum setzen</string>
-  <string name="date_time_date_format_title">Datumsformat</string>
-  <string name="date_time_date_format">Datumsformat auswielen</string>
   <string name="zone_list_menu_sort_alphabetically">Alphabetesch zortéieren</string>
   <string name="zone_list_menu_sort_by_timezone">No Zäitzon zortéieren</string>
   <string name="date_picker_title">Datum</string>
@@ -352,29 +353,35 @@
   <string name="crypt_keeper_encrypt_title" product="tablet">Tablet verschlësselen</string>
   <string name="crypt_keeper_encrypt_title" product="default">Telefon verschlësselen</string>
   <string name="crypt_keeper_encrypted_summary">Verschlësselt</string>
+  <string name="crypt_keeper_desc" product="tablet">Du kanns deng Konten, Astellungen, erofgelueden Appen an déi dozougehéierend Daten, Medienelementer an aner Fichiere verschlësselen. Nodeem s du däin Tablet verschlësselt hues, muss du, wann d\'Schiermspär ageriicht ass (also e Muster, e PIN oder e Passwuert), beim Uschalte vum Tabletschierm entspären. Den anere Wee fir z\'entschlësselen ass d\'Zrécksetze op d\'Wierksastellungen. Heimat ginn all deng Date geläscht.\n\nD\'Verschlësselung dauert mindestens eng Stonn. Däin Akku muss opgeluede sinn an däin Tablet muss während dem ganze Virgank am Netz befannen. Wann s du de Virgank ënnerbréchs, ginn e puer oder all deng Date verluer.</string>
+  <string name="crypt_keeper_desc" product="default">Du kanns deng Konten, Astellungen, erofgelueden Appen an déi dozougehéierend Daten, Medienelementer an aner Fichiere verschlësselen. Nodeem s du däin Telefon verschlësselt hues, muss du, wann d\'Schiermspär ageriicht ass (also e Muster, e PIN oder e Passwuert), beim Uschalte vum Telefonschierm entspären. Den anere Wee fir z\'entschlësselen ass d\'Zrécksetze op d\'Wierksastellungen. Heimat ginn all deng Date geläscht.\n\nD\'Verschlësselung dauert mindestens eng Stonn. Däin Akku muss opgeluede sinn an däin Telefon muss während dem ganze Virgank am Netz befannen. Wann s du de Virgank ënnerbréchs, ginn e puer oder all deng Date verluer.</string>
   <string name="crypt_keeper_button_text" product="tablet">Tablet verschlësselen</string>
   <string name="crypt_keeper_button_text" product="default">Telefon verschlësselen</string>
   <string name="crypt_keeper_low_charge_text">Akku oplueden an nees probéieren.</string>
   <string name="crypt_keeper_unplugged_text">Schléiss däin Oplueder un a probéier nees.</string>
   <string name="crypt_keeper_dialog_need_password_title">Kee Spärschierm oder Passwuert</string>
   <string name="crypt_keeper_dialog_need_password_message">Du muss e PIN oder e Passwuert fir de Spärschierm setzen ier s de d\'Verschlësselung starte kanns.</string>
+  <string name="crypt_keeper_confirm_encrypt">Mol däin Entspärungsmuster, fir d\'Verschlësselung vum Apparat ze bestätegen.</string>
   <string name="crypt_keeper_confirm_title">Verschlësselen?</string>
-  <string name="crypt_keeper_final_desc" product="tablet">D\'Verschlësselungsoperatioun ass irreversibel an du verléiers Date wa se ënnerbrach gëtt.
+  <string name="crypt_keeper_final_desc" product="tablet">D\'Verschlësselungsoperatioun ass irreversibel an du verléiers Date wa s\'ënnerbrach gëtt.
 D\'Verschlësselung dauert mindestens eng Stonn, während där den Tablet e puer Mol nei gestart gëtt.</string>
-  <string name="crypt_keeper_final_desc" product="default">D\'Verschlësselungsoperatioun ass irreversibel an du verléiers Date wa se ënnerbrach gëtt.
+  <string name="crypt_keeper_final_desc" product="default">D\'Verschlësselungsoperatioun ass irreversibel an du verléiers Date wa s\'ënnerbrach gëtt.
 D\'Verschlësselung dauert mindestens eng Stonn, während där den Telefon e puer Mol nei gestart gëtt.</string>
   <string name="crypt_keeper_setup_title">Gëtt verschlësselt</string>
   <string name="crypt_keeper_setup_description" product="tablet">Waart während den Tablet verschlësselt gëtt. <xliff:g id="percent" example="50">^1</xliff:g>% fäerdeg.</string>
   <string name="crypt_keeper_setup_description" product="default">Waart während den Telefon verschlësselt gëtt. <xliff:g id="percent" example="50">^1</xliff:g>% fäerdeg.</string>
   <string name="crypt_keeper_setup_time_remaining" product="tablet">Waart, während däin Tablet verschlësselt gëtt. Verbleiwend Zäit: <xliff:g id="duration" example="1:23">^1</xliff:g></string>
   <string name="crypt_keeper_setup_time_remaining" product="default">Waart, während däin Telefon verschlësselt gëtt. Verbleiwend Zäit: <xliff:g id="duration" example="1:23">^1</xliff:g></string>
-  <string name="crypt_keeper_cooldown">Probéier nees a(n) <xliff:g id="delay" example="15">^1</xliff:g> Sekonnen.</string>
+  <string name="crypt_keeper_force_power_cycle" product="tablet">Fir däin Tablet z\'entspären, schalt däin Telefon aus an dann un.</string>
+  <string name="crypt_keeper_force_power_cycle" product="default">Fir däin Telefon z\'entspären, schalt däin Telefon aus an dann un.</string>
   <string name="crypt_keeper_warn_wipe">Warnung: Den Apparat gëtt no <xliff:g id="count" example="7">^1</xliff:g> weidere feelgeschloenen Entspärversich komplett geläscht!</string>
   <string name="crypt_keeper_enter_password">Passwuert aginn</string>
   <string name="crypt_keeper_failed_title">Verschlësselung feelgeschloen</string>
   <string name="crypt_keeper_failed_summary" product="tablet">D\'Verschlësselung gouf ofgebrach a kann net ofgeschloss ginn. Doduerch sinn d\'Daten op dësem Tablet net méi accessibel.\n\nFir den Tablet weider ze benotze muss de den Apparat zrécksetzen. Wann s du den Tablet nom zrécksetzen nei astells kriss du d\'Méiglechkeet all d\'Daten déi op däi Google-Kont geséchert goufen nees hierzestellen.</string>
   <string name="crypt_keeper_failed_summary" product="default">D\'Verschlësselung gouf ofgebrach a kann net ofgeschloss ginn. Doduerch sinn d\'Daten op dësem Telefon net méi accessibel.\n\nFir den Telefon weider ze benotze muss de den Apparat zrécksetzen. Wann s du den Telefon nom zrécksetzen nei astells kriss du d\'Méiglechkeet all d\'Daten déi op däi Google-Kont geséchert goufen nees hierzestellen.</string>
   <string name="crypt_keeper_data_corrupt_title">Entschlësselung feelgeschloen</string>
+  <string name="crypt_keeper_data_corrupt_summary" product="tablet">D\'Passwuert dat s du aginn hues ass korrekt, awer deng Date si futti. \n\nFir däin Tablet dach nach ze benotzen, muss du et op d\'Wierksastellungen zrécksetzen. Nom Zrécksetzen op d\'Wierksastellunge kanns du beim Ariichte vun dengem Tablet d\'Daten zrécksetzen, déi s du an dengem Google-Kont geséchert has.</string>
+  <string name="crypt_keeper_data_corrupt_summary" product="default">D\'Passwuert dat s du aginn hues ass korrekt, awer deng Date si futti. \n\nFir däin Telefon dach nach ze benotzen, muss du et op d\'Wierksastellungen zrécksetzen. Nom Zrécksetzen op d\'Wierksastellunge kanns du beim Ariichte vun dengem Telefon d\'Daten zrécksetzen, déi s du an dengem Google-Kont geséchert has.</string>
   <string name="crypt_keeper_switch_input_method">Method fir anzeginn wiesselen</string>
   <string name="lock_settings_picker_title">Schiermspär auswielen</string>
   <string name="backup_lock_settings_picker_title">Backup-Spär auswielen</string>
@@ -394,6 +401,7 @@ D\'Verschlësselung dauert mindestens eng Stonn, während där den Telefon e pue
   <string name="unlock_set_unlock_pin_summary">Mëttel bis héich Sécherheet</string>
   <string name="unlock_set_unlock_password_title">Passwuert</string>
   <string name="unlock_set_unlock_password_summary">Héich Sécherheet</string>
+  <string name="unlock_disable_frp_warning_content">Schutzfunktioune fir den Apparat funktionéieren dann net méi.</string>
   <string name="unlock_set_unlock_disabled_summary">Vun engem Administrateur, duerch d\'Verschlësselungrichtlinn oder duerch de Berechtegungsspäicher desaktivéiert</string>
   <string name="unlock_set_unlock_mode_off">Keen</string>
   <string name="unlock_set_unlock_mode_none">Wëschen</string>
@@ -405,6 +413,7 @@ D\'Verschlësselung dauert mindestens eng Stonn, während där den Telefon e pue
   <string name="unlock_disable_lock_pattern_summary">Entspärmuster läschen</string>
   <string name="unlock_disable_lock_pin_summary">Entspär-PIN läschen</string>
   <string name="unlock_disable_lock_password_summary">Entspärpasswuert ewechhuelen</string>
+  <string name="unlock_disable_lock_unknown_summary">Schiermspär ewechhuelen</string>
   <string name="unlock_change_lock_pattern_title">Entspärmuster änneren</string>
   <string name="unlock_change_lock_pin_title">Entspär-PIN änneren</string>
   <string name="unlock_change_lock_password_title">Entspär-Passwuert änneren</string>
@@ -461,15 +470,15 @@ D\'Verschlësselung dauert mindestens eng Stonn, während där den Telefon e pue
   <string name="bluetooth_quick_toggle_summary">Bluetooth umaachen</string>
   <string name="bluetooth_settings">Bluetooth</string>
   <string name="bluetooth_settings_title">Bluetooth</string>
-  <string name="bluetooth_settings_summary">Connectiounen, Nimm vun den Apparaten an Erkennbarkeet geréieren</string>
+  <string name="bluetooth_settings_summary">Connectiounen, Nimm vun den Apparater an Erkennbarkeet geréieren</string>
   <string name="bluetooth_pairing_request">Bluetooth-Koppelungsufro</string>
   <string name="bluetooth_enter_pin_msg">Apparat</string>
   <string name="bluetooth_pairing_key_msg">Koppelungscode</string>
   <string name="bluetooth_enter_passkey_msg">Gëff de Koppelungscode an, an dréck Return oder Enter</string>
   <string name="bluetooth_enable_alphanumeric_pin">De PIN huet Buschtawen oder Spezialzeechen</string>
   <string name="bluetooth_pin_values_hint">Üblecherweis 0000 an 1234</string>
-  <string name="bluetooth_enter_pin_other_device">Et ka sinn datt du dëse PIN och op deem aneren Apparat muss aginn.</string>
-  <string name="bluetooth_enter_passkey_other_device">Et ka sinn datt du dës Passwuert och op deem aneren Apparat muss aginn.</string>
+  <string name="bluetooth_enter_pin_other_device">Et ka sinn datt s du dëse PIN och op deem aneren Apparat muss aginn.</string>
+  <string name="bluetooth_enter_passkey_other_device">Et ka sinn datt s du dës Passwuert och op deem aneren Apparat muss aginn.</string>
   <string name="bluetooth_confirm_passkey_msg">Fir ze koppele mat:&lt;br&gt;&lt;b&gt;<xliff:g id="device_name">%1$s</xliff:g>&lt;/b&gt;&lt;br&gt;&lt;br&gt;Kontrolléier datt dëst Passwuert ugewiese gëtt:&lt;br&gt;&lt;b&gt;<xliff:g id="passkey">%2$s</xliff:g>&lt;/b&gt;</string>
   <string name="bluetooth_incoming_pairing_msg">Vun:&lt;br&gt;&lt;b&gt;<xliff:g id="device_name">%1$s</xliff:g>&lt;/b&gt;&lt;br&gt;&lt;br&gt;Mat dësem Apparat koppelen?</string>
   <string name="bluetooth_display_passkey_pin_msg">Gëff fir eng Koppelung mat <xliff:g id="bold1">&lt;br&gt;&lt;b&gt;</xliff:g><xliff:g id="device_name">%1$s</xliff:g><xliff:g id="end_bold1">&lt;/b&gt;&lt;br&gt;&lt;br&gt;</xliff:g> <xliff:g id="bold2">&lt;br&gt;&lt;b&gt;</xliff:g><xliff:g id="passkey">%2$s</xliff:g><xliff:g id="end_bold2">&lt;/b&gt;</xliff:g> an, an dréck duerno d\'Bestätegungstast.</string>
@@ -506,7 +515,7 @@ D\'Verschlësselung dauert mindestens eng Stonn, während där den Telefon e pue
   <string name="bluetooth_device_context_connect_advanced">Optiounen\u2026</string>
   <string name="bluetooth_menu_advanced">Erweidert</string>
   <string name="bluetooth_advanced_titlebar">Erweidert Bluetooth</string>
-  <string name="bluetooth_empty_list_bluetooth_off">Wa Bluetooth un ass, kann däin Apparat mat Bluetooth-Apparaten an der Géigend kommunikéieren.</string>
+  <string name="bluetooth_empty_list_bluetooth_off">Wa Bluetooth un ass, kann däin Apparat mat Bluetooth-Apparater an der Géigend kommunikéieren.</string>
   <string name="bluetooth_connect_specific_profiles_title">Verbanne mat\u2026</string>
   <string name="bluetooth_profile_a2dp">Medientoun</string>
   <string name="bluetooth_profile_headset">Telefonstoun</string>
@@ -535,7 +544,7 @@ D\'Verschlësselung dauert mindestens eng Stonn, während där den Telefon e pue
   <string name="bluetooth_map_profile_summary_connected">Mat der Kaart verbonnen</string>
   <string name="bluetooth_opp_profile_summary_not_connected">Net mam Fichiersiwwerdroungsserver verbonnen</string>
   <string name="bluetooth_hid_profile_summary_connected">Verbonne mat Apparat fir anzeginn</string>
-  <string name="bluetooth_pan_user_profile_summary_connected">Verbonnen mat Apparat fir Internetzougrëff</string>
+  <string name="bluetooth_pan_user_profile_summary_connected">Verbonne mat Apparat fir Internetzougrëff</string>
   <string name="bluetooth_pan_nap_profile_summary_connected">Lokal Internetconnectioun fir den Apparat fräiginn</string>
   <string name="bluetooth_a2dp_profile_summary_use_for">Fir Medientoun benotzen</string>
   <string name="bluetooth_headset_profile_summary_use_for">Fir den Telefonstoun benotzen</string>
@@ -548,16 +557,11 @@ D\'Verschlësselung dauert mindestens eng Stonn, während där den Telefon e pue
   <string name="bluetooth_dock_settings_headset">Als Lautsprecher</string>
   <string name="bluetooth_dock_settings_a2dp">Fir Musek a Medien</string>
   <string name="bluetooth_dock_settings_remember">Astellunge verhalen</string>
-  <string name="wifi_assistant_intro_setup">Nei\nWLAN-Assistent</string>
-  <string name="wifi_assistant_no_thanks">NEE, MERCI</string>
-  <string name="wifi_assistant_setup">ASTELLEN</string>
-  <string name="wifi_assistant_card_message">Automatesch iwwer de WLAN-Assistent mat disponibelen Netzwierker connectéieren.</string>
   <string name="wifi_assistant_title">WLAN-Assistent</string>
-  <string name="wifi_assistant_title_message"><xliff:g id="wifi_assistant">%1$s</xliff:g> verbënnt dech automatesch mam beschten disponibele WLAN</string>
-  <string name="wifi_assistant_open_app">APP OPMAACHEN</string>
+  <string name="connected_via_wfa">Connectéiert iwwer de WLAN-Assistent</string>
   <string name="wifi_display_settings_title">Schierm iwwerdroen</string>
   <string name="wifi_display_enable_menu_item">Kabellose Schierm aktivéieren</string>
-  <string name="wifi_display_no_devices_found">Keng Apparaten an der Géigend fonnt.</string>
+  <string name="wifi_display_no_devices_found">Keng Apparater an der Géigend fonnt.</string>
   <string name="wifi_display_status_connecting">Connectéieren</string>
   <string name="wifi_display_status_connected">Verbonnen</string>
   <string name="wifi_display_status_in_use">Gëtt benotzt</string>
@@ -575,7 +579,7 @@ D\'Verschlësselung dauert mindestens eng Stonn, während där den Telefon e pue
   <string name="android_beam_off_summary">Aus</string>
   <string name="android_beam_disabled_summary">Net disponibel well NFC ausgeschalt ass</string>
   <string name="android_beam_label">Android Beam</string>
-  <string name="android_beam_explained">Wann dës Funktioun un ass kanns du App-Inhalt un anere NFC-kapabel Apparate schécken andeem s déi zwee Apparaten uneneegehale ginn. Du kanns beispillsweis Internetsäiten, YouTube-Videoen, Kontakter a méi schécken.\n\nBréng einfach d\'Apparate beieneen (typescherweis Réck u Réck) an dréck dann de Schierm. D\'App leet selwer fest wat geschéckt gëtt.</string>
+  <string name="android_beam_explained">Wann dës Funktioun un ass kanns du App-Inhalt un anere NFC-kapabel Apparater schécken andeem s déi zwéin Apparater uneneegehale ginn. Du kanns beispillsweis Internetsäiten, YouTube-Videoen, Kontakter a méi schécken.\n\nBréng einfach d\'Apparater beieneen (typescherweis Réck u Réck) an dréck dann de Schierm. D\'App leet selwer fest wat geschéckt gëtt.</string>
   <string name="nsd_quick_toggle_title">Netzwierkdéngschterkennung</string>
   <string name="nsd_quick_toggle_summary">Erlaabt Appen op aneren Apparater fir Appen op dësem Apparat z\'entdecken</string>
   <string name="wifi_quick_toggle_title">WLAN</string>
@@ -584,7 +588,7 @@ D\'Verschlësselung dauert mindestens eng Stonn, während där den Telefon e pue
   <string name="wifi_settings_category">WLAN-Astellungen</string>
   <string name="wifi_settings_title">WLAN</string>
   <string name="wifi_settings_summary">WLAN-Zougankspunkter festleeën a geréieren</string>
-  <string name="wifi_setup_wizard_title">WLAN auswielen</string>
+  <string name="wifi_setup_wizard_title">WLAN-Netzwierk auswielen</string>
   <string name="wifi_select_network">WLAN auswielen</string>
   <string name="wifi_starting">WLAN gëtt ugeschalt\u2026</string>
   <string name="wifi_stopping">WLAN gëtt ausgeschalt\u2026</string>
@@ -592,14 +596,16 @@ D\'Verschlësselung dauert mindestens eng Stonn, während där den Telefon e pue
   <string name="wifi_in_airplane_mode">Am Fligermodus</string>
   <string name="wifi_fail_to_scan">Kann net no Netzwierker sichen</string>
   <string name="wifi_notify_open_networks">Netzwierknotifikatioun</string>
+  <string name="wifi_notify_open_networks_summary">Notifiéieren, wann en ëffentlecht Netzwierk disponibel ass</string>
   <string name="wifi_poor_network_detection">Schwaach Connectioune vermeiden</string>
   <string name="wifi_poor_network_detection_summary">E WLAN-Netzwierk net benotze wann et keng gutt Internetconnectioun huet</string>
   <string name="wifi_avoid_poor_network_detection_summary">Just Netzwierker benotzen déi eng gutt Internetconnectioun hunn</string>
   <string name="wifi_scan_always_available">Scannen ëmmer ugeschalt</string>
   <string name="wifi_scan_always_available_title">Scannen ëmmer erlaben</string>
   <string name="wifi_scan_always_available_summary">De Standuertservice vu Google an aner Appen no Netzwierker siche loossen, och wa WLAN aus ass</string>
-  <string name="wifi_automatically_manage_title">WLAN automatesch managen</string>
-  <string name="wifi_automatically_manage_summary"><xliff:g id="wifi_assistant">%1$s</xliff:g> d\'WLAN-Connectioune geréiere loossen</string>
+  <string name="wifi_automatically_connect_title">Oppe WLANen automatesch benotzen</string>
+  <string name="wifi_automatically_connect_summary">E WLAN-Assistent zouloossen automatesch mat oppenen Netzwierker vun héijer Qualitéit ze connectéieren</string>
+  <string name="wifi_select_assistant_dialog_title">Assistent auswielen</string>
   <string name="wifi_install_credentials">Zertifikater installéieren</string>
   <string name="wifi_scan_notify_text_location_on">Fir d\'Standuertgenauegkeet ze verbesseren a fir aner Zwecker kënne Google an aner Appen no Netzwierker sichen, och wa WLAN aus ass. Wann s du net wëlls datt dat passéiert, géi bei Erweidert &gt; Scannen ëmmer ugeschalt.</string>
   <string name="wifi_scan_notify_text_location_off">Appe kéinten no Netzwierker sichen, och wa WLAN aus ass. Wann s du net wëlls datt dat geschitt, géi bei Erweidert &gt; Scannen ëmmer ugeschalt.</string>
@@ -620,6 +626,7 @@ D\'Verschlësselung dauert mindestens eng Stonn, während där den Telefon e pue
   <string name="wifi_menu_scan">Sichen</string>
   <string name="wifi_menu_advanced">Erweidert</string>
   <string name="wifi_menu_connect">Mam Netzwierk verbannen</string>
+  <string name="wifi_menu_remember">Netzwierk verhalen</string>
   <string name="wifi_menu_forget">Netzwierk vergiessen</string>
   <string name="wifi_menu_modify">Netzwierk änneren</string>
   <string name="wifi_menu_write_to_nfc">Op den NFC-Tag schreiwen</string>
@@ -629,7 +636,7 @@ D\'Verschlësselung dauert mindestens eng Stonn, während där den Telefon e pue
   <string name="wifi_other_network">En neit Netzwierk dobäisetzen</string>
   <string name="wifi_more">Méi</string>
   <string name="wifi_setup_wps">Automatesch Astellungen (WPS)</string>
-  <string name="wifi_required_info_text">Fir d\'Installatioun ofzeschléisse muss däin Tablet WLAN-Accès hunn. No der Installatioun kanns du tëscht mobilen Daten a WLAN wiesselen.</string>
+  <string name="wifi_required_info_text">Fir d\'Installatioun ofzeschléisse muss däin Tablet WLAN-Accès hunn. No der Installatioun kanns du tëscht mobillen Daten a WLAN wiesselen.</string>
   <string name="wifi_show_advanced">Erweidert Optiounen</string>
   <string name="wifi_wps_setup_title">Geschützt WLAN-Ariichtung (WPS)</string>
   <string name="wifi_wps_setup_msg">WPS gëtt gestart\u2026</string>
@@ -664,9 +671,11 @@ D\'Verschlësselung dauert mindestens eng Stonn, während där den Telefon e pue
   <string name="wifi_unspecified">(net uginn)</string>
   <string name="wifi_remembered">Gespäichert</string>
   <string name="wifi_disabled_generic">Desaktivéiert</string>
-  <string name="wifi_disabled_network_failure">Lues Internetconnectiounen evitéieren</string>
+  <string name="wifi_disabled_network_failure">IP-Konfiguratiounsfeeler</string>
+  <string name="wifi_disabled_wifi_failure">WLAN-Connectiounsfeeler</string>
   <string name="wifi_disabled_password_failure">Authentifizéierungsproblem</string>
   <string name="wifi_not_in_range">Net a Reechwäit</string>
+  <string name="wifi_no_internet">Keng Internetconnectioun erkannt, et kann net automatesch eng Connectioun hiergestallt ginn.</string>
   <string name="wifi_wps_available_first_item">WPS disponibel</string>
   <string name="wifi_wps_available_second_item">\u0020(WPS disponibel)</string>
   <string name="wifi_wps_nfc_enter_password">Gëff däin Netzwierkpasswuert an</string>
@@ -682,9 +691,11 @@ D\'Verschlësselung dauert mindestens eng Stonn, während där den Telefon e pue
   <string name="wifi_security_wpa_wpa2">WPA/WPA2 PSK</string>
   <string name="wifi_security_eap">802.1x EAP</string>
   <string name="wifi_scan_always_turnon_message">Fir d\'Standuertgenauegkeet ze verbesseren a fir aner Zwecker wëll <xliff:g id="app_name">%1$s</xliff:g> no Netzwierker sichen, och wa WLAN aus ass.\n\nFir all d\'Appen déi Netzwierker siche wëllen erlaben?</string>
+  <string name="wifi_scan_always_turnoff_message">Fir dat ze desaktivéieren, géi op \"Erweidert\" am Iwwerlafmenü.</string>
   <string name="wifi_scan_always_confirm_allow">Erlaben</string>
   <string name="wifi_scan_always_confirm_deny">Verweigeren</string>
   <string name="wifi_hotspot_title">Alogge fir ze verbannen?</string>
+  <string name="wifi_hotspot_message"><xliff:g id="app_name">%1$s</xliff:g> erfuerdert virum Verbanne mam Netzwierk däi Login.</string>
   <string name="wifi_hotspot_connect">VERBANNEN</string>
   <string name="wifi_connect">Connectéieren</string>
   <string name="wifi_failed_connect_message">Connectioun mam Netzwierk feelgeschloen</string>
@@ -698,9 +709,9 @@ D\'Verschlësselung dauert mindestens eng Stonn, während där den Telefon e pue
   <string name="wifi_skipped_message" product="tablet">WARNUNG: Wann s du WLAN iwwerspréngs, kann däin Tablet just mobil Date fir déi initial Downloads an Aktualiséierunge benotzen. Connectéier dech mat engem WLAN fir eventuell Datekäschten ze vermeiden.</string>
   <string name="wifi_skipped_message" product="device">WARNUNG: Wann s du WLAN iwwerspréngs, kann däin Apparat just mobil Date fir déi initial Downloads an Aktualiséierunge benotzen. Connectéier dech mat engem WLAN fir eventuell Datekäschten ze vermeiden.</string>
   <string name="wifi_skipped_message" product="default">WARNUNG: Wann s du WLAN iwwerspréngs, kann däin Telefon just mobil Date fir déi initial Downloads an Aktualiséierunge benotzen. Connectéier dech mat engem WLAN fir eventuell Datekäschten ze vermeiden.</string>
-  <string name="wifi_and_mobile_skipped_message" product="tablet">WARNUNG: Wann s du WLAN iwwerspréngs, huet däin Tablet keng Internetconnectioun fir déi initial Downloads an Aktualiséierungen.</string>
-  <string name="wifi_and_mobile_skipped_message" product="device">WARNUNG: Wann s du WLAN iwwerspréngs, huet däin Apparat keng Internetconnectioun fir déi initial Downloads an Aktualiséierungen.</string>
-  <string name="wifi_and_mobile_skipped_message" product="default">WARNUNG: Wann s du WLAN iwwerspréngs, huet däin Telefon keng Internetconnectioun fir déi initial Downloads an Aktualiséierungen.</string>
+  <string name="wifi_and_mobile_skipped_message" product="tablet">Wann s du d\'WLAN-Optioun iwwerspréngs:\n\nOp dengem Tablet ass da keng Internetconnectioun.\n\nDu kriss eréischt Software-Aktualisaktiounen, nodeem s du eng Internetconnectioun hiergestallt hues.\n\nDu kanns momentan keng Apparateschutzfunktiounen aktivéieren.</string>
+  <string name="wifi_and_mobile_skipped_message" product="device">Wann s du d\'WLAN-Optioun iwwerspréngs:\n\nOp dengem Apparat ass da keng Internetconnectioun.\n\nDu kriss eréischt Software-Aktualisaktiounen, nodeem s du eng Internetconnectioun hiergestallt hues.\n\nDu kanns momentan keng Apparateschutzfunktiounen aktivéieren.</string>
+  <string name="wifi_and_mobile_skipped_message" product="default">Wann s du d\'WLAN-Optioun iwwerspréngs:\n\nOp dengem Telefon ass da keng Internetconnectioun.\n\nDu kriss eréischt Software-Aktualisaktiounen, nodeem s du eng Internetconnectioun hiergestallt hues.\n\nDu kanns momentan keng Apparateschutzfunktiounen aktivéieren.</string>
   <string name="wifi_connect_failed_message" product="tablet">Den Tablet konnt net mam WLAN-Netzwierk connectéieren.</string>
   <string name="wifi_connect_failed_message" product="device">Den Apparat konnt sech net mam WLAN-Netzwierk connectéieren.</string>
   <string name="wifi_connect_failed_message" product="default">Den Telefon konnt net mam WLAN-Netzwierk connectéieren.</string>
@@ -729,27 +740,27 @@ D\'Verschlësselung dauert mindestens eng Stonn, während där den Telefon e pue
   <string name="wifi_p2p_menu_search">No Apparater sichen</string>
   <string name="wifi_p2p_menu_searching">Gëtt gesicht\u2026</string>
   <string name="wifi_p2p_menu_rename">Apparat ëmbenennen</string>
-  <string name="wifi_p2p_peer_devices">Verfügbar Apparaten</string>
+  <string name="wifi_p2p_peer_devices">Verfügbar Apparater</string>
   <string name="wifi_p2p_remembered_groups">Gespäichert Gruppen</string>
   <string name="wifi_p2p_failed_connect_message">Connectioun feelgeschloen.</string>
   <string name="wifi_p2p_failed_rename_message">Ëmbenenne vum Apparat feelgeschloen.</string>
   <string name="wifi_p2p_disconnect_title">Deconnectéiert?</string>
   <string name="wifi_p2p_disconnect_message">Wann s de dech deconnectéiers, gëtt deng Connectioun mat <xliff:g id="peer_name">%1$s</xliff:g> zougemaach.</string>
-  <string name="wifi_p2p_disconnect_multiple_message">Wann s de dech deconnectéiers, gëtt deng Connectioun mat <xliff:g id="peer_name">%1$s</xliff:g> an <xliff:g id="peer_count">%2$s</xliff:g> aneren Apparaten zougemaach.</string>
+  <string name="wifi_p2p_disconnect_multiple_message">Wann s de dech deconnectéiers, gëtt deng Connectioun mat <xliff:g id="peer_name">%1$s</xliff:g> an <xliff:g id="peer_count">%2$s</xliff:g> aneren Apparater zougemaach.</string>
   <string name="wifi_p2p_cancel_connect_title">Invitatioun ofbriechen?</string>
   <string name="wifi_p2p_cancel_connect_message">Wëlls du d\'Invitatioun fir mam <xliff:g id="peer_name">%1$s</xliff:g> ze verbannen ofbriechen?</string>
   <string name="wifi_p2p_delete_group_message">Dës Grupp vergiessen?</string>
-  <string name="wifi_tether_checkbox_text">Mobile WLAN-Zougankspunkt</string>
+  <string name="wifi_tether_checkbox_text">Mobille WLAN-Zougankspunkt</string>
   <string name="wifi_hotspot_checkbox_text">WLAN-Zougankspunkt</string>
   <string name="wifi_hotspot_checkbox_text_summary">Mobil Connectioun benotze fir e WLAN-Netzwierk ze bedreiwen</string>
   <string name="wifi_tether_starting">Zougankspunkt gëtt aktivéiert\u2026</string>
   <string name="wifi_tether_stopping">Zougankspunkt gëtt desaktivéiert\u2026</string>
-  <string name="wifi_tether_enabled_subtext">Mobilen Zougankspunkt <xliff:g id="network_ssid">%1$s</xliff:g> aktiv</string>
-  <string name="wifi_tether_failed_subtext">Feeler beim mobile WLAN-Zougankspunkt</string>
+  <string name="wifi_tether_enabled_subtext">Mobillen Zougankspunkt <xliff:g id="network_ssid">%1$s</xliff:g> aktiv</string>
+  <string name="wifi_tether_failed_subtext">Feeler beim mobille WLAN-Zougankspunkt</string>
   <string name="wifi_tether_configure_ap_text">WLAN-Hostspot ariichten</string>
   <string name="wifi_hotspot_configure_ap_text">Astellung vum WLAN-Zougankspunkt</string>
   <string name="wifi_hotspot_configure_ap_text_summary">AndroidAP WPA2 PSK portabele WLAN-Zougankspunkt</string>
-  <string name="wifi_tether_configure_subtext"><xliff:g id="network_ssid">%1$s</xliff:g> <xliff:g id="network_security">%2$s</xliff:g> mobile WLAN-Zougankspunkt</string>
+  <string name="wifi_tether_configure_subtext"><xliff:g id="network_ssid">%1$s</xliff:g> <xliff:g id="network_security">%2$s</xliff:g> mobille WLAN-Zougankspunkt</string>
   <string name="wifi_tether_configure_ssid_default">AndroidHotspot</string>
   <string name="home_settings">Heem</string>
   <string name="display_settings_title">Usiicht</string>
@@ -759,7 +770,6 @@ D\'Verschlësselung dauert mindestens eng Stonn, während där den Telefon e pue
   <string name="ring_volume_title">Schelltounlautstäerkt</string>
   <string name="vibrate_in_silent_title">Vibréiere wa roueg geschalt</string>
   <string name="notification_sound_title">Standard-Notifikatiounstoun</string>
-  <string name="heads_up_enabled_title">Pop-Up bei héijer Prioritéit</string>
   <string name="incoming_call_volume_title">Schelltoun</string>
   <string name="notification_volume_title">Notifikatioun</string>
   <string name="checkbox_notification_same_as_incoming_call">D\'Lautstäerkt vun den erakommenden Uriff fir Notifikatioune benotzen</string>
@@ -831,8 +841,8 @@ D\'Verschlësselung dauert mindestens eng Stonn, während där den Telefon e pue
   <string name="screensaver_settings_button">Astellungen</string>
   <string name="automatic_brightness">Automatesch Hellegkeet</string>
   <string name="lift_to_wake_title">Waakreg maache beim Ophiewen</string>
-  <string name="doze_title">Inaktivitéitsvue</string>
-  <string name="doze_summary">Schierm waakreg maachen, wann den Apparat opgehuewe gëtt oder Notifikatiounen ukommen</string>
+  <string name="doze_title">Ambiente Schierm</string>
+  <string name="doze_summary">Schierm aktivéieren, wann s du den Apparat opgehiefs oder eng Notifikatioun empfänks</string>
   <string name="title_font_size">Schrëftgréisst</string>
   <string name="dialog_title_font_size">Schrëftgréisst</string>
   <string name="sim_lock_settings">Astellunge fir d\'SIM-Kaartespär</string>
@@ -853,16 +863,21 @@ D\'Verschlësselung dauert mindestens eng Stonn, während där den Telefon e pue
   <string name="sim_change_pin">SIM-PIN</string>
   <string name="sim_bad_pin">Inkorrekte PIN</string>
   <string name="sim_pins_dont_match">D\'PIN-Codë stëmmen net iwwereneen</string>
-  <string name="sim_change_failed">Kann de PIN net änneren.\nMéiglecherweis ass de PIN inkorrekt.</string>
+  <string name="sim_pin_incorrect">Inkorrekte SIM-PIN-Code.</string>
+  <string name="sim_change_failed">PIN kann net geännert ginn.\n</string>
   <string name="sim_change_succeeded">SIM-PIN erfollegräich geännert</string>
   <string name="sim_lock_failed">Kann de Spärstatus vun der SIM-Kaart net änneren.\nMéiglecherweis ass de PIN inkorrekt.</string>
   <string name="sim_enter_ok">OK</string>
   <string name="sim_enter_cancel">Ofbriechen</string>
   <string name="sim_multi_sims_title">Et gouf méi wéi eng SIM-Kaart fonnt</string>
   <string name="sim_multi_sims_summary">SIM auswielen, déi fir mobil Date solle benotzt ginn.</string>
-  <string name="wrong_pin_code_pukked">Inkorrekte SIM-PIN-Code. Du muss elo däin Netzbedreiwer kontaktéiere fir däin Apparat z\'entspären.</string>
+  <string name="sim_change_data_title">Date-SIM änneren?</string>
+  <string name="sim_change_data_message"><xliff:g id="new_sim">%1$s</xliff:g> amplaz <xliff:g id="old_sim">%2$s</xliff:g> fir Datennetzwierker benotzen?</string>
+  <string name="sim_preferred_title">Preferéiert SIM-Kaart änneren?</string>
+  <string name="sim_preferred_message"><xliff:g id="new_sim">%1$s</xliff:g> ass déi eenzeg SIM an dengem Apparat. Wëlls du déi fir d\'Datennetzwierker, d\'Uriff an d\'SMS-Message benotzen?</string>
+  <string name="wrong_pin_code_pukked">Inkorrekte SIM-PIN-Code. Du muss elo däi Provider kontaktéiere fir däin Apparat z\'entspären.</string>
   <plurals name="wrong_pin_code">
-    <item quantity="one">Inkorrekte SIM-PIN-Code, du hues nach <xliff:g id="number">%d</xliff:g> Versuch iwwreg ier s de däin Netzbedreiwer kontaktéiere muss fir däin Apparat z\'entspären.</item>
+    <item quantity="one">Inkorrekte SIM-PIN-Code, du hues nach <xliff:g id="number">%d</xliff:g> Versuch iwwreg ier s de däi Provider kontaktéiere muss fir däin Apparat z\'entspären.</item>
     <item quantity="other">Inkorrekte SIM-PIN-Code, du hues nach <xliff:g id="number">%d</xliff:g> Versich iwwreg.</item>
   </plurals>
   <string name="pin_failed">SIM-PIN-Operatioun feelgeschloen!</string>
@@ -895,7 +910,7 @@ D\'Verschlësselung dauert mindestens eng Stonn, während där den Telefon e pue
   <string name="status_meid_number">MEID</string>
   <string name="status_icc_id">ICCID</string>
   <string name="status_network_type">Typ vum Datennetzwierk</string>
-  <string name="status_latest_area_info">Informatiounen zum Netzbedreiwer</string>
+  <string name="status_latest_area_info">Informatiounen zum Provider</string>
   <string name="status_data_state">Status vum Datennetzwierk</string>
   <string name="status_service_state">Servicestatus</string>
   <string name="status_signal_strength">Signalstäerkt</string>
@@ -912,7 +927,7 @@ D\'Verschlësselung dauert mindestens eng Stonn, während där den Telefon e pue
   <string name="sd_memory" product="default">SD-Kaart</string>
   <string name="memory_available">Disponibel</string>
   <string name="memory_available_read_only">Disponibel (just liesbar)</string>
-  <string name="memory_size">Total Späicher</string>
+  <string name="memory_size">Totale Späicher</string>
   <string name="memory_calculating_size">Gëtt berechent\u2026</string>
   <string name="memory_apps_usage">Appen (Appdaten a Medieninhalt)</string>
   <string name="memory_media_usage">Medien</string>
@@ -985,7 +1000,7 @@ D\'Verschlësselung dauert mindestens eng Stonn, während där den Telefon e pue
   <string name="carrier_enabled">APN aktivéieren/desaktivéieren</string>
   <string name="carrier_enabled_summaryOn">APN aktivéiert</string>
   <string name="carrier_enabled_summaryOff">APD desaktivéiert</string>
-  <string name="bearer">Träger</string>
+  <string name="bearer">Dréier</string>
   <string name="mvno_type">MVNO-Typ</string>
   <string name="mvno_match_data">MVNO-Wäert</string>
   <string name="menu_delete">APN läschen</string>
@@ -1006,6 +1021,7 @@ D\'Verschlësselung dauert mindestens eng Stonn, während där den Telefon e pue
   <string name="master_clear_desc" product="tablet">Heiduerch ginn all d\'Date vun dengem Tablet sengem <b>interne Späicher</b> geläscht, inklusiv:\n\n<li>Däi Google-Kont</li>\n<li>System- an App-Daten an -Astellungen</li>\n<li>Erofgelueden Appen</li></string>
   <string name="master_clear_desc" product="default">Heiduerch ginn all d\'Date vun dengem Telefon sengem <b>interne Späicher</b> geläscht, inklusiv:\n\n<li>Däi Google-Kont</li>\n<li>System- an App-Daten an -Astellungen</li>\n<li>Erofgelueden Appen</li></string>
   <string name="master_clear_accounts" product="default">\n\nDu bass momentan an dëse Konten ugemellt:\n</string>
+  <string name="master_clear_other_users_present" product="default">\n\nOp dësem Apparat sinn aner Benotzer.\n</string>
   <string name="master_clear_desc_also_erases_external"><li>Musek</li>\n<li>Fotoen</li>\n<li>Aner Benotzerdaten</li></string>
   <string name="master_clear_desc_erase_external_storage" product="nosdcard">\n\nFir d\'Musek, Biller an aner Benotzerdaten ze läsche muss den <b>USB-Späicher</b> geläscht ginn.</string>
   <string name="master_clear_desc_erase_external_storage" product="default">\n\nFir d\'Musek, Biller an aner Benotzerdaten ze läsche muss d\'<b>SD-Kaart</b> geläscht ginn.</string>
@@ -1017,10 +1033,10 @@ D\'Verschlësselung dauert mindestens eng Stonn, während där den Telefon e pue
   <string name="master_clear_button_text" product="default">Telefon zrécksetzen</string>
   <string name="master_clear_final_desc">All deng perséinlech Informatiounen an erofgelueden Appe läschen? Dat kann net réckgängeg gemaach ginn!</string>
   <string name="master_clear_final_button_text">Alles läschen</string>
-  <string name="master_clear_gesture_prompt">Zeechen däin Entspärmuster</string>
   <string name="master_clear_gesture_explanation">Du muss däin Entspärmuster zeechne fir d\'Zréckstellen op d\'Wierksastellungen ze bestätegen.</string>
   <string name="master_clear_failed">D\'Zrécksetzung konnt net duerchgefouert ginn, well de Service fir d\'Systemberengegung net disponibel ass.</string>
   <string name="master_clear_confirm_title">Zrécksetzen?</string>
+  <string name="master_clear_not_available">D\'Zrécksetzen op d\'Wierksastellungen ass fir dëse Benotzer net disponibel</string>
   <string name="master_clear_progress_title">Läschen</string>
   <string name="master_clear_progress_text">Waart w.e.g...</string>
   <string name="media_format_title" product="nosdcard">USB-Späicher läschen</string>
@@ -1034,16 +1050,15 @@ D\'Verschlësselung dauert mindestens eng Stonn, während där den Telefon e pue
   <string name="media_format_final_desc" product="nosdcard">Den USB-Späicher eidel maachen, an all d\'Fichieren déi drop gespäichert si läschen? Dës Aktioun kann net réckgängeg gemaach ginn!</string>
   <string name="media_format_final_desc" product="default">D\'SD-Kaart eidel maachen, an all d\'Fichieren déi drop gespäichert si läschen? Dës Aktioun kann net réckgängeg gemaach ginn!</string>
   <string name="media_format_final_button_text">Alles läschen</string>
-  <string name="media_format_gesture_prompt">Zeechen däin Entspärmuster</string>
-  <string name="media_format_gesture_explanation" product="nosdcard">Du muss däin Entspärmuster zeechne fir ze bestätegen datt du den USB-Späicher läsche wëlls.</string>
-  <string name="media_format_gesture_explanation" product="default">Du muss däin Entspärmuster zeechne fir ze bestätegen datt du d\'SD-Kaart läsche wëlls.</string>
+  <string name="media_format_gesture_explanation" product="nosdcard">Du muss däin Entspärmuster zeechne fir ze bestätegen datt s du den USB-Späicher läsche wëlls.</string>
+  <string name="media_format_gesture_explanation" product="default">Du muss däin Entspärmuster zeechne fir ze bestätegen datt s du d\'SD-Kaart läsche wëlls.</string>
   <string name="call_settings_title">Uruffastellungen</string>
   <string name="call_settings_summary">Mailbox, Uruffweiderleedung, Uklappen an Uruffer-Kennung ariichten</string>
   <string name="tether_settings_title_usb">USB-Tethering</string>
-  <string name="tether_settings_title_wifi">Mobilen Zougankspunkt</string>
+  <string name="tether_settings_title_wifi">Mobillen Zougankspunkt</string>
   <string name="tether_settings_title_bluetooth">Bluetooth-Tethering</string>
   <string name="tether_settings_title_usb_bluetooth">Tethering</string>
-  <string name="tether_settings_title_all">Tethering a mobilen Zougankspunkt</string>
+  <string name="tether_settings_title_all">Tethering a mobillen Zougankspunkt</string>
   <string name="usb_title">USB</string>
   <string name="usb_tethering_button_text">USB-Tethering</string>
   <string name="usb_tethering_available_subtext">USB connectéiert. Auswiele fir ze tetheren</string>
@@ -1057,17 +1072,17 @@ D\'Verschlësselung dauert mindestens eng Stonn, während där den Telefon e pue
   <string name="bluetooth_tethering_available_subtext" product="default">Internetconnectioun vum Telefon disponibel</string>
   <string name="bluetooth_tethering_device_connected_subtext" product="tablet">Internetconnectioun vum Tablet mat engem Apparat gedeelt</string>
   <string name="bluetooth_tethering_device_connected_subtext" product="default">Internetconnectioun vum Telefon mat engem Apparat gedeelt</string>
-  <string name="bluetooth_tethering_devices_connected_subtext" product="tablet">Internetconnectioun vum Tablet mat <xliff:g id="connectedDeviceCount">%1$d</xliff:g> Apparate gedeelt</string>
-  <string name="bluetooth_tethering_devices_connected_subtext" product="default">Internetconnectioun vum Telefon mat <xliff:g id="connectedDeviceCount">%1$d</xliff:g> Apparate gedeelt</string>
+  <string name="bluetooth_tethering_devices_connected_subtext" product="tablet">Internetconnectioun vum Tablet mat <xliff:g id="connectedDeviceCount">%1$d</xliff:g> Apparater gedeelt</string>
+  <string name="bluetooth_tethering_devices_connected_subtext" product="default">Internetconnectioun vum Telefon mat <xliff:g id="connectedDeviceCount">%1$d</xliff:g> Apparater gedeelt</string>
   <string name="bluetooth_tethering_off_subtext_config">Deelen d\'Internetconnectioun vun dësem <xliff:g id="device_name">%1$d</xliff:g></string>
   <string name="bluetooth_tethering_off_subtext" product="tablet">D\'Internetconnectioun vun dësem Tablet gëtt net gedeelt</string>
   <string name="bluetooth_tethering_off_subtext" product="default">D\'Internetconnectioun vun dësem Telefon gëtt net gedeelt</string>
   <string name="bluetooth_tethering_errored_subtext">Net ugebonnen</string>
-  <string name="bluetooth_tethering_overflow_error">Kann net op méi wéi <xliff:g id="maxConnection">%1$d</xliff:g> Apparaten tetheren.</string>
+  <string name="bluetooth_tethering_overflow_error">Kann net op méi wéi <xliff:g id="maxConnection">%1$d</xliff:g> Apparater tetheren.</string>
   <string name="bluetooth_untether_blank">Tethering fir <xliff:g id="device_name">%1$s</xliff:g> gëtt desaktivéiert.</string>
   <string name="tethering_help_button_text">Hëllef</string>
   <string name="network_settings_title">Datennetzwierker</string>
-  <string name="manage_mobile_plan_title" translatable="true">Mobilen Tariff</string>
+  <string name="manage_mobile_plan_title" translatable="true">Mobillen Tariff</string>
   <string name="sms_application_title" translatable="true">Standard-SMS-App</string>
   <string name="sms_change_default_dialog_title" translatable="true">SMS-App änneren?</string>
   <string name="sms_change_default_dialog_text" translatable="true"><xliff:g id="new_app">%1$s</xliff:g> amplaz vu(n) <xliff:g id="current_app">%2$s</xliff:g> als deng SMS-App benotzen?</string>
@@ -1080,6 +1095,9 @@ D\'Verschlësselung dauert mindestens eng Stonn, während där den Telefon e pue
   <string name="mobile_insert_sim_card" translatable="true">Setz w.e.g. eng SIM-Kaart an a start nei</string>
   <string name="mobile_connect_to_internet" translatable="true">Verbann dech w.e.g. mam Internet</string>
   <string name="location_title">Mäi Standuert</string>
+  <string name="managed_profile_location_category">Aarbechtsprofil</string>
+  <string name="managed_profile_location_switch_title">Standuert fir Aarbechtsprofil</string>
+  <string name="managed_profile_location_switch_lockdown">Vun der Firma desaktivéiert</string>
   <string name="location_mode_title">Modus</string>
   <string name="location_mode_high_accuracy_title">Héich Genauegkeet</string>
   <string name="location_mode_battery_saving_title">Akku spueren</string>
@@ -1087,7 +1105,7 @@ D\'Verschlësselung dauert mindestens eng Stonn, während där den Telefon e pue
   <string name="location_mode_location_off_title">Standuert aus</string>
   <string name="location_category_recent_location_requests">Rezent Standuertufroen</string>
   <string name="location_no_recent_apps">Kierzlech hu keng Appen Zougrëff op de Standuert ugefrot</string>
-  <string name="location_category_location_services">Standuertdéngschter</string>
+  <string name="location_category_location_services">Standuertservicer</string>
   <string name="location_high_battery_use">Héijen Akkuverbrauch</string>
   <string name="location_low_battery_use">Niddregen Akkuverbrauch</string>
   <string name="location_mode_screen_title">Standuertmodus</string>
@@ -1111,19 +1129,20 @@ D\'Verschlësselung dauert mindestens eng Stonn, während där den Telefon e pue
   <string name="about_settings" product="tablet">Iwwer den Tablet</string>
   <string name="about_settings" product="default">Iwwer den Telefon</string>
   <string name="about_settings_summary">Kuck rechtlech Informatiounen, de Status an d\'Software-Versioun</string>
-  <string name="legal_information">Legal Informatioun</string>
+  <string name="legal_information">Legal Informatiounen</string>
   <string name="contributors_title">Mataarbechter</string>
   <string name="regulatory_information">Reguléierungsinformatiounen</string>
   <string name="copyright_title">Auteursrecht</string>
   <string name="license_title">Lizenz</string>
   <string name="terms_title">Geschäftsbedéngungen</string>
+  <string name="webview_license_title">System-WebView-Lizenz</string>
   <string name="wallpaper_attributions">Hannergrondbiller</string>
   <string name="wallpaper_attributions_values">Source vun de Satellittebiller:\n©2014 CNES / Astrium, DigitalGlobe, Bluesky</string>
   <string name="settings_license_activity_title">Open-Source-Lizenzen</string>
   <string name="settings_license_activity_unavailable">Et gëtt e Problem beim Luede vun de Lizenzen.</string>
   <string name="settings_license_activity_loading">Gëtt gelueden\u2026</string>
-  <string name="settings_safetylegal_title">Sécherheetsinformatioun</string>
-  <string name="settings_safetylegal_activity_title">Sécherheetsinformatioun</string>
+  <string name="settings_safetylegal_title">Sécherheetsinformatiounen</string>
+  <string name="settings_safetylegal_activity_title">Sécherheetsinformatiounen</string>
   <string name="settings_safetylegal_activity_unreachable">Du hues keng Dateconnectioun. Fir dës Informatioun elo ze liesen, besich %s vun egal wéi engem Computer dee mam Internet verbonnen ass.</string>
   <string name="settings_safetylegal_activity_loading">Gëtt gelueden\u2026</string>
   <string name="lockpassword_choose_your_password_header">Wiel däi Passwuert aus</string>
@@ -1176,8 +1195,8 @@ D\'Verschlësselung dauert mindestens eng Stonn, während där den Telefon e pue
   <string name="install_applications_title">All App-Quellen erlaben</string>
   <string name="install_unknown_applications_title">Doduerch kënnen Appen aus anere Quellen installéiert ginn</string>
   <string name="install_unknown_applications">Installatioun vun Appen aus onbekannte Quellen erlaben</string>
-  <string name="install_all_warning" product="tablet">Däin Tablet an deng perséinlech Date si méi a Gefor attackéiert ze ginn duerch Appen aus onbekannte Quellen. Du stëmms zou datt du eleng fir Schued un dengem Tablet oder Dateverloscht duerch dës Appe responsabel bass.</string>
-  <string name="install_all_warning" product="default">Däin Telefon an deng perséinlech Date si méi a Gefor attackéiert ze ginn duerch Appen aus onbekannte Quellen. Du stëmms zou datt du eleng fir Schued un dengem Tablet oder Dateverloscht duerch dës Appe responsabel bass.</string>
+  <string name="install_all_warning" product="tablet">Däin Tablet an deng perséinlech Date si méi a Gefor attackéiert ze ginn duerch Appen aus onbekannte Quellen. Du stëmms zou datt s du eleng fir Schued un dengem Tablet oder Dateverloscht duerch dës Appe responsabel bass.</string>
+  <string name="install_all_warning" product="default">Däin Telefon an deng perséinlech Date si méi a Gefor attackéiert ze ginn duerch Appen aus onbekannte Quellen. Du stëmms zou datt s du eleng fir Schued un dengem Tablet oder Dateverloscht duerch dës Appe responsabel bass.</string>
   <string name="advanced_settings">Erweidert Astellungen</string>
   <string name="advanced_settings_summary">Optioune fir Experten aktivéieren</string>
   <string name="application_info_label">App-Info</string>
@@ -1236,7 +1255,7 @@ D\'Verschlësselung dauert mindestens eng Stonn, während där den Telefon e pue
   <string name="filter_apps_onsdcard" product="nosdcard">USB-Späicher</string>
   <string name="filter_apps_onsdcard" product="default">Op der SD-Kaart</string>
   <string name="disabled">Desaktivéiert</string>
-  <string name="not_installed">Net installéiert</string>
+  <string name="not_installed">Net fir Benotzer installéiert</string>
   <string name="no_applications">Keng Appen.</string>
   <string name="internal_storage">Interne Späicher</string>
   <string name="sd_card_storage" product="nosdcard">USB-Späicher</string>
@@ -1255,9 +1274,9 @@ D\'Verschlësselung dauert mindestens eng Stonn, während där den Telefon e pue
   <string name="security_settings_desc" product="tablet">Dës App kann op dës Elementer vun dengem Tablet zougräifen:</string>
   <string name="security_settings_desc" product="default">Dës App kann op dës Elementer vun dengem Telefon zougräifen:</string>
   <string name="security_settings_desc_multi" product="tablet">Dës App kann op dës Elementer vun dengem Tablet zougräifen.
-Fir d\'Performance ze verbesseren an de Späicherverbrauch ze reduzéiere stinn e puer vun dëse Berechtegungen fir <xliff:g id="base_app_name">%1$s</xliff:g> zur Verfügung well se am selweschte Prozess leeft wéi <xliff:g id="additional_apps_list">%2$s</xliff:g>:</string>
+Fir d\'Performance ze verbesseren an de Späicherverbrauch ze reduzéiere stinn e puer vun dëse Berechtegunge fir <xliff:g id="base_app_name">%1$s</xliff:g> zur Verfügung well s\'am selwechte Prozess leeft wéi <xliff:g id="additional_apps_list">%2$s</xliff:g>:</string>
   <string name="security_settings_desc_multi" product="default">Dës App kann op dës Elementer vun dengem Telefon zougräifen.
-Fir d\'Performance ze verbesseren an de Späicherverbrauch ze reduzéiere stinn e puer vun dëse Berechtegungen fir <xliff:g id="base_app_name">%1$s</xliff:g> zur Verfügung well se am selweschte Prozess leeft wéi <xliff:g id="additional_apps_list">%2$s</xliff:g>:</string>
+Fir d\'Performance ze verbesseren an de Späicherverbrauch ze reduzéiere stinn e puer vun dëse Berechtegunge fir <xliff:g id="base_app_name">%1$s</xliff:g> zur Verfügung well s\'am selwechte Prozess leeft wéi <xliff:g id="additional_apps_list">%2$s</xliff:g>:</string>
   <string name="join_two_items"><xliff:g id="first_item">%1$s</xliff:g> a(n) <xliff:g id="second_item">%2$s</xliff:g></string>
   <string name="join_many_items_last"><xliff:g id="all_but_last_item">%1$s</xliff:g> a(n) <xliff:g id="last_item">%2$s</xliff:g></string>
   <string name="join_many_items_first"><xliff:g id="first_item">%1$s</xliff:g>, <xliff:g id="all_but_first_and_last_item">%2$s</xliff:g></string>
@@ -1289,7 +1308,7 @@ Fir d\'Performance ze verbesseren an de Späicherverbrauch ze reduzéiere stinn 
   <string name="app_special_disable_dlg_title">Date läschen an App desaktivéieren?</string>
   <string name="app_special_disable_dlg_text">Wann s du eng integréiert App desaktivéiers, kéinten anere Appe sech donieft behuelen. Deng Date ginn och geläscht.</string>
   <string name="app_disable_notifications_dlg_title">Notifikatiounen ausschalten?</string>
-  <string name="app_disable_notifications_dlg_text">Wann s du d\'Notifikatioune fir dës App ausschalts kéins du wichteg Warnungen an Aktualiséierunge verpassen.</string>
+  <string name="app_disable_notifications_dlg_text">Wann s du d\'Notifikatioune fir dës App ausschalts kéints du wichteg Warnungen an Aktualiséierunge verpassen.</string>
   <string name="app_ops_settings">App-Virgäng</string>
   <string name="app_ops_running">Lafend</string>
   <string name="app_ops_never_used">(Ni benotzt)</string>
@@ -1317,7 +1336,7 @@ Fir d\'Performance ze verbesseren an de Späicherverbrauch ze reduzéiere stinn 
   <string name="running_processes_item_description_p_p"><xliff:g id="numprocess">%1$d</xliff:g>
         Prozesser a(n) <xliff:g id="numservices">%2$d</xliff:g> Servicer</string>
   <string name="running_processes_header_title">Späicher vum Apparat</string>
-  <string name="running_processes_header_footer">App-RAM-Notzung</string>
+  <string name="running_processes_header_footer">App-RAM-Benotzung</string>
   <string name="running_processes_header_system_prefix">System</string>
   <string name="running_processes_header_apps_prefix">Appen</string>
   <string name="running_processes_header_free_prefix">Fräi</string>
@@ -1331,7 +1350,7 @@ Fir d\'Performance ze verbesseren an de Späicherverbrauch ze reduzéiere stinn 
   <string name="service_stop">Stopp</string>
   <string name="service_manage">Astellungen</string>
   <string name="service_stop_description">Dëse Service gouf vu senger App gestart. Wann s du e stopps kéint d\'App ofstierzen.</string>
-  <string name="heavy_weight_stop_description">D\'App kann net sécher gestoppt ginn. Wann s du se stopps kéins du en Deel vun denger aktueller Aarbecht verléieren.</string>
+  <string name="heavy_weight_stop_description">D\'App kann net sécher gestoppt ginn. Wann s du se stopps kéints du en Deel vun denger aktueller Aarbecht verléieren.</string>
   <string name="background_process_stop_description">Dëst ass en alen App-Prozess deen ëmmer nach leeft fir de Fall datt en nees gebraucht gëtt. Et gëtt normalerweis kee Grond en ze stoppen.</string>
   <string name="service_manage_description"><xliff:g id="client_name">%1$s</xliff:g>: gëtt grad benotzt. Dréck op \"Astellungen\" fir se ze steieren.</string>
   <string name="main_running_process_description">Haaptprozess gëtt benotzt.</string>
@@ -1390,7 +1409,7 @@ Fir d\'Performance ze verbesseren an de Späicherverbrauch ze reduzéiere stinn 
   <string name="testing_phone_info" product="tablet">Tabletsinformatioun</string>
   <string name="testing_phone_info" product="default">Telefonsinformatioun</string>
   <string name="testing_battery_info">Akkuinformatioun</string>
-  <string name="testing_sim_toolkit">SIM-Toolkit</string>
+  <string name="testing_sim_toolkit">SIM-Geschirkëscht</string>
   <string name="quick_launch_title">Séier starten</string>
   <string name="quick_launch_summary">Tastekombinatioun fir d\'Starte vun Appen definéieren</string>
   <string name="quick_launch_assign_application">App zouweisen</string>
@@ -1427,21 +1446,27 @@ Fir d\'Performance ze verbesseren an de Späicherverbrauch ze reduzéiere stinn 
   <string name="apn_settings_not_available">Astellunge vum Zougrëffspunkt sinn net fir dëse Benotzer disponibel</string>
   <string name="enable_adb">Feelersich iwwer USB</string>
   <string name="enable_adb_summary">Debug-Modus wann USB connectéiert ass</string>
-  <string name="clear_adb_keys">USB-Debugging-Erlabnës zréckhuelen</string>
+  <string name="clear_adb_keys">USB-Debugging-Erlaabnes zréckhuelen</string>
   <string name="bugreport_in_power">Ofkierzung fir Feelerberichter</string>
   <string name="bugreport_in_power_summary">Am Ausschaltmenü e Knäppchen uweise fir Feelerberichter ze schécken</string>
   <string name="keep_screen_on">Waakreg bleiwen</string>
   <string name="keep_screen_on_summary">Schierm beim Oplueden ëmmer uloossen</string>
   <string name="bt_hci_snoop_log">Bluetooth-HCI-Snoop-Protokoll aktivéieren</string>
   <string name="bt_hci_snoop_log_summary">All d\'Bluetooth-HCI-Päck an engem Fichier erfaassen</string>
-  <string name="oem_unlock_enable">OEM-Entspärung aktivéieren</string>
-  <string name="oem_unlock_enable_summary">OEM-Entspärung vum Apparat zouloossen</string>
+  <string name="oem_unlock_enable">OEM-Entspärung</string>
+  <string name="oem_unlock_enable_summary">Bootloader-Entspärung zouloossen</string>
+  <string name="oem_unlock_enable_pin_prompt">PIN aginn</string>
+  <string name="oem_unlock_enable_pin_description">Gëff däin Apparat-PIN fir d\'OEM-Entspärung z\'aktivéieren</string>
+  <string name="confirm_enable_oem_unlock_title">OEM-Entspärung erlaben?</string>
+  <string name="confirm_enable_oem_unlock_text">Warnung: D\'Schutzfunktioune fir den Apparat funktionéieren net, soulaang dës Astellung aktivéiert ass.</string>
   <string name="wifi_display_certification">Zertifizéierung vum kabellose Schierm</string>
   <string name="wifi_verbose_logging">Detailéiert WLAN-Protokolléierung aktivéieren</string>
   <string name="wifi_aggressive_handover">Aggressive WLAN-op-Mobilfunk-Handover</string>
   <string name="wifi_allow_scan_with_traffic">WLAN-Roamingsich ëmmer erlaben</string>
   <string name="wifi_display_certification_summary">Optioune fir d\'Zertifizéierung vum kabellose Schierm uweisen</string>
   <string name="wifi_verbose_logging_summary">Niveau fir WLAN-Protokolléierung erhéijen, am WLAN-Picker pro SSID-RSSI uweisen</string>
+  <string name="wifi_aggressive_handover_summary">Wann dës Optioun aktivéiert ass, ass de WLAN bei schwaachem Signal bei der Iwwergab vun der Dateverbindung an de Mobilfunk méi aggressiv</string>
+  <string name="wifi_allow_scan_with_traffic_summary">WLAN-Roamingsiche jee no Ëmfang vum Datentrafic an der Schnëttstell zouloossen bzw. net zouloossen</string>
   <string name="select_logd_size_title">Gréisst vum Protokoll-Tëschespäicher</string>
   <string name="select_logd_size_dialog_title">Gréisst vum Protokoll-Tëschespäicher auswielen</string>
   <string name="allow_mock_location">Simuléiert Standuerter erlaben</string>
@@ -1450,10 +1475,10 @@ Fir d\'Performance ze verbesseren an de Späicherverbrauch ze reduzéiere stinn 
   <string name="adb_warning_title">USB-Debugging erlaben?</string>
   <string name="adb_warning_message">USB-Debugging ass just fir Entwécklungszwecker geduecht. Benotz et fir Daten tëscht dengem Computer an dengem Apparat ze kopéieren, Appen ouni Notifikatioun op dengem Apparat z\'installéieren a Protokolldaten ze liesen.</string>
   <string name="adb_keys_warning_message">Zougrëff op de USB-Debugging fir all d\'Computere vun deenen s de dech bis elo connectéiert hues ophiewen?</string>
-  <string name="dev_settings_warning_title">Entwécklungsastellungen erlaben?</string>
+  <string name="dev_settings_warning_title">Entwécklungsoptiounen erlaben?</string>
   <string name="dev_settings_warning_message">Dës Astellunge si just fir Entwécklungszwecker geduecht. Se kënnen den Apparat an d\'Appen déi drop sinn dozou bréngen ofzestierzen oder sech donieft ze behuelen.</string>
   <string name="verify_apps_over_usb_title">Appen iwwer USB verifizéieren</string>
-  <string name="verify_apps_over_usb_summary">Appen déi iwwer ADB/ADT installéiert goufen ob béisaartegt Verhalen iwwerpréiwen.</string>
+  <string name="verify_apps_over_usb_summary">Appen déi iwwer ADB/ADT installéiert goufen ob béisaartegt Behuelen iwwerpréiwen.</string>
   <string name="enforce_read_external_title" product="nosdcard">USB-Späicher schützen</string>
   <string name="enforce_read_external_summary" product="nosdcard">Appe mussen eng Berechtegung froe fir vum USB-Späicher ze liesen</string>
   <string name="enforce_read_external_confirm_title" product="nosdcard">USB-Späicher schützen?</string>
@@ -1536,6 +1561,7 @@ Fir d\'Performance ze verbesseren an de Späicherverbrauch ze reduzéiere stinn 
   <string name="captioning_preview_text">Titele gesi sou aus</string>
   <string name="captioning_preview_characters">Aa</string>
   <string name="locale_default">Standard</string>
+  <string name="color_title">Faarf</string>
   <string name="color_unspecified">Standard</string>
   <string name="color_none">Keen</string>
   <string name="color_white">Wäiss</string>
@@ -1549,6 +1575,8 @@ Fir d\'Performance ze verbesseren an de Späicherverbrauch ze reduzéiere stinn 
   <string name="color_magenta">Magenta</string>
   <string name="enable_service_title"><xliff:g id="service" example="TalkBack">%1$s</xliff:g> benotzen?</string>
   <string name="capabilities_list_title"><xliff:g id="service" example="TalkBack">%1$s</xliff:g> wëll:</string>
+  <string name="enable_service_encryption_warning">Wann s du <xliff:g id="SERVICE">%1$s</xliff:g> aktivéiers, benotzt den Apparat net d\'Schiermspär, fir d\'Dateverschlësselung ze verbesseren.</string>
+  <string name="secure_lock_encryption_warning">Well s du eng Accessibilitéitshëllef aktivéiert hues, benotzt däin Apparat net d\'Schiermspär, fir d\'Dateverschlësselung ze verbesseren.</string>
   <string name="enable_service_pattern_reason">Well d\'Aktivéierung vu(n) <xliff:g id="service" example="TalkBack">%1$s</xliff:g> d\'Dateverschlësslung betrëfft, muss du däin Entspärmuster bestätegen.</string>
   <string name="enable_service_pin_reason">Well d\'Aktivéierung vu(n) <xliff:g id="service" example="TalkBack">%1$s</xliff:g> d\'Dateverschlësslung betrëfft, muss du däi PIN bestätegen.</string>
   <string name="enable_service_password_reason">Well d\'Aktivéierung vu(n) <xliff:g id="service" example="TalkBack">%1$s</xliff:g> d\'Dateverschlësslung betrëfft, muss du däi Passwuert bestätegen.</string>
@@ -1592,18 +1620,18 @@ Fir d\'Performance ze verbesseren an de Späicherverbrauch ze reduzéiere stinn 
             - <xliff:g id="status">%2$s</xliff:g></string>
   <string name="power_discharge_remaining"><xliff:g id="remain">%1$s</xliff:g> iwwreg</string>
   <string name="power_charge_remaining"><xliff:g id="until_charged">%1$s</xliff:g> fir opzelueden</string>
-  <string name="power_discharging_duration"><xliff:g id="level">%1$d</xliff:g>%%
+  <string name="power_discharging_duration"><xliff:g id="level">%1$s</xliff:g>%%
             - ongeféier <xliff:g id="time">%2$s</xliff:g> iwwreg</string>
-  <string name="power_charging"><xliff:g id="level">%1$d</xliff:g>%% -
-            <xliff:g id="state">%2$s</xliff:g></string>
-  <string name="power_charging_duration"><xliff:g id="level">%1$d</xliff:g>%% -
-            <xliff:g id="time">%2$s</xliff:g> fir voll ze lueden</string>
-  <string name="power_charging_duration_ac"><xliff:g id="level">%1$d</xliff:g>%% -
-            <xliff:g id="time">%2$s</xliff:g> fir iwwer Stroumkabel voll opzelueden</string>
-  <string name="power_charging_duration_usb"><xliff:g id="level">%1$d</xliff:g>%% -
-            <xliff:g id="time">%2$s</xliff:g> fir iwwer USB voll opzelueden</string>
-  <string name="power_charging_duration_wireless"><xliff:g id="level">%1$d</xliff:g>%% -
-            <xliff:g id="time">%2$s</xliff:g> fir kabellos voll opzelueden</string>
+  <string name="power_charging"><xliff:g id="level">%1$s</xliff:g> -
+            <xliff:g id="state">%2$s</xliff:g></string>
+  <string name="power_charging_duration"><xliff:g id="level">%1$s</xliff:g> -
+            <xliff:g id="time">%2$s</xliff:g> fir opzelueden</string>
+  <string name="power_charging_duration_ac"><xliff:g id="level">%1$s</xliff:g> -
+            <xliff:g id="time">%2$s</xliff:g> fir iwwer Stroumkabel opzelueden</string>
+  <string name="power_charging_duration_usb"><xliff:g id="level">%1$s</xliff:g> -
+            <xliff:g id="time">%2$s</xliff:g> fir iwwer USB opzelueden</string>
+  <string name="power_charging_duration_wireless"><xliff:g id="level">%1$s</xliff:g> -
+            <xliff:g id="time">%2$s</xliff:g> fir ouni Kabel opzelueden</string>
   <string name="power_usage_list_summary">Benotzung säit der leschter Luedung</string>
   <string name="battery_since_unplugged">Akkuverbrauch säit dem Trenne vun der Steckdous</string>
   <string name="battery_since_reset">Akkuverbrauch säit dem Zrécksetzen</string>
@@ -1619,7 +1647,6 @@ Fir d\'Performance ze verbesseren an de Späicherverbrauch ze reduzéiere stinn 
   <string name="awake">Waakreg Zäit vum Apparat</string>
   <string name="wifi_on_time">WLAN-Aktivzäit</string>
   <string name="bluetooth_on_time">WLAN-Aktivzäit</string>
-  <string name="usage_name_percent"><xliff:g id="name">%1$s</xliff:g>" - "<xliff:g id="number" example="30">%2$s</xliff:g><xliff:g id="percent" example="%">%%</xliff:g></string>
   <string name="history_details_title">Detailer vum Historique</string>
   <string name="details_title">Benotzungsdetailer</string>
   <string name="details_subtitle">Benotzungsdetailer</string>
@@ -1643,10 +1670,10 @@ Fir d\'Performance ze verbesseren an de Späicherverbrauch ze reduzéiere stinn 
   <string name="usage_type_phone" product="tablet">Tablet</string>
   <string name="usage_type_phone" product="default">Telefon</string>
   <string name="usage_type_data_send">Mobil Päck verschéckt</string>
-  <string name="usage_type_data_recv">Mobil Päck emfaangen</string>
-  <string name="usage_type_radio_active">Mobile Sender aktiv</string>
+  <string name="usage_type_data_recv">Mobil Päck empfaangen</string>
+  <string name="usage_type_radio_active">Mobille Sender aktiv</string>
   <string name="usage_type_data_wifi_send">WLAN-Päck geschéckt</string>
-  <string name="usage_type_data_wifi_recv">WLAN-Päck emfaangen</string>
+  <string name="usage_type_data_wifi_recv">WLAN-Päck empfaangen</string>
   <string name="usage_type_audio">Toun</string>
   <string name="usage_type_video">Video</string>
   <string name="usage_type_on_time">Zäit un</string>
@@ -1673,12 +1700,13 @@ Fir d\'Performance ze verbesseren an de Späicherverbrauch ze reduzéiere stinn 
   <string name="battery_desc_bluetooth">Akkuverbrauch duerch Bluetooth</string>
   <string name="battery_sugg_bluetooth_basic">Bluetooth ausschalte wann en net gebraucht gëtt</string>
   <string name="battery_sugg_bluetooth_headset">Versich dech mat engem anere Bluetooth-Apparat ze verbannen</string>
-  <string name="battery_desc_apps">Akkuverbrauch vun den Appen</string>
+  <string name="battery_desc_apps">Akkuverbrauch vun der App</string>
   <string name="battery_sugg_apps_info">Stopp oder desinstalléiert d\'App</string>
   <string name="battery_sugg_apps_gps">Akkuspuermodus auswielen</string>
   <string name="battery_sugg_apps_settings">D\'App kéint Astellungen ubidde fir den Akkuverbrauch ze reduzéieren</string>
   <string name="battery_desc_users">Akkuverbrauch duerch de Benotzer</string>
   <string name="battery_desc_unaccounted">Diverse Stroumverbrauch</string>
+  <string name="battery_msg_unaccounted">Den Akkuverbrauch ass just eng ongeféier Donnée, déi net all Quelle vun Akkuentluedung berücksichtegt. Den diverse Verbrauch bezitt sech op d\'Differenz tëscht dem ongeféiere Akkuverbrauch an der tatsächlecher Akkuentluedung.</string>
   <string name="battery_desc_overcounted">Ze héich berechente Stroumverbrauch</string>
   <string name="mah"><xliff:g id="number" example="30">%d</xliff:g> mAh</string>
   <string name="menu_stats_unplugged"><xliff:g id="unplugged">%1$s</xliff:g> säit dem Trenne vun der Steckdous</string>
@@ -1690,7 +1718,7 @@ Fir d\'Performance ze verbesseren an de Späicherverbrauch ze reduzéiere stinn 
   <string name="battery_saver">Akkuschouner</string>
   <string name="battery_saver_turn_on_automatically_title">Automatesch uschalten</string>
   <string name="battery_saver_turn_on_automatically_never">Ni</string>
-  <string name="battery_saver_turn_on_automatically_pct">bei %1$d%% Akku</string>
+  <string name="battery_saver_turn_on_automatically_pct">bei %1$s Akku</string>
   <string name="process_stats_summary_title">Prozess-Statistiken</string>
   <string name="process_stats_summary">Geekeg Statistiken iwwer déi lafend Prozesser</string>
   <string name="app_memory_use">Späicherbenotzung</string>
@@ -1731,8 +1759,9 @@ Fir d\'Performance ze verbesseren an de Späicherverbrauch ze reduzéiere stinn 
   <string name="voice_input_settings">Astellunge fir d\'Sproochagab</string>
   <string name="voice_input_settings_title">Stëmmagab</string>
   <string name="voice_service_preference_section_title">Servicer fir d\'Sproochagab</string>
-  <string name="voice_interactor_preference_summary">Vollstäneg Sproochinteraktiounsservicer an Erkennung vu Schlësselwierder</string>
+  <string name="voice_interactor_preference_summary">Vollstänneg Sproochinteraktiounsservicer an Erkennung vu Schlësselwierder</string>
   <string name="voice_recognizer_preference_summary">Einfach Sprooch-an-Text-Ëmwandlung</string>
+  <string name="voice_interaction_security_warning">Dëse Sproochagabservice ka Sproochagaben all Moment iwwerwaachen an Appen, déi Sproochbefehler ënnerstëtzen, fir dech steieren. E gëtt vun der App <xliff:g id="VOICE_INPUT_SERVICE_APP_NAME">%s</xliff:g> bereetgestallt. Wëlls du dëse Service aktivéieren?</string>
   <string name="tts_settings">Astellunge vun der Sproochausgab</string>
   <string name="tts_settings_title">Sproochausgab</string>
   <string name="use_default_tts_settings_title">Ëmmer meng Astellunge benotzen</string>
@@ -1812,8 +1841,7 @@ Fir d\'Performance ze verbesseren an de Späicherverbrauch ze reduzéiere stinn 
   <string name="credential_storage_type">Späichertyp</string>
   <string name="credential_storage_type_hardware">Hardware-gestützt</string>
   <string name="credential_storage_type_software">Just Software</string>
-  <string name="credentials_settings_not_available">Zouganksdaten fir dëse Benotzer sinn net disponibel</string>
-  <string name="credentials_install_gesture_prompt">Zeechen däin Entspärmuster</string>
+  <string name="credentials_settings_not_available">Zouganksdate fir dëse Benotzer sinn net disponibel</string>
   <string name="credentials_install_gesture_explanation">Du muss däin Entspärmuster zeechne fir d\'Installatioun vun den Umeldedaten ze bestätegen.</string>
   <string name="credentials_unlock_hint">Gëff d\'Passuwert fir den Umeldungsinformatiounsspäicher an.</string>
   <string name="credentials_old_password">Aktuellt Passwuert:</string>
@@ -1828,6 +1856,7 @@ Fir d\'Performance ze verbesseren an de Späicherverbrauch ze reduzéiere stinn 
   <string name="credentials_configure_lock_screen_hint">Du muss e PIN oder e Passwuert fir de Spärschierm setzen ier s de den Umeldungsdatespäicher benotze kanns.</string>
   <string name="usage_access_title">Appe mat Benotzungszougrëff</string>
   <string name="allow_usage_access_title">Zougrëff erlaben?</string>
+  <string name="allow_usage_access_message">Wann s du dëser App Zougrëff erlaabs, ka s\'allgemeng Informatiounen iwwer deng Appen ofruffen, z. B. wéi dacks du d\'Appe benotz.</string>
   <string name="emergency_tone_title">Noutfalltoun</string>
   <string name="emergency_tone_summary">Definéier d\'Behuele wann en Noutruff ofgesat gëtt</string>
   <string name="privacy_settings">Sécheren an zrécksetzen</string>
@@ -1841,6 +1870,8 @@ Fir d\'Performance ze verbesseren an de Späicherverbrauch ze reduzéiere stinn 
   <string name="include_app_data_title">App-Daten aschléissen</string>
   <string name="auto_restore_title">Automatesch Erëmhierstellung</string>
   <string name="auto_restore_summary">Wann eng App nei installéiert gëtt, déi geséchert Daten an Astellunge recuperéieren</string>
+  <string name="backup_inactive_title">De Sécherungsservice ass net aktiv.</string>
+  <string name="backup_inactive_summary">Dës gëtt duerch deng Richtlinne vum Apparat festgeluecht.</string>
   <string name="local_backup_password_title">Desktop-Sécherungs-Passwuert</string>
   <string name="local_backup_password_summary_none">Vollstänneg Desktop-Sécherunge si momentan net geschützt</string>
   <string name="local_backup_password_summary_change">Dréck fir d\'Passwuert fir d\'Desktop-Backupen z\'änneren oder ze läschen</string>
@@ -1853,6 +1884,7 @@ Fir d\'Performance ze verbesseren an de Späicherverbrauch ze reduzéiere stinn 
   <string name="remove_device_admin">Desaktivéieren</string>
   <string name="select_device_admin_msg">Administrateure vum Apparat</string>
   <string name="no_device_admins">Keng Apparatverwalter disponibel</string>
+  <string name="managed_profile_device_admin_info">Fir den Zougrëff vu(n) <xliff:g id="app_name">%1$s</xliff:g> ze stoppen, läsch den Aarbechtsprofil ënner Astellungen &gt; Konten</string>
   <string name="personal_device_admin_title">Perséinlech</string>
   <string name="managed_device_admin_title">Aarbecht</string>
   <string name="no_trust_agents">Keng disponibel Vertrauensagenten</string>
@@ -1862,6 +1894,7 @@ Fir d\'Performance ze verbesseren an de Späicherverbrauch ze reduzéiere stinn 
   <string name="device_admin_warning">Wann dësen Apparatverwalter aktivéiert gëtt, kann d\'App <xliff:g id="app_name">%1$s</xliff:g> dës Operatiounen duerchféieren:</string>
   <string name="device_admin_status">Dëse Verwalter ass aktiv an erlaabt der App <xliff:g id="app_name">%1$s</xliff:g> dës Operatiounen duerchzeféieren:</string>
   <string name="profile_owner_add_title">Profil-Manager aktivéieren?</string>
+  <string name="adding_profile_owner_warning">Wann s du weiderméchs, gëtt däi Benotzer vun dengem Administrateur verwalt. Den Administrateur ka méiglecherweis zousätzlech zu denge persounebezunnen Daten och déi domat verbonnenen Date späicheren.\n\nDäin Administrateur kann déi mat dësem Benotzer verbonnenen Astellungen, Zougrëffsrechter, Appen an Daten iwwerwaachen a verwalten, sou wéi d\'Netzwierkaktivitéiten an d\'Standuertinformatioune vun dengem Apparat.</string>
   <string name="untitled_apn">Ouni Titel</string>
   <string name="sound_category_sound_title">Allgemeng</string>
   <string name="notification_log_title">Notifikatiounsprotokoll</string>
@@ -1946,7 +1979,11 @@ Fir d\'Performance ze verbesseren an de Späicherverbrauch ze reduzéiere stinn 
   <string name="enter_password">Gëff däi Passwuert an, fir Android ze starten</string>
   <string name="enter_pin">Gëff däi PIN an, fir Android ze starten</string>
   <string name="enter_pattern">Zeechen däi Muster, fir Android ze starten</string>
-  <string name="try_again">Probéier nees.</string>
+  <string name="cryptkeeper_wrong_pattern">Falscht Muster</string>
+  <string name="cryptkeeper_wrong_password">Falscht Passwuert</string>
+  <string name="cryptkeeper_wrong_pin">Falsche PIN</string>
+  <string name="checking_decryption">Iwwerpréiwung\u2026</string>
+  <string name="starting_android">Android gëtt gestart</string>
   <string name="delete">Läschen</string>
   <string name="misc_files">Verschidde Fichieren</string>
   <string name="misc_files_selected_count"><xliff:g id="number" example="3">%1$d</xliff:g> vu(n) <xliff:g id="total" example="15">%2$d</xliff:g> ausgewielt</string>
@@ -1969,24 +2006,25 @@ Fir d\'Performance ze verbesseren an de Späicherverbrauch ze reduzéiere stinn 
   <string name="debug_monitoring_category">Iwwerwaachung</string>
   <string name="strict_mode">Strikte Modus aktivéiert</string>
   <string name="strict_mode_summary">Schierm opliichte loosse wann Appe laangwiereg Operatiounen um Haaptprozess ausféieren</string>
-  <string name="pointer_location">Zeigerpositioun</string>
+  <string name="pointer_location">Cursorpositioun</string>
   <string name="pointer_location_summary">Overlay mat aktuellen Daten zu Drockaktiounen</string>
   <string name="show_touches">Beréierungen uweisen</string>
   <string name="show_touches_summary">Visuelle Feedback fir Beréierungen uweisen</string>
-  <string name="show_screen_updates">Flächenupdates uweisen</string>
-  <string name="show_screen_updates_summary">Ganz Fënsterflächen opliichte loosse wa se aktualiséiert ginn</string>
+  <string name="show_screen_updates">Flächenaktualiséierungen uweisen</string>
+  <string name="show_screen_updates_summary">Ganz Fënsterflächen opliichte loosse wa s\'aktualiséiert ginn</string>
   <string name="show_hw_screen_updates">GPU-Aktualiséierungen uweisen</string>
   <string name="show_hw_screen_updates_summary">Fënsterdeeler opliichte loosse wa se vun der GPU gezeechent ginn</string>
   <string name="show_hw_layers_updates">Hardware-Layer-Aktualiséierungen uweisen</string>
-  <string name="show_hw_layers_updates_summary">Hardware-Layere gréng opliichte loosse wa se aktualiséiert ginn</string>
+  <string name="show_hw_layers_updates_summary">Hardware-Layere gréng opliichte loosse wa s\'aktualiséiert ginn</string>
   <string name="debug_hw_overdraw">GPU-Iwwerblendung debuggen</string>
   <string name="disable_overlays">HW-Overlays desaktivéieren</string>
   <string name="disable_overlays_summary">Fir d\'Schiermzesummestellung ëmmer d\'GPU benotzen</string>
   <string name="simulate_color_space">Faarfraum simuléieren</string>
   <string name="enable_opengl_traces_title">OpenGL-Spuren aktivéieren</string>
-  <string name="use_nuplayer">NuPlayer benotzen (experimentell)</string>
-  <string name="use_nuplayer_summary">NuPlayer amplaz vun AwesomePlayer benotzen</string>
+  <string name="use_awesomeplayer">AwesomePlayer benotzen (vereelzt)</string>
+  <string name="use_awesomeplayer_summary">AwesomePlayer amplaz vun NuPlayer fir déi meescht Medien ofzespillen</string>
   <string name="usb_audio_disable_routing">USB-Tounëmleedung desaktivéieren</string>
+  <string name="usb_audio_disable_routing_summary">Autom. Routing un extern USB-Toungeräter desaktivéieren</string>
   <string name="debug_layout">Layout-Grenzen uweisen</string>
   <string name="debug_layout_summary">Clip-Begrenzungen, Ränner, etc. uweisen</string>
   <string name="force_rtl_layout_all_locales">RTL-Layout erzwéngen</string>
@@ -2011,6 +2049,7 @@ Fir d\'Performance ze verbesseren an de Späicherverbrauch ze reduzéiere stinn 
   <string name="show_all_anrs_summary">Fënster \"App äntwert net\" fir Hannergrondappen uweisen</string>
   <string name="data_usage_summary_title">Dateverbrauch</string>
   <string name="data_usage_app_summary_title">App-Datebenotzung</string>
+  <string name="data_usage_accounting">De Provider berechent d\'Datebenotzung eventuell anescht als den Apparat.</string>
   <string name="data_usage_app">App-Benotzung</string>
   <string name="data_usage_app_info_label">APP-INFO</string>
   <string name="data_usage_cellular_data">Dateconnectioun</string>
@@ -2024,7 +2063,7 @@ Fir d\'Performance ze verbesseren an de Späicherverbrauch ze reduzéiere stinn 
   <string name="data_usage_menu_show_wifi">WLAN uweisen</string>
   <string name="data_usage_menu_hide_wifi">WLAN verstoppen</string>
   <string name="data_usage_menu_show_ethernet">Ethernet-Benotzung uweisen</string>
-  <string name="data_usage_menu_hide_ethernet">Ethernet-Notzung ausblenden</string>
+  <string name="data_usage_menu_hide_ethernet">Ethernet-Benotzung ausblenden</string>
   <string name="data_usage_menu_metered">Netzwierkaschränkungen</string>
   <string name="data_usage_menu_auto_sync">Daten automatesch synchroniséieren</string>
   <string name="data_usage_menu_sim_cards">SIM-Kaarten</string>
@@ -2060,21 +2099,21 @@ Fir d\'Performance ze verbesseren an de Späicherverbrauch ze reduzéiere stinn 
   <string name="data_usage_app_restrict_background_summary">Hannergronddaten op Handynetzwierker desaktivéieren.</string>
   <string name="data_usage_app_restrict_background_summary_disabled">Fir d\'Hannergronddate fir dës App anzeschränke muss de fir d\'éischt eng mobil Datelimitt definéieren.</string>
   <string name="data_usage_app_restrict_dialog_title">Hannergronddaten aschränken?</string>
-  <string name="data_usage_app_restrict_dialog">Dës Funktioun kéint dozou féieren datt Appen déi op Hannergronddaten ugewise sinn ophale mat funktionéieren wa just mobil Netzwierker disponibel sinn.\n\nDu hues méi detailléiert Kontroll iwwer d\'Datebenotzung an den Astellungen innerhalb vun der App.</string>
+  <string name="data_usage_app_restrict_dialog">Dës Funktioun kéint dozou féieren datt Appen déi op Hannergronddaten ugewise sinn ophale mat funktionéiere wa just mobil Netzwierker disponibel sinn.\n\nDu hues méi detailléiert Kontroll iwwer d\'Datebenotzung an den Astellungen innerhalb vun der App.</string>
   <string name="data_usage_restrict_denied_dialog">Eng Aschränkung vun den Hannergronddaten ass just méiglech wann s du eng mobil Datelimitt gesat hues.</string>
   <string name="data_usage_auto_sync_on_dialog_title">Automatesch Datesynchroniséierung uschalten?</string>
   <string name="data_usage_auto_sync_on_dialog" product="tablet">All d\'Ännerungen déi s du iwwer Internet un dengem Kont virhëls, ginn automatesch op den Tablet kopéiert.\n\nVerschidde Konte kéinten och automatesch all d\'Ännerunge vum Tablet op den Internet kopéieren. E Google-Kont funktionéiert op dës Manéier.</string>
   <string name="data_usage_auto_sync_on_dialog" product="default">All d\'Ännerungen déi s du iwwer Internet un dengem Kont virhëls, ginn automatesch op den Telefon kopéiert.\n\nVerschidde Konte kéinten och automatesch all d\'Ännerunge vum Telefon op den Internet kopéieren. E Google-Kont funktionéiert op dës Manéier.</string>
   <string name="data_usage_auto_sync_off_dialog_title">Automatesch Datesynchroniséierung ausschalten?</string>
-  <string name="data_usage_auto_sync_off_dialog">Heiduerch ginn Daten an Akkuleeschtung gespuert, mä du muss all Kont manuell synchroniséieren fir déi neisten Informatiounen ofzeruffen. An du kriss keng Notifikatioune wann et Neiegkeete ginn.</string>
+  <string name="data_usage_auto_sync_off_dialog">Heiduerch ginn Daten an Akkuleeschtung gespuert, mä du muss all Kont manuell synchroniséiere fir déi neist Informatiounen ofzeruffen. An du kriss keng Notifikatioune wann et Neiegkeete ginn.</string>
   <string name="data_usage_cycle_editor_title">Zrécksetzungsdatum fir de Benotzungszyklus</string>
   <string name="data_usage_cycle_editor_subtitle">Dag vun all Mount:</string>
   <string name="data_usage_cycle_editor_positive">Setzen</string>
   <string name="data_usage_warning_editor_title">Warnung bei Datebenotzung setzen</string>
   <string name="data_usage_limit_editor_title">Datelimitt setzen</string>
   <string name="data_usage_limit_dialog_title">Datebenotzung limittéieren</string>
-  <string name="data_usage_limit_dialog_mobile" product="tablet">Däin Tablet schalt déi mobile Daten aus, esoubal d\'Limit déi s du gesat hues erreecht ginn ass.\n\nWell d\'Datennotzung, déi vun dengem Tablet gemooss gëtt, vun der Ofrechnung vum Provider kann ofweechen, setz léiwer eng konservativ Limitt.</string>
-  <string name="data_usage_limit_dialog_mobile" product="default">Däin Telefon schalt déi mobile Daten aus, esoubal d\'Limit déi s du gesat hues erreecht ginn ass.\n\nWell d\'Datennotzung, déi vun dengem Telefon gemooss gëtt, vun der Ofrechnung vum Provider kann ofweechen, setz léiwer eng konservativ Limitt.</string>
+  <string name="data_usage_limit_dialog_mobile" product="tablet">Däin Tablet schalt déi mobillen Daten aus, soubal d\'Limit déi s du gesat hues erreecht ginn ass.\n\nWell d\'Datennotzung, déi vun dengem Tablet gemooss gëtt, vun der Ofrechnung vum Provider kann ofweechen, setz léiwer eng konservativ Limitt.</string>
+  <string name="data_usage_limit_dialog_mobile" product="default">Däin Telefon schalt déi mobillen Daten aus, soubal d\'Limit déi s du gesat hues erreecht ginn ass.\n\nWell d\'Datennotzung, déi vun dengem Telefon gemooss gëtt, vun der Ofrechnung vum Provider kann ofweechen, setz léiwer eng konservativ Limitt.</string>
   <string name="data_usage_restrict_background_title">Hannergronddaten aschränken?</string>
   <string name="data_usage_restrict_background">Wann s du déi mobil Hannergronddaten aschränks wäerte verschidden Appen a Servicer net funktionéiere, bis du dech mat engem WLAN-Netzwierk verbënns.</string>
   <string name="data_usage_restrict_background_multiuser" product="tablet">Wann s du déi mobil Hannergronddaten aschränks wäerte verschidden Appen a Servicer net funktionéiere, bis du dech mat engem WLAN-Netzwierk verbënns.\n\nDës Astellung betrëfft all d\'Benotzer op dësem Telefon.</string>
@@ -2088,9 +2127,11 @@ Fir d\'Performance ze verbesseren an de Späicherverbrauch ze reduzéiere stinn 
   <string name="data_usage_total_during_range_mobile" product="tablet"><xliff:g id="range" example="Jul 1 - Jul 31">%2$s</xliff:g>: iwwer <xliff:g id="total" example="128KB">%1$s</xliff:g> benotzt, wéi duerch den Tablet gemooss. D\'Datebenotzungsrechnung vun dengem Provider kann anescht sinn.</string>
   <string name="data_usage_total_during_range_mobile" product="default"><xliff:g id="range" example="Jul 1 - Jul 31">%2$s</xliff:g>: iwwer <xliff:g id="total" example="128KB">%1$s</xliff:g> benotzt, wéi duerch den Telefon gemooss. D\'Datebenotzungsrechnung vun dengem Provider kann anescht sinn.</string>
   <string name="data_usage_metered_title">Netzwierkaschränkungen</string>
+  <string name="data_usage_metered_body">Käschteflichteg Netzwierker gi wéi Datennetzwierker behandelt, wann d\'Hannergronddate beschränkt goufen. An Appe gi méglecherweis Warnungen ugewisen, ier grouss Datequantitéiten iwwer dës Netzwierker erofgeluede ginn.</string>
   <string name="data_usage_metered_mobile">Datennetzwierker</string>
-  <string name="data_usage_metered_wifi">Bezuelte WLAN-Netzwierker</string>
-  <string name="data_usage_metered_wifi_disabled">For bezuelten Netzwierker auszewielen, schalt WLAN un.</string>
+  <string name="data_usage_metered_wifi">Bezuelt WLAN-Netzwierker</string>
+  <string name="data_usage_metered_wifi_disabled">Fir bezuelt Netzwierker auszewielen, schalt WLAN un.</string>
+  <string name="data_usage_disclaimer">De Provider berechent d\'Datebenotzung eventuell anescht als den Apparat.</string>
   <string name="cryptkeeper_emergency_call">Noutruff</string>
   <string name="cryptkeeper_return_to_call">Zréck bei d\'Gespréich</string>
   <string name="vpn_name">Numm</string>
@@ -2157,8 +2198,7 @@ Fir d\'Performance ze verbesseren an de Späicherverbrauch ze reduzéiere stinn 
   <string name="user_add_user_or_profile_menu">Benotzer oder Profil dobäisetzen</string>
   <string name="user_add_user_menu">Benotzer dobäisetzen</string>
   <string name="user_summary_restricted_profile">Ageschränkte Profil</string>
-  <string name="user_summary_managed_profile">Aarbechtsprofil</string>
-  <string name="user_need_lock_message">Ier s de en ageschränkte Profil erstells muss de e Spärschierm ariichten fir den Appen a perséinlech Daten ze schützen.</string>
+  <string name="user_need_lock_message">Ier s de en ageschränkte Profil erstells muss de e Spärschierm ariichte fir den Appen a perséinlech Daten ze schützen.</string>
   <string name="user_set_lock_button">Spär setzen</string>
   <string name="user_summary_not_set_up">Net agestallt</string>
   <string name="user_summary_restricted_not_set_up">Net agestallt - Ageschränkte Profil</string>
@@ -2172,6 +2212,7 @@ Fir d\'Performance ze verbesseren an de Späicherverbrauch ze reduzéiere stinn 
   <string name="user_add_user_item_title">Benotzer</string>
   <string name="user_add_profile_item_title">Ageschränkte Profil</string>
   <string name="user_add_user_title">Neie Benotzer dobäisetzen?</string>
+  <string name="user_add_user_message_long">Du kanns dësen Apparat fir aner Benotzer fräiginn, andeem s du weider Benotzer erstells. Jiddwer Benotzer kritt en eegene Beräich, an deem en Appen, den Hannergrond asw. personaliséiere kann. Jiddwer Benotzer kann och d\'Apparatastellunge wéi WLAN änneren, déi sech op all Benotzer auswierken.\n\nWann s du en neie Bneotzer dobäisetz, muss dëse säi Beräich ariichten.\n\nJiddwer Benotzer kann d\'Appe fir all aner Benotzer aktualiséieren.</string>
   <string name="user_add_user_message_short">Wann s du en neie Benotzer dobäisetz, muss déi Persoun hiren Espace amenagéieren.\n\nAll Benotzer kann Appe fir all aner Benotzer aktualiséieren. </string>
   <string name="user_setup_dialog_title">Benotzer elo astellen?</string>
   <string name="user_setup_dialog_message">Stell sécher datt de Benotzer disponibel ass fir den Tablet ze huelen a säin Espace anzeriichten</string>
@@ -2180,7 +2221,7 @@ Fir d\'Performance ze verbesseren an de Späicherverbrauch ze reduzéiere stinn 
   <string name="user_setup_button_setup_later">Net elo</string>
   <string name="user_cannot_manage_message" product="tablet">Just de Besëtzer vum Tablet ka Benotzer geréieren.</string>
   <string name="user_cannot_manage_message" product="default">Just de Besëtzer vum Telefon ka Benotzer geréieren.</string>
-  <string name="user_cannot_add_accounts_message">Ageschränkte Profiller kënne keng Konten dobäisetzen</string>
+  <string name="user_cannot_add_accounts_message">Ageschränkt Profiller kënne keng Konten dobäisetzen</string>
   <string name="user_remove_user_menu"><xliff:g id="user_name">%1$s</xliff:g> vun dësem Apparat läschen</string>
   <string name="user_add_on_lockscreen_menu">Benotzer dobäisetze wann den Apparat gespaart ass</string>
   <string name="user_new_user_name">Neie Benotzer</string>
@@ -2284,21 +2325,23 @@ Fir d\'Performance ze verbesseren an de Späicherverbrauch ze reduzéiere stinn 
   <string name="sim_cellular_data_unavailable">Mobil Daten net disponibel</string>
   <string name="sim_cellular_data_unavailable_summary">Drécke fir eng Date-SIM auszewielen</string>
   <string name="sim_calls_always_use">Dës SIM ëmmer fir Uriff benotzen</string>
+  <string name="select_sim_for_data">SIM-Kaart fir d\'Daten auswielen</string>
+  <string name="data_switch_started">Date-SIM gëtt gewiesselt. Dat ka bis 1 Minutt daueren...</string>
+  <string name="select_sim_for_calls">Uruffe mat</string>
   <string name="sim_select_card">SIM-Kaart auswielen</string>
   <string name="sim_card_number_title">SIM <xliff:g id="card_number">%1$d</xliff:g></string>
   <string name="sim_slot_empty">SIM eidel</string>
   <string name="sim_editor_name">SIM-Numm</string>
-  <string name="sim_editor_title">SIM-Kaart</string>
+  <string name="sim_name_hint">Numm vun der SIM-Kaart aginn</string>
+  <string name="sim_editor_title">SIM-Plaz %1$d</string>
   <string name="sim_editor_carrier">Provider</string>
   <string name="sim_editor_number">Nummer</string>
   <string name="sim_editor_color">SIM-Faarf</string>
-  <string name="sim_editor_num_format">Nummeren uweisen</string>
   <string name="sim_card_select_title">SIM-Kaart auswielen</string>
   <string name="color_orange">Orange</string>
   <string name="color_purple">Mof</string>
   <string name="sim_no_inserted_msg">Keng SIM-Kaarten agesat</string>
   <string name="sim_status_title">SIM-Status</string>
-  <string name="sim_status_summary">SIM-bezunnen Informatioun</string>
   <string name="sim_call_back_title">Vun der Standard-SIM zréckruffen</string>
   <string name="sim_outgoing_call_title">SIM fir erausgoend Uriff</string>
   <string name="sim_other_call_settings">Aner Uruff-Astellungen</string>
@@ -2306,8 +2349,11 @@ Fir d\'Performance ze verbesseren an de Späicherverbrauch ze reduzéiere stinn 
   <string name="preferred_network_offload_header">Netzwierknumm net iwwerdroen</string>
   <string name="preferred_network_offload_footer">Bei desaktivéierter Iwwerdroung vum Netzwierknumm kënnen Drëttpersounen net op Netzwierkinformatiounen zougräifen.</string>
   <string name="preferred_network_offload_popup">Bei desaktivéierter Iwwerdroung vum Netzwierknumm ass eng automatesch Connectioun net méiglech.</string>
-  <string name="sim_pref_divider">Aktivitéiten</string>
-  <string name="sim_calls_ask_first_prefs_title">Fir d\'éischt froen</string>
+  <string name="sim_signal_strength"><xliff:g id="dbm">%1$d</xliff:g> dBm <xliff:g id="asu">%2$d</xliff:g> asu</string>
+  <string name="sim_notification_title">SIM-Kaarte goufe geännert.</string>
+  <string name="sim_notification_summary">Drécke fir anzestellen</string>
+  <string name="sim_pref_divider">Preferéiert SIM fir</string>
+  <string name="sim_calls_ask_first_prefs_title">All Kéier froen</string>
   <string name="sim_selection_required_pref">Auswiel néideg</string>
   <string name="dashboard_title">Astellungen</string>
   <string name="search_results_title">Astellungen</string>
@@ -2316,22 +2362,22 @@ Fir d\'Performance ze verbesseren an de Späicherverbrauch ze reduzéiere stinn 
   <string name="search_recents_queries_label">Rezent Sichbegrëffer</string>
   <string name="search_results_label">Resultater</string>
   <string name="keywords_wifi">wlan wifi wi-fi netzwierk connectioun</string>
-  <string name="keywords_more_default_sms_app">sms message</string>
-  <string name="keywords_more_mobile_networks">handy mobilfunk provider kabellos</string>
+  <string name="keywords_more_default_sms_app">textmessage sms messagen mms</string>
+  <string name="keywords_more_mobile_networks">mobil dratlos daten provider 4g 3g 2g lte</string>
   <string name="keywords_home">iwwersiicht launcher startsäit</string>
   <string name="keywords_display">schierm bildschierm touchscreen</string>
-  <string name="keywords_display_brightness_level">schierm touchscreen dimmen</string>
-  <string name="keywords_display_auto_brightness">schierm touchscreen dimmen</string>
-  <string name="keywords_display_wallpaper">hannergrond</string>
+  <string name="keywords_display_brightness_level">display schierm dimmen touchscreen touchschierm akku batterie</string>
+  <string name="keywords_display_auto_brightness">display schierm dimmen touchscreen touchschierm akku batterie</string>
+  <string name="keywords_display_wallpaper">hannergrond personaliséieren display schierm upassen</string>
   <string name="keywords_display_font_size">textgréisst</string>
   <string name="keywords_display_cast_screen">projezéieren projektéieren beamen</string>
-  <string name="keywords_storage">späicher späicherplaz festplack lafwierk</string>
-  <string name="keywords_battery">stroum stroumversuergung</string>
-  <string name="keywords_spell_checker">schreifweis spellchecker</string>
+  <string name="keywords_storage">späicher plaz apparat benotzung</string>
+  <string name="keywords_battery">stroum verbrauch stroumverbrauch oplueden akku akkuverbrauch</string>
+  <string name="keywords_spell_checker">rechtschreiwung schreifweis dictionnaire spellchecker autokorrektur orthographie</string>
   <string name="keywords_voice_input">sproocherkennung agab sprooch fräispriechfunktioun erkennung offensiv wuert toun historique bluetooth headset </string>
-  <string name="keywords_text_to_speech_output">bewäerten sprooch standard schwätzen</string>
-  <string name="keywords_date_and_time">auer zäit datum</string>
-  <string name="keywords_factory_data_reset">läschen ausläschen</string>
+  <string name="keywords_text_to_speech_output">bewäerten sprooch standard schwätzen tts accessibilitéit lieser blann</string>
+  <string name="keywords_date_and_time">auer datum zäit</string>
+  <string name="keywords_factory_data_reset">läschen ewechhuelen zrécksetzen erëmhierstellung daten</string>
   <string name="keywords_printing">drécker drocker</string>
   <string name="keywords_sounds_and_notifications">lautsprecher signaltoun toun</string>
   <string name="keywords_sounds_and_notifications_interruptions">net stéieren ënnerbriechen ënnerbriechung paus</string>
@@ -2340,7 +2386,7 @@ Fir d\'Performance ze verbesseren an de Späicherverbrauch ze reduzéiere stinn 
   <string name="keywords_location_mode">genauegkeet gps</string>
   <string name="keywords_accounts">kont konten</string>
   <string name="keywords_users">aschränkung aschränken ageschränkt</string>
-  <string name="keywords_keyboard_and_ime">textkorrektur korrigéieren toun vibréierenautomatesch sprooch beweegung virschloen design offensiv wuer aginn smiley emoji</string>
+  <string name="keywords_keyboard_and_ime">text korrektur verbesserung textkorrektur textverbesserung korrigéieren verbesseren toun vibréieren vibratioun automatesch sprooch beweegung virschloen vischlag design beleidegend wuert aginn smiley emoji international</string>
   <string name="keywords_lockscreen">wëschen passwuert muster pin</string>
   <string name="setup_wifi_nfc_tag">WLAN-NFC-Tag astellen</string>
   <string name="write_tag">Schreiwen</string>
@@ -2357,7 +2403,6 @@ Fir d\'Performance ze verbesseren an de Späicherverbrauch ze reduzéiere stinn 
   <string name="notification_volume_option_title">Notifikatiounslautstäerkt</string>
   <string name="zen_mode_settings_title">Ënnerbriechungen</string>
   <string name="zen_mode_option_title">Wann Uriff an Notifikatiounen ukomm</string>
-  <string name="zen_mode_option_title_novoice">Wann Notifikatiounen ukommen</string>
   <string name="zen_mode_option_off">Ëmmer ënnerbriechen</string>
   <string name="zen_mode_option_important_interruptions">Just prioritär Ënnerbriechungen erlaben</string>
   <string name="zen_mode_option_no_interruptions">Net ënnerbriechen</string>
@@ -2401,6 +2446,8 @@ Fir d\'Performance ze verbesseren an de Späicherverbrauch ze reduzéiere stinn 
   </plurals>
   <string name="no_condition_providers">Et si keng Konditiounsubidder installéiert</string>
   <string name="condition_provider_security_warning_title"><xliff:g id="service" example="ConditionProvider">%1$s</xliff:g> aktivéieren?</string>
+  <string name="condition_provider_security_warning_summary"><xliff:g id="condition_provider_name">%1$s</xliff:g> kann Ausstigsbedingungen zum \"Net stéiren\"-Modus dobäisetzen.
+    </string>
   <string name="loading_notification_apps">Appe gi gelueden...</string>
   <string name="app_notification_block_title">Blockéieren</string>
   <string name="app_notification_block_summary">Ni Notifikatioune vun dëser App uweisen</string>
@@ -2414,14 +2461,17 @@ Fir d\'Performance ze verbesseren an de Späicherverbrauch ze reduzéiere stinn 
   <string name="app_notifications_dialog_done">Fäerdeg</string>
   <string name="zen_mode_default_option">Bis de et ausschalts</string>
   <string name="zen_mode_important_category">Prioritär Ënnerbriechungen</string>
-  <string name="zen_mode_downtime_category">Auszäit (just prioritär Ënnerbriechungen)</string>
+  <string name="zen_mode_downtime_category">Inaktivitéit</string>
   <string name="zen_mode_downtime_days">Deeg</string>
   <string name="zen_mode_downtime_days_none">Keen</string>
+  <string name="zen_mode_downtime_mode_title">Ënnerbriechungen erlaabt</string>
+  <string name="zen_mode_downtime_mode_priority">Just wichteg</string>
+  <string name="zen_mode_downtime_mode_none">Keen</string>
   <string name="zen_mode_automation_category">Automatiséierung</string>
   <string name="zen_mode_entry_conditions_title">Automatesch uschalten</string>
   <string name="summary_divider_text">,\u0020</string>
   <string name="zen_mode_entry_conditions_summary_none">Ni</string>
-  <string name="zen_mode_phone_calls">Uriff</string>
+  <string name="zen_mode_calls">Uriff</string>
   <string name="zen_mode_messages">Messagen</string>
   <string name="zen_mode_from">Uriff/Message vun</string>
   <string name="zen_mode_from_anyone">Jiddwerengem</string>
@@ -2435,7 +2485,9 @@ Fir d\'Performance ze verbesseren an de Späicherverbrauch ze reduzéiere stinn 
   <string name="zen_mode_when_weeknights">Wochennuechten</string>
   <string name="zen_mode_start_time">Startzäit</string>
   <string name="zen_mode_end_time">Schlusszäit</string>
-  <string name="zen_mode_end_time_summary_format"><xliff:g id="formatted_time">%s</xliff:g> den nächsten Dag</string>
+  <string name="zen_mode_end_time_priority_next_day_summary_format">Um <xliff:g id="formatted_time">%s</xliff:g> den nächsten Dag</string>
+  <string name="zen_mode_end_time_none_same_day_summary_format">Um <xliff:g id="formatted_time">%s</xliff:g> oder bei engem virege Wecker</string>
+  <string name="zen_mode_end_time_none_next_day_summary_format">Um <xliff:g id="formatted_time">%s</xliff:g> den nächsten Dag oder bei engem virege Wecker</string>
   <string name="notification_settings_apps_title">App-Notifikatiounen</string>
   <string name="notification_app_settings_button">Notifikatiounsastellungen</string>
   <string name="device_feedback">Feedback iwwer dësen Apparat schécken</string>
@@ -2443,7 +2495,11 @@ Fir d\'Performance ze verbesseren an de Späicherverbrauch ze reduzéiere stinn 
   <string name="switch_on_text">Un</string>
   <string name="switch_off_text">Aus</string>
   <string name="screen_pinning_title">Schiermfixéierung</string>
-  <string name="screen_pinning_description">Wann ugeschalt, kanns du d\'Schiermfixéierung benotze fir den aktuelle Schierm visibel ze hale bis de e fräigëss.\n\nFir d\'Schiermfixéierung ze benotzen:\n\n1. Kuck ob d\'Schiermfixéierung ugeschalt ass.\n\n2. Maach de Schierm op deen s du fixéiere wëlls.\n\n3. Dréck Iwwersiicht.\n\n. Dréck op d\'Symbol mat der Punaise.</string>
+  <string name="screen_pinning_description">Wann dës Astellung aktivéiert ass, kanns du d\'Usiicht vum aktuelle Schierm fixéieren.\n\nSou benotz du d\'Schiermfixéierung:\n\n1. Préif no, ob d\'Schiermfixéierung aktivéiert ass.\n\n2. Maach de Schierm op deen s du fixéiere wëlls.\n\n3. Dréck op \"Iwwersicht\".\n\n4. Wësch no uewen an dréck op d\'Spéngel.</string>
+  <string name="screen_pinning_unlock_pattern">En Entspärmuster froe fir e Schierm fräizeginn</string>
+  <string name="screen_pinning_unlock_pin">E PIN froe fir e Schierm fräizeginn</string>
+  <string name="screen_pinning_unlock_password">E Passwuert froe fir e Schierm fräizeginn</string>
+  <string name="screen_pinning_unlock_none">Apparat beim Ofschloss spären</string>
   <string name="managed_user_title">Aarbechtsprofil</string>
   <string name="experimental_preference">(Experimentell)</string>
   <string name="display_auto_rotate_title">Wann den Apparat rotéiert ass</string>
@@ -2451,11 +2507,12 @@ Fir d\'Performance ze verbesseren an de Späicherverbrauch ze reduzéiere stinn 
   <string name="display_auto_rotate_stay_in_portrait">Am Héichformat bleiwen</string>
   <string name="display_auto_rotate_stay_in_landscape">Am Breetformat bleiwen</string>
   <string name="display_auto_rotate_stay_in_current">An der aktueller Orientéierung bleiwen</string>
+  <string name="imei_information_title">IMEI-Informatiounen</string>
   <string name="encryption_interstitial_header">Verschlësselung</string>
   <string name="encryption_continue_button">Weider</string>
-  <string name="encryption_interstitial_message_pin">Du kanns den Apparat zousätzlech schützen, andeem e PIN verlaangt gëtt, ier den Apparat start. Bis den Apparat gestart ass, kënne keng Uriff, Messagen, oder Notifikatiounen (inklusiv Weckeren) emfaange ginn.\n\nDat hëlleft, Daten op verluerenen oder geklauten Apparaten ze schützen.</string>
-  <string name="encryption_interstitial_message_pattern">Du kanns den Apparat zousätzlech schützen, andeem en Entspärmuster verlaangt gëtt, ier den Apparat start. Bis den Apparat gestart ass, kënne keng Uriff, Messagen, oder Notifikatiounen (inklusiv Weckeren) emfaange ginn.\n\nDat hëlleft, Daten op verluerenen oder geklauten Apparaten ze schützen.</string>
-  <string name="encryption_interstitial_message_password">Du kanns den Apparat zousätzlech schützen, andeem e Passwuert verlaangt gëtt, ier den Apparat start. Bis den Apparat gestart ass, kënne keng Uriff, Messagen, oder Notifikatiounen (inklusiv Weckeren) emfaange ginn.\n\nDat hëlleft, Daten op verluerenen oder geklauten Apparaten ze schützen.</string>
+  <string name="encryption_interstitial_message_pin">Du kanns den Apparat zousätzlech schützen, andeem e PIN verlaangt gëtt, ier den Apparat start. Bis den Apparat gestart ass, kënne keng Uriff, Messagen, oder Notifikatiounen (inklusiv Weckeren) empfaange ginn.\n\nDat hëlleft, Daten op verluerenen oder geklauten Apparater ze schützen.</string>
+  <string name="encryption_interstitial_message_pattern">Du kanns den Apparat zousätzlech schützen, andeem en Entspärmuster verlaangt gëtt, ier den Apparat start. Bis den Apparat gestart ass, kënne keng Uriff, Messagen, oder Notifikatiounen (inklusiv Weckeren) empfaange ginn.\n\nDat hëlleft, Daten op verluerenen oder geklauten Apparater ze schützen.</string>
+  <string name="encryption_interstitial_message_password">Du kanns den Apparat zousätzlech schützen, andeem e Passwuert verlaangt gëtt, ier den Apparat start. Bis den Apparat gestart ass, kënne keng Uriff, Messagen, oder Notifikatiounen (inklusiv Weckeren) empfaange ginn.\n\nDat hëlleft, Daten op verluerenen oder geklauten Apparater ze schützen.</string>
   <string name="encrypt_require_pin">PIN verlaangen, fir den Apparat ze starten</string>
   <string name="encrypt_require_pattern">Muster verlaangen, fir den Apparat ze starten</string>
   <string name="encrypt_require_password">Passwuert verlaangen, fir den Apparat ze starten</string>
@@ -2468,4 +2525,9 @@ Fir d\'Performance ze verbesseren an de Späicherverbrauch ze reduzéiere stinn 
   <string name="encrypt_talkback_dialog_message_pin">Wann s du däi PIN agëss fir den Apparat ze starten, da sinn Accessibilitéitsservicer wéi <xliff:g id="service" example="TalkBack">%1$s</xliff:g> nach net disponibel.</string>
   <string name="encrypt_talkback_dialog_message_pattern">Wann s du däin Entspärmuster agëss fir den Apparat ze starten, da sinn Accessibilitéitsservicer wéi <xliff:g id="service" example="TalkBack">%1$s</xliff:g> nach net disponibel.</string>
   <string name="encrypt_talkback_dialog_message_password">Wann s du däi Passwuert agëss fir den Apparat ze starten, da sinn Accessibilitéitsservicer wéi <xliff:g id="service" example="TalkBack">%1$s</xliff:g> nach net disponibel.</string>
+  <string name="switch_data_subscription">Dateservicer sinn elo op SIM%1$s gewiesselt ginn.</string>
+  <string name="select_sim_card">SIM-Kaart auswielen</string>
+  <string name="imei_information_title">IMEI-Informatiounen</string>
+  <string name="imei_information_summary">Informatiounen zur relativer IMEI</string>
+  <string name="slot_number">(Plaz: <xliff:g id="slot_num">%1$d</xliff:g>)</string>
 </resources>

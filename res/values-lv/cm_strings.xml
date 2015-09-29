@@ -119,13 +119,8 @@
   <string name="sunlight_enhancement_summary">Uzlabot ekrāna spilgtumu un lasāmību spilgtā saules gaismā</string>
   <string name="color_enhancement_title">Krāsu uzlabošana</string>
   <string name="color_enhancement_summary">Dinamiski uzlabot ekrāna krāsas</string>
-  <string name="app_security_title">Lietotņu drošība</string>
-  <string name="blacklist_title">Melnais saraksts</string>
-  <string name="blacklist_edit_dialog_title">Mainīt melnā saraksta ierakstu</string>
   <string name="blacklist_prefs">Iestatījumi</string>
   <string name="blacklist_button_delete">Dzēst</string>
-  <string name="blacklist_empty_text">Jums melnajā sarakstā nav neviena numura. Lie pievienotu ierakstu, pieskaroties Pievienot (+) pogai.</string>
-  <string name="blacklist_disabled_empty_text">Lai iekļautu melnajā sarakstā zvanus un/vai ziņas no noteiktiem numuriem, ieslēdziet melno sarakstu.</string>
   <string name="blacklist_summary_disabled">Izslēgts</string>
   <string name="blacklist_notify">Rādīt paziņojumu</string>
   <string name="blacklist_private_numbers_title">Privātie numuri</string>
@@ -141,9 +136,7 @@
   <string name="blacklist_regex_summary">Izmantot . kā aizstājējzīmi un * kā atkārtošanos. Piemēram 123.* bloķē numurus, kas sākas ar 123 un .*123.* bloķē numurus, kas satur 123</string>
   <string name="blacklist_policy_block_calls">Bloķēt ienākošos zvanus</string>
   <string name="blacklist_policy_block_messages">Bloķēt ienākošās ziņas</string>
-  <string name="blacklist_bad_number_add">Nevar pievienot nepareizu numuru melnajā sarakstā</string>
   <string name="remove_blacklist_number_title">Dzēst numuru</string>
-  <string name="remove_blacklist_entry">Vai vēlaties dzēst šo melnā saraksta ierakstu?</string>
   <string name="select_contact">Izvēlēties kontaktu</string>
   <string name="lockpattern_reset_button">Atstatīt paraugu</string>
   <string name="lockpattern_settings_reset_summary">Lai atstatītu atslēgšanas paraugu, ievadiet primāro e-pasta kontu un tā paroli</string>
@@ -167,14 +160,12 @@
   <string name="display_rotation_270_title">270 grādi</string>
   <string name="app_security_title">Lietotņu drošība</string>
   <string name="sms_security_check_limit_title">Īsziņu ierobežojums</string>
-  <string name="sms_security_check_limit_summary">Lietotnes var nosūtīt %d ziņas 30 minūtēs pirms nepieciešams apstiprinājums</string>
   <string name="block_notifications_title">Filtra paziņojumi</string>
   <string name="block_notifications_summary">Pārvaldīt ignorētos ziņojumus un filtrus</string>
   <string name="cmupdate_settings_title">CyanogenMod atjaunojumi</string>
   <string name="mod_version">CyanogenMod versija</string>
   <string name="mod_version_default">Nezināms</string>
   <string name="build_date">Būvējuma datums</string>
-  <string name="contributor_cloud_title">Atbalstītāji</string>
   <string name="double_tap_to_wake_title">Lai pamodinātu, veiciet dubultu piesitienu</string>
   <string name="proximity_wake_title">Novērsiet nejaušu pamodināšanu</string>
   <string name="proximity_wake_summary">Pirms pamodināt ekrānu, pārbaudīt tuvuma sensoru</string>
@@ -393,16 +384,11 @@
   <string name="bluetooth_dun_profile_summary_use_for">Lietot tīkla piekļuvei iezvani</string>
   <string name="bluetooth_sap_profile_summary_use_for">Lietot piekļuvei SIM</string>
   <string name="bluetooth_accept_all_files">Pieņemt visus failu veidus</string>
-  <string name="subs_settings">SIM kartes statuss</string>
   <string name="usb_unmount_inform_text" product="default">USB krātuve tiks nomontēta.</string>
   <string name="usb_media_format_button_text" product="default">Dzēst USB krātuvi</string>
   <string name="usb_media_format_final_desc" product="default">Dzēst USB krātuvi, ar visiem tur saglabātajiem failiem? Šo darbību nevar atsaukt!</string>
   <string name="usb_media_format_gesture_explanation" product="default">Lai apstiprinātu, ka vēlaties dzēst USB krātuvi, jums ir jāiezīmē atslēgšanas attēls.</string>
   <string name="enable_quickboot_title">Ieslēgt QuickBoot režīmu</string>
-  <string name="menu_hidden_apps_delete">Atstatīt</string>
-  <string name="menu_hidden_apps_reset_lock">Atstatīt slēgšanas paraugu</string>
-  <string name="protected_apps">Aizsargātās lietotnes</string>
-  <string name="saving_protected_components">Saglabā komponentes statusu\u2026</string>
   <string name="power_notifications_category_title">Uzlādes skaņas</string>
   <string name="power_notifications_enable_title">Ieslēgt</string>
   <string name="power_notifications_enable_summary">Pievienojat vai atvienojat strāvas avotam, atskaņot skaņu</string>
@@ -416,27 +402,13 @@
   <string name="picker_activities">Darbības</string>
   <string name="select_custom_app_title">Izvēlieties pielāgoto lietotni</string>
   <string name="select_custom_activity_title">Izvēlieties pielāgoto darbību</string>
-  <string name="performance_settings_title">Veiktspēja</string>
-  <string name="io_scheds_title">Ievadizvades plānotājs</string>
-  <string name="io_sched_title">Ievadizvades plānotājs</string>
+  <string name="autoperf_title">Ieslēgt katras lietotnes profilus</string>
   <string name="pref_force_highend_gfx_title">Uzspiest augstas kvalitātes grafiku</string>
   <string name="pref_force_highend_gfx_summary">Ieslēdz augstas kvalitātes vizuālus efektus, piemēram, statusa/navigācijas joslas caurspīdīgumu (nepieciešama atsāknēšana)</string>
-  <string name="performance_settings_warning_title">Turpiniet piesardzīgi</string>
-  <string name="performance_settings_warning">Šie iestatījumi ir eksperimentāli pielietotās izmaiņas var izraisīt nestabilitāti, avārijas, datu zudumu vai iekārtas kļūdas.\n\nMēs pieprasām, ka jūs neiesniedzat kļūdu ziņojumus, ja kādi iestatījumi tiek mainīti no to noklusētajām vērtībām.</string>
-  <string name="performance_set_on_boot">Iestatīt sāknējot</string>
-  <string name="processor_title">Procesors</string>
-  <string name="cpu_cur_freq_title">Pašreizējā procesora frekvence</string>
-  <string name="cpu_governors_title">CPU pārraugs</string>
-  <string name="cpu_min_freq_title">Minimālā CPU frekvence</string>
-  <string name="cpu_max_freq_title">Maksimālā CPU frekvence</string>
-  <string name="autoperf_title">Ieslēgt katras lietotnes profilus</string>
-  <string name="autoperf_summary">Automātiski katrai lietotnei izvēlas atbilstošu veiktspējas profilu</string>
-  <string name="graphics_title">Grafika un renderēšana</string>
   <string name="edge_gesture_service_title">Atslēgt žestu pieskārienu notikumus</string>
   <string name="edge_gesture_service_summary">Nesūtīt lietotnēm pieskārienu notikumus navigācija un statusa joslas žestus</string>
   <string name="cmlicense_title">CyanogenMod atbildība</string>
   <string name="settings_cmlicense_activity_title">CyanogenMod atbildība</string>
-  <string name="settings_cmlicense_activity_unreachable">Jums nav datu savienojumu. Lai apskatītu šo informāciju tagad, dodieties uz %s pie jebkura datora, kas ir pievienots internetam.</string>
   <string name="unlock_quick_unlock_control_title">Ātrā atslēgšana</string>
   <string name="unlock_quick_unlock_control_summary">Automātiski atslēgt, kad ir ievadīts pareizs PIN/parole</string>
   <string name="unlock_scramble_pin_layout_title">Samaisīt izkārtojumu</string>

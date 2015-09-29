@@ -25,7 +25,6 @@ import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.hardware.CmHardwareManager;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.os.Handler;
@@ -50,6 +49,8 @@ import com.android.settings.cyanogenmod.ButtonBacklightBrightness;
 
 import com.android.settings.search.BaseSearchIndexProvider;
 import com.android.settings.search.Indexable;
+
+import cyanogenmod.hardware.CMHardwareManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -77,6 +78,7 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
     private static final String KEY_POWER_END_CALL = "power_end_call";
     private static final String KEY_HOME_ANSWER_CALL = "home_answer_call";
     private static final String KEY_VOLUME_MUSIC_CONTROLS = "volbtn_music_controls";
+    private static final String KEY_VOLUME_CONTROL_RING_STREAM = "volume_keys_control_ring_stream";
 
     private static final String CATEGORY_POWER = "power_key";
     private static final String CATEGORY_HOME = "home_key";
@@ -120,9 +122,13 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
     private ListPreference mAssistLongPressAction;
     private ListPreference mAppSwitchPressAction;
     private ListPreference mAppSwitchLongPressAction;
+    private SwitchPreference mCameraWakeScreen;
+    private SwitchPreference mCameraSleepOnRelease;
+    private SwitchPreference mCameraLaunch;
     private ListPreference mVolumeKeyCursorControl;
     private SwitchPreference mVolumeWakeScreen;
     private SwitchPreference mVolumeMusicControls;
+    private SwitchPreference mVolumeControlRingStream;
     private SwitchPreference mSwapVolumeButtons;
     private SwitchPreference mDisableNavigationKeys;
     private SwitchPreference mNavigationBarLeftPref;
@@ -201,8 +207,28 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
             prefScreen.removePreference(mNavigationPreferencesCat);
         }
 
+        mCameraWakeScreen = (SwitchPreference) findPreference(Settings.System.CAMERA_WAKE_SCREEN);
+        mCameraSleepOnRelease =
+                (SwitchPreference) findPreference(Settings.System.CAMERA_SLEEP_ON_RELEASE);
+        mCameraLaunch = (SwitchPreference) findPreference(Settings.System.CAMERA_LAUNCH);
+
+        if (mCameraWakeScreen != null) {
+            if (mCameraSleepOnRelease != null && !getResources().getBoolean(
+                    com.android.internal.R.bool.config_singleStageCameraKey)) {
+                mCameraSleepOnRelease.setDependency(Settings.System.CAMERA_WAKE_SCREEN);
+            }
+        }
+
         mVolumeWakeScreen = (SwitchPreference) findPreference(Settings.System.VOLUME_WAKE_SCREEN);
         mVolumeMusicControls = (SwitchPreference) findPreference(KEY_VOLUME_MUSIC_CONTROLS);
+
+        mVolumeControlRingStream = (SwitchPreference)
+                findPreference(KEY_VOLUME_CONTROL_RING_STREAM);
+        int volumeControlRingtone = Settings.System.getInt(getContentResolver(),
+                Settings.System.VOLUME_KEYS_CONTROL_RING_STREAM, 1);
+        if (mVolumeControlRingStream != null) {
+            mVolumeControlRingStream.setChecked(volumeControlRingtone > 0);
+        }
 
         if (mVolumeWakeScreen != null) {
             if (mVolumeMusicControls != null) {
@@ -230,21 +256,22 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
         final boolean hasMenuKey = (deviceKeys & KEY_MASK_MENU) != 0;
         final boolean hasAssistKey = (deviceKeys & KEY_MASK_ASSIST) != 0;
         final boolean hasAppSwitchKey = (deviceKeys & KEY_MASK_APP_SWITCH) != 0;
+        final boolean hasCameraKey = (deviceKeys & KEY_MASK_CAMERA) != 0;
 
         final boolean showHomeWake = (deviceWakeKeys & KEY_MASK_HOME) != 0;
         final boolean showBackWake = (deviceWakeKeys & KEY_MASK_BACK) != 0;
         final boolean showMenuWake = (deviceWakeKeys & KEY_MASK_MENU) != 0;
         final boolean showAssistWake = (deviceWakeKeys & KEY_MASK_ASSIST) != 0;
         final boolean showAppSwitchWake = (deviceWakeKeys & KEY_MASK_APP_SWITCH) != 0;
+        final boolean showCameraWake = (deviceWakeKeys & KEY_MASK_CAMERA) != 0;
         final boolean showVolumeWake = (deviceWakeKeys & KEY_MASK_VOLUME) != 0;
 
-        final CmHardwareManager cmHardwareManager =
-                (CmHardwareManager) context.getSystemService(Context.CMHW_SERVICE);
+        final CMHardwareManager hardware = CMHardwareManager.getInstance(context);
 
         // Only visible on devices that does not have a navigation bar already,
         // and don't even try unless the existing keys can be disabled
         boolean needsNavigationBar = false;
-        if (cmHardwareManager.isSupported(CmHardwareManager.FEATURE_KEY_DISABLE)) {
+        if (hardware.isSupported(CMHardwareManager.FEATURE_KEY_DISABLE)) {
             try {
                 IWindowManager wm = WindowManagerGlobal.getWindowManagerService();
                 needsNavigationBar = wm.needsNavigationBar();
@@ -392,6 +419,18 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
             result.put(CATEGORY_APPSWITCH, null);
         }
 
+        if (hasCameraKey) {
+            if (!showCameraWake) {
+                result.put(Settings.System.CAMERA_WAKE_SCREEN, CATEGORY_CAMERA);
+            }
+            // Only show 'Camera sleep on release' if the device has a focus key
+            if (res.getBoolean(com.android.internal.R.bool.config_singleStageCameraKey)) {
+                result.put(Settings.System.CAMERA_SLEEP_ON_RELEASE, CATEGORY_CAMERA);
+            }
+        } else {
+            result.put(CATEGORY_CAMERA, null);
+        }
+
         if (Utils.hasVolumeRocker(context)) {
             if (!showVolumeWake) {
                 result.put(Settings.System.VOLUME_WAKE_SCREEN, CATEGORY_VOLUME);
@@ -413,7 +452,7 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
             }
 
             if (!hasNavBar && (needsNavigationBar ||
-                    !cmHardwareManager.isSupported(CmHardwareManager.FEATURE_KEY_DISABLE))) {
+                    !hardware.isSupported(CMHardwareManager.FEATURE_KEY_DISABLE))) {
                 result.put(CATEGORY_NAVBAR, null);
             }
         } catch (RemoteException e) {
@@ -598,30 +637,19 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
 
         Settings.Secure.putInt(context.getContentResolver(),
                 Settings.Secure.DEV_FORCE_SHOW_NAVBAR, enabled ? 1 : 0);
-        CmHardwareManager cmHardwareManager =
-                (CmHardwareManager) context.getSystemService(Context.CMHW_SERVICE);
-        cmHardwareManager.set(CmHardwareManager.FEATURE_KEY_DISABLE, enabled);
+        CMHardwareManager hardware = CMHardwareManager.getInstance(context);
+        hardware.set(CMHardwareManager.FEATURE_KEY_DISABLE, enabled);
 
         /* Save/restore button timeouts to disable them in softkey mode */
-        Editor editor = prefs.edit();
-
         if (enabled) {
-            int currentBrightness = Settings.Secure.getInt(context.getContentResolver(),
-                    Settings.Secure.BUTTON_BRIGHTNESS, defaultBrightness);
-            if (!prefs.contains("pre_navbar_button_backlight")) {
-                editor.putInt("pre_navbar_button_backlight", currentBrightness);
-            }
             Settings.Secure.putInt(context.getContentResolver(),
                     Settings.Secure.BUTTON_BRIGHTNESS, 0);
         } else {
-            int oldBright = prefs.getInt("pre_navbar_button_backlight", -1);
-            if (oldBright != -1) {
-                Settings.Secure.putInt(context.getContentResolver(),
-                        Settings.Secure.BUTTON_BRIGHTNESS, oldBright);
-                editor.remove("pre_navbar_button_backlight");
-            }
+            int oldBright = prefs.getInt(ButtonBacklightBrightness.KEY_BUTTON_BACKLIGHT,
+                    defaultBrightness);
+            Settings.Secure.putInt(context.getContentResolver(),
+                    Settings.Secure.BUTTON_BRIGHTNESS, oldBright);
         }
-        editor.commit();
     }
 
     private void updateDisableNavkeysOption() {
@@ -674,9 +702,8 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
     }
 
     public static void restoreKeyDisabler(Context context) {
-        CmHardwareManager cmHardwareManager =
-                (CmHardwareManager) context.getSystemService(Context.CMHW_SERVICE);
-        if (!cmHardwareManager.isSupported(CmHardwareManager.FEATURE_KEY_DISABLE)) {
+        CMHardwareManager hardware = CMHardwareManager.getInstance(context);
+        if (!hardware.isSupported(CMHardwareManager.FEATURE_KEY_DISABLE)) {
             return;
         }
 
@@ -692,6 +719,10 @@ public class ButtonSettings extends SettingsPreferenceFragment implements
                     ? (ScreenType.isTablet(getActivity()) ? 2 : 1) : 0;
             Settings.System.putInt(getActivity().getContentResolver(),
                     Settings.System.SWAP_VOLUME_KEYS_ON_ROTATION, value);
+        } else if (preference == mVolumeControlRingStream) {
+            int value = mVolumeControlRingStream.isChecked() ? 1 : 0;
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.VOLUME_KEYS_CONTROL_RING_STREAM, value);
         } else if (preference == mDisableNavigationKeys) {
             mDisableNavigationKeys.setEnabled(false);
             mNavigationPreferencesCat.setEnabled(false);
